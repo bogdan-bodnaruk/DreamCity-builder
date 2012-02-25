@@ -4,7 +4,7 @@ DirectoryIndex index.php
 ErrorDocument 404 /index.php/404
 
 <IfModule mod_rewrite.c>
-        RewriteEngine On
+        RewriteEngine on
         RewriteCond %{REQUEST_FILENAME} -s [OR]
         RewriteCond %{REQUEST_FILENAME} -l [OR]
         RewriteCond %{REQUEST_FILENAME} -d

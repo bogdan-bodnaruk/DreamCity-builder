@@ -1,5 +1,5 @@
 <?php
-class Router {
+class Router extends Registry_interface {
     private $path;
     private $url;
     private $app_path;
@@ -14,9 +14,8 @@ class Router {
      */
     
     protected function init() {
-        $this->check_app_path();
         $this->clean_up();
-        $this->parse_url();
+        $this->load();
     }
     
     /*
@@ -26,7 +25,6 @@ class Router {
     
     private function parse_url() {
         $path = explode('/', $this->path);
-        end($path)=='' ? $path[count($path)-1] = 'index' : '';
 
         foreach ($path as $key => $value){
             if(empty($value)) {
@@ -34,7 +32,6 @@ class Router {
             };
         }
         $this->path = $path;
-        //Register::data()->set($path, 'url');
     }
     
     /*
@@ -48,6 +45,9 @@ class Router {
                        '\'' => '',
                        '@'  => '',
                        '$'  => '',
+                       '^'  => '',
+                       '#'  => '',
+                       '%'  => '',
                        '?'  => '',
                        ' '  => '',
                        '..' => '',
@@ -68,15 +68,37 @@ class Router {
     }
     
     /*
-     *  @param - this function check application folder
-     *  @return - none; If app folder dosn't exist show error and stop script
+     *  @param - load controller
+     *  @return - none;
      */
     
-    private function check_app_path() {
-        $this->app_path = Register::get('config', 'app_path');
-        if(!is_dir(PATH.$this->app_path)) {
-            die('Fatal Error: APP dir ['.PATH.$this->app_path.'] NOT found! Please FIX it!');
+    private function load() {
+        set_include_path(PATH);    
+        if($this->registry()->get('routes', $this->path)) {
+            $this->path = $this->registry()->get('routes', $this->path);
+        }; 
+        $this->parse_url();
+        
+        $PATH = '/controllers/Controller_'.$this->path[0].'.php';
+
+        if(is_file(APP_PATH.$PATH) || is_file(SYS_PATH.$PATH)) {
+            $class = 'Controller_'.$this->path[0];
+            $PATH = is_file(APP_PATH.$PATH) ? APP_PATH.$PATH : SYS_PATH.$PATH;
+            include_once($PATH);
+        } else {
+            $class = 'sys_404';
+            include_once(SYS_PATH.'/controllers/sys_404.php');
         };
+        
+        $controller = new $class();
+        $action = !isset($this->path[1]) || is_callable(array($controller, $this->path[1])) == false
+                    ? 'index'
+                    : $this->path[1];
+        unset($this->path[0], $this->path[1]);
+        
+        $this->registry()->set($this->path, 'values');
+        
+        $controller->$action();
     }
     
     function __destruct() {

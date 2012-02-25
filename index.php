@@ -21,11 +21,8 @@
 error_reporting(E_ALL);
 
 define('PATH', realpath(dirname(__FILE__)).'/');
-
-include_once(PATH.'.config/config.php');
 include_once(PATH.'.config/bootstrap.php');
 
-$DRM = new Controller();
+$DRM = new DRM($config);
 
-//Register::error('error')->line('10')->type('critical')->set_error();
 //$DRM->run();

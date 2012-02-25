@@ -6,3 +6,4 @@ $config = array('system_path'   =>   'DRM',
                 );
 
 define('BASE_HREF', 'http://engine.drm/');
+define('PCAFW', true);  // wtf??

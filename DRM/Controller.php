@@ -1,20 +1,11 @@
 <?php
-final class Controller {
-    
-    private $router;
-    private $register;
+abstract class Controller extends Registry_interface {
+    public $template;
+    public $val;
     
     function __construct() {
-        new Router();
-        //$this->router = Register::data()->get('url');
-   
-        echo '<pre>';
-        print_r($this->router);
-        echo '</pre>';
+        $this->template = new Template();
+        $this->val = &parent::$values;
     }
-   
-    
-    function __destruct() {
-
-    }
+    abstract function index();
 }
