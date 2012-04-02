@@ -11,18 +11,35 @@
  *  
  *  2012.02.02 - ending support Dream City CMS builder v.0.3.9. It's last non
  *               MVC version for my web engine.
- *  2012.02.03 - start project;
+ *  2012.02.03 - start project (v.0.5);
+ *  2012.03.11 - first up version. v.0.6
+ *  2012.03.31 -Up version. v.0.7
  *
  *  @author Bogdan Bodnaruk <babak.47031@gmail.com>
  *  @copyright 2012 Bogdan Bodnaruk
  */
 
-//session_start();
+session_start();
 error_reporting(E_ALL);
 
 define('PATH', realpath(dirname(__FILE__)).'/');
-include_once(PATH.'.config/bootstrap.php');
+include_once(PATH.'.config/config.php');
+define('SYS_PATH', PATH.$config['system_path']);
+define('APP_PATH', PATH.$config['app_path']);
 
-$DRM = new DRM($config);
+date_default_timezone_set($config['time_zone']);
 
-//$DRM->run();
+/*
+ *  @param str $class name for autoload class
+ *  @return object;
+ */
+function __autoload($class) {
+    set_include_path(SYS_PATH);
+    if(is_file(get_include_path().'/'.$class.'.php')) {
+        include_once(get_include_path().'/'.$class.'.php'); 
+    } else {
+        Logger::error('Fatal Error: File ['.get_include_path().'/'.$class.'.php] NOT found! Please FIX it!');
+    };              
+}
+
+DRM::run($config);

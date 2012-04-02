@@ -1,19 +1,10 @@
 <?php
-class Router extends Registry_interface {
+class Router extends DRM {
     private $path;
     private $url;
-    private $app_path;
     
     function __construct() {
-        $this->url = strtolower($_SERVER['QUERY_STRING']);
-        $this->init();
-    }
-    
-    /*
-     * @param run router
-     */
-    
-    protected function init() {
+        $this->url = isset($_SERVER['QUERY_STRING']) ? strtolower($_SERVER['QUERY_STRING']) : 'index';
         $this->clean_up();
         $this->load();
     }
@@ -23,7 +14,7 @@ class Router extends Registry_interface {
      *  @return none;
      */
     
-    private function parse_url() {
+    private function parse_url () {
         $path = explode('/', $this->path);
 
         foreach ($path as $key => $value){
@@ -31,7 +22,7 @@ class Router extends Registry_interface {
                 unset($path[$key]);
             };
         }
-        $this->path = $path;
+        $this->path = isset($path) ? $path : array('');
     }
     
     /*
@@ -64,7 +55,7 @@ class Router extends Registry_interface {
      */
     
     private function reload_page() {
-        header('Location: '.BASE_HREF.$this->path);
+        //header('Location: '.BASE_HREF.$this->path);
     }
     
     /*
@@ -73,30 +64,49 @@ class Router extends Registry_interface {
      */
     
     private function load() {
-        set_include_path(PATH);    
-        if($this->registry()->get('routes', $this->path)) {
-            $this->path = $this->registry()->get('routes', $this->path);
-        }; 
-        $this->parse_url();
-        
-        $PATH = '/controllers/Controller_'.$this->path[0].'.php';
+        set_include_path(PATH);
 
+        $this->parse_url();
+         if (!isset($this->path[0]) || $this->path[0] == $this->registry()->config['main_page']) {
+               $this->path[0] = $this->registry()->config['main_page'];
+         };
+        if(isset($this->registry()->routes[$this->path[0]])) {
+            $this->path = $this->registry()->routes[$this->path[0]];
+            $this->parse_url();
+        };
+
+        $PATH = '/controllers/Controller_'.$this->path[0].'.php';
         if(is_file(APP_PATH.$PATH) || is_file(SYS_PATH.$PATH)) {
             $class = 'Controller_'.$this->path[0];
-            $PATH = is_file(APP_PATH.$PATH) ? APP_PATH.$PATH : SYS_PATH.$PATH;
+            if(is_file(APP_PATH.$PATH)) {
+                $PATH = APP_PATH.$PATH;
+                $this->registry()->PATH = APP_PATH;
+            } else {
+                $PATH = SYS_PATH.$PATH;
+                $this->registry()->PATH = SYS_PATH;
+            };
+            
             include_once($PATH);
         } else {
-            $class = 'sys_404';
-            include_once(SYS_PATH.'/controllers/sys_404.php');
+            $class = 'request';
+            include_once(SYS_PATH.'/controllers/request.php');
+            Logger::error('Class ['.$this->path[0].'] not isset');  
         };
-        
+
         $controller = new $class();
-        $action = !isset($this->path[1]) || is_callable(array($controller, $this->path[1])) == false
-                    ? 'index'
-                    : $this->path[1];
-        unset($this->path[0], $this->path[1]);
-        
-        $this->registry()->set($this->path, 'values');
+        if(!isset($this->path[1]) || is_callable(array($controller, $this->path[1])) == false) {
+            $action = 'index';
+            if(is_callable(array($controller, $action)) == false && $class!=='request') {
+              Logger::error('Method ['.$action.'] not isset in file ['.$PATH.']');  
+            };
+            $this->registry()->controller = $this->path[0].'/';
+            unset($this->path[0]);
+        } else {
+            $action = $this->path[1];
+            $this->registry()->controller = $this->path[0].'/'.$this->path[1].'/';
+            unset($this->path[0], $this->path[1]);
+        };
+        $this->registry()->values = $this->path;
         
         $controller->$action();
     }
