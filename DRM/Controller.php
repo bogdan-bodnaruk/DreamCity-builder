@@ -6,6 +6,8 @@ abstract class Controller extends DRM {
     function __construct() {
         $this->val = &parent::$values; 
         $this->i18n = &$this->i18n();
+        
+        $this->val['adminpanel'] = User::login()->permissions()>50 ? '<div id="adminpanel" onClick="open_panel()" >&nbsp;'.$this->i18n->adminpanel.'</div>' : '';
     }
     
     function val($type) {

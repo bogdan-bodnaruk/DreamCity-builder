@@ -96,16 +96,13 @@ class Router extends DRM {
         $controller = new $class();
         if(!isset($this->path[1]) || is_callable(array($controller, $this->path[1])) == false) {
             $action = 'index';
-            if(is_callable(array($controller, $action)) == false && $class!=='request') {
-              Logger::error('Method ['.$action.'] not isset in file ['.$PATH.']');  
-            };
+            $this->path[count($this->path)] = isset($this->path[1]) ? $this->path[1] : '';
             $this->registry()->controller = $this->path[0].'/';
-            unset($this->path[0]);
         } else {
             $action = $this->path[1];
             $this->registry()->controller = $this->path[0].'/'.$this->path[1].'/';
-            unset($this->path[0], $this->path[1]);
         };
+        unset($this->path[0], $this->path[1]);
         $this->registry()->values = $this->path;
         
         $controller->$action();
