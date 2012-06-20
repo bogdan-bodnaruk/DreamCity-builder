@@ -12,7 +12,7 @@ class Controller_add extends Controller {
     }
     
     public function news() {
-        $this->template()->load('add_news.tpl')->show();
+        $this->template()->load('add_news.tpl')->return_data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('news')
@@ -29,11 +29,19 @@ class Controller_add extends Controller {
             Logger::update($_SESSION['login'].' was add <a href="/news/'.$this->template()->url('news').'">'.$this->template()->validate('theme').'</a>');
             Go::to('add/saved/');
         };
+        $this->template()->load('add_news.tpl')->show();
     }
     
     public function page() {
-        $this->template()->load('add_page.tpl')->show();
+        $menu = $this->db()->table('menu')->select(array('id', 'name'))->query();
+        while($data = mysql_fetch_array($menu)) {
+            $this->val['id'][] = $data['id'];
+            $this->val['name'][] = $data['name'];
+        }
+        
+        $this->template()->load('add_page.tpl')->return_data();
         if($_POST && $this->template()->post_is_valide()) {
+            $url = $this->template()->url('pages');
             $this->db()
                  ->table('pages')
                  ->insert(array('theme'         =>  $this->template()->validate('theme'),
@@ -43,29 +51,38 @@ class Controller_add extends Controller {
                                 'time'          =>  'NOW()',
                                 'author'        =>  $_SESSION['login'],
                                 'comment'       =>  $this->template()->validate('comment'),
-                                'url'           =>  $this->template()->url('pages')))
+                                'url'           =>  $url))
+                 ->query();
+            $this->db()
+                 ->table('route')
+                 ->insert(array('name'      =>  $this->template()->validate('theme'),
+                                'menu_id'   =>  $this->template()->validate('menu'),
+                                'route'     =>  'page/'.$url))
                  ->query();
             Logger::update($_SESSION['login'].' was add <a href="/page/'.$this->template()->url('pages').'">'.$this->template()->validate('theme').'</a>');
             Go::to('add/saved/');
         };
+        $this->template()->load('add_page.tpl')->show();
     }
     
     public function banner() {
-        $this->val['side'] = array('Left', 'Right', 'Hidden');
-        $this->template()->load('add_banner.tpl')->show();
+        $this->val['side'] = array('Right', 'Hidden');
+        $this->template()->load('add_banner.tpl')->return_data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('banners')
                  ->insert(array('theme'         =>  $this->template()->validate('theme'),
-                                'code'          =>  $_POST['code'],
+                                'code'          =>  $this->template()->validate('code'),
                                 'protect'       =>  $this->template()->validate('protect'),
                                 'lang'          =>  $this->template()->validate('lang'),
                                 'time'          =>  'NOW()',
+                                'side'          =>  $this->template()->validate('side'),
                                 'author'        =>  $_SESSION['login']))
                  ->query();
             Logger::update($_SESSION['login'].' was add new banner.');
             Go::to('add/saved/');
         };
+        $this->template()->load('add_banner.tpl')->show();
     }
     
     public function saved() {

@@ -11,18 +11,18 @@ class Controller_manadge extends Controller {
     }
     
     public function news() {
-        $this->val['data'] = Paginator::tpl('news_paginate_manadge.tpl')->table('news')->order('id')->load();
+        $this->val['data'] = Paginator::tpl('news_paginate_manadge.tpl')->table('news')->order('id', 'DESC')->load();
         $this->template()->load('news_manadge.tpl')->show();
     }
     
     public function pages() {
-        $this->val['data'] = Paginator::tpl('news_paginate_manadge.tpl')->table('pages')->order('id')->load();
-        $this->template()->load('news_manadge.tpl')->show();
+        $this->val['data'] = Paginator::tpl('page_paginate_manadge.tpl')->table('pages')->order('id', 'DESC')->load();
+        $this->template()->load('page_manadge.tpl')->show();
     }
     
     public function banners() {
-        $this->val['data'] = Paginator::tpl('news_paginate_manadge.tpl')->table('banners')->order('id')->load();
-        $this->template()->load('news_manadge.tpl')->show();
+        $this->val['data'] = Paginator::tpl('banner_paginate_manadge.tpl')->table('banners')->order('id', 'DESC')->load();
+        $this->template()->load('banner_manadge.tpl')->show();
     }
 }
     

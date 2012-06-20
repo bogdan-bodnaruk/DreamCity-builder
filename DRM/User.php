@@ -16,12 +16,12 @@ class User extends DRM {
     }
     
     static public function login($login = '') {
-        self::$login = isset($_SESSION['login']) && empty($login) ? $_SESSION['login'] : $login;
+        self::$login = !empty($login) ? $login : (isset($_SESSION['login']) && !empty($_SESSION['login']) ? $_SESSION['login'] : 'guest');
         self::$is_user = parent::db()
-                            ->table('users')
-                            ->select('*')
-                            ->where('`login` = \''.self::$login.'\'')
-                            ->num(); 
+                ->table('users')
+                ->select('*')
+                ->where('`login` = \''.self::$login.'\'')
+                ->num(); 
         return new self();
     }
     

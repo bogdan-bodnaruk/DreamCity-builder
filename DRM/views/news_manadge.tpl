@@ -1,2 +1,5 @@
-<h2 style="text-align: center;padding: 10px;">{i18n::all_news}</h2>
-{data}
+<p class="h2_title">{i18n::manadge_news}</p>
+<table cellpadding="0" cellspacing="0" border="0" class="data_table">
+    {data}
+</table>
+{paginator_buttons}

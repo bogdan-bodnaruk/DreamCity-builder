@@ -1,14 +1,16 @@
 <?php
-class Controller_adminpanel extends DRM {
+class Controller_adminpanel extends Controller {
+    public function __construct() {
+        parent::__construct();
+        User::permissions()!==99 ? Go::mail() : '';
+    }
+    
     public function index() {
-        $_SESSION['status']=='admin'
-            ? $this->template()->load('adminpanel.tpl')->show()
-            : Go::back();
+        $this->template()->load('adminpanel.tpl')->show();
     }
     
     public function ajax() {
-        $_SESSION['status']=='admin'
-            ? $this->template()->load('adminpanel.tpl')->ajax()
-            : Go::main();
+        $this->val['count_apply'] = $this->db()->table('apply')->select()->where('`status` = \'apply\'')->num();
+        $this->template()->load('adminpanel_ajax.tpl')->ajax();
     }
 }

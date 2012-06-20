@@ -4,7 +4,7 @@ class Router extends DRM {
     private $url;
     
     function __construct() {
-        $this->url = isset($_SERVER['QUERY_STRING']) ? strtolower($_SERVER['QUERY_STRING']) : 'index';
+        $this->url = isset($_SERVER['QUERY_STRING']) ? strtolower($_SERVER['QUERY_STRING']) : 'index';    
         $this->clean_up();
         $this->load();
     }
@@ -40,22 +40,12 @@ class Router extends DRM {
                        '#'  => '',
                        '%'  => '',
                        '?'  => '',
-                       ' '  => '',
+                       ' '  => '_',
                        '..' => '',
                        '<'  => '',
-                       '>'  => '',
-                       '&'  => '');
+                       '>'  => '');
         $this->path = strtr($this->url,$array+array('href='=>''));
-        $this->url!==strtr($this->url,$array) ? $this->reload_page() : '';
-    }
-    
-    /*
-     * @param - using whith clean_up function for refresh page
-     * @return - none; 
-     */
-    
-    private function reload_page() {
-        //header('Location: '.BASE_HREF.$this->path);
+        $this->url!==strtr($this->url,$array) ? Go::back() : '';
     }
     
     /*
@@ -74,6 +64,9 @@ class Router extends DRM {
             $this->path = $this->registry()->routes[$this->path[0]];
             $this->parse_url();
         };
+        $this->registry()->config['enable'] == 1 && $_SESSION['status']!=='admin'
+            ? $this->path[0] = 'block'
+            : '';
 
         $PATH = '/controllers/Controller_'.$this->path[0].'.php';
         if(is_file(APP_PATH.$PATH) || is_file(SYS_PATH.$PATH)) {
@@ -104,7 +97,7 @@ class Router extends DRM {
         };
         unset($this->path[0], $this->path[1]);
         $this->registry()->values = $this->path;
-        
+
         $controller->$action();
     }
     

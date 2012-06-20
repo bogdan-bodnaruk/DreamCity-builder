@@ -1,7 +1,7 @@
 <?php
 class DRM {
     static public $values;
-
+    
     static function run($config) {
         include_once(PATH.'.config/routes.php');
         include_once(PATH.'.config/user_status.php');
@@ -9,6 +9,7 @@ class DRM {
         self::registry()->routes = $routes;
         self::registry()->user_status = $user_status;
         self::db()->connect();
+        self::registry()->config += self::db()->table('config')->select()->where('`id` = 1')->limit(1)->fetch();
         new Session();
         new Router();
     }

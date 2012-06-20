@@ -6,6 +6,6 @@ class request extends Controller {
      
     public function _404() {
         Logger::error('404 - Page not found!');
-        $this->template()->load('404 - Page not found!')->show();
+        $this->template()->load(PATH.'/DRM/views/not_found.tpl')->show();
     }
 }
