@@ -2,18 +2,18 @@
 $config = array(/* main settings */
                 'system_path'       =>  'DRM',
                 'library_path'	    =>  'library',
-                'app_path'	    =>	'interedinfo',
+                'app_path'	        =>	'interedinfo',
                 'main_page'         =>  'index',
                 'encoding'          =>  'UTF-8',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',      
-                'base_href'         =>  'http://interedinfo.work/',
+                'base_href'         =>  'http://engine.work/',
                 'time_zone'         =>  'Europe/Kiev',
                 'statistic'         =>  true,
                 'default_i18n'      =>  'en',
-                'all_i18n'          =>  array('all', 'en', 'pl'),      
-                'names_i18n'        =>  array('All', 'English', 'Polska'),      
-                'title'             =>  'Interedinfo inc',
+                'all_i18n'          =>  array('all', 'en', 'ua'),
+                'names_i18n'        =>  array('All', 'English', 'Українська'),
+                'title'             =>  'DRM',
                 'comment'           =>  'true',
                 'ajax'              =>  false,
                 
@@ -37,5 +37,3 @@ $config = array(/* main settings */
                 'active_link'       =>  'class="active_link"',
                 'paginator_link'    =>  'class="link"'
         );
-
-define('BASE_HREF', 'http://engine.drm/');
