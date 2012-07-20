@@ -80,7 +80,7 @@ class Paginator extends DRM {
                 }
             };
             parent::$values[''] = $data;
-            $this->data .= $this->template()->load(self::$tpl)->return_data();
+            $this->data .= $this->template()->load(self::$tpl)->data();
         }
         parent::$values['paginator_buttons'] = $this->count($page);
         return !empty($this->data) ? $this->data : '';

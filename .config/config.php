@@ -2,12 +2,12 @@
 $config = array(/* main settings */
                 'system_path'       =>  'DRM',
                 'library_path'	    =>  'library',
-                'app_path'	        =>	'interedinfo',
+                'app_path'	        =>	'web',
                 'main_page'         =>  'index',
                 'encoding'          =>  'UTF-8',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',      
-                'base_href'         =>  'http://engine.work/',
+                'base_href'         =>  'http://engine.drm/',
                 'time_zone'         =>  'Europe/Kiev',
                 'statistic'         =>  true,
                 'default_i18n'      =>  'en',
@@ -16,12 +16,15 @@ $config = array(/* main settings */
                 'title'             =>  'DRM',
                 'comment'           =>  'true',
                 'ajax'              =>  false,
-                
+
+                'client_css'        =>  'web/theme/css',
+
                 /* default values for html */
-                'input_size'        =>  40,
+                'input_size'        =>  15,
                 'input_max_chars'   =>  1000,
-                'textarea_cols'     =>  60,
-                'textarea_rows'     =>  10,
+                'textarea_cols'     =>  25,
+                'textarea_rows'     =>  5,
+                'warning_class'     =>  'warning',
                 'error_class'       =>  'error',
                 
                 /* db settings */

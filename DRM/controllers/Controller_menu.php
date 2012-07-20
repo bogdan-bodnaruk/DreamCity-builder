@@ -13,7 +13,7 @@ class Controller_menu extends Controller {
     }
     
     function add() {
-        $this->template()->load('add_menu.tpl')->return_data();
+        $this->template()->load('add_menu.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('menu')
@@ -30,7 +30,7 @@ class Controller_menu extends Controller {
     function edit() {
         $this->val('id');
         $this->val['data'] = $this->db()->table('menu')->select()->where('`id`=\''.$this->val['id'].'\'')->fetch();
-        $this->template()->load('edit_menu.tpl')->return_data();
+        $this->template()->load('edit_menu.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('menu')
@@ -69,7 +69,7 @@ class Controller_menu extends Controller {
     
     function add_route() {
         $this->val('id');
-        $this->template()->load('add_route.tpl')->return_data();
+        $this->template()->load('add_route.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('route')

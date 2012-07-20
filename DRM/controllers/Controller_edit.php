@@ -17,7 +17,7 @@ class Controller_edit extends Controller {
             ? $this->val['data'] = $this->db()->table('news')->select()->where('`id` = \''.$this->val['id'].'\'')->limit(1)->fetch()
             : Go::to('edit/no_such_page/');
         
-        $this->template()->load('edit_news.tpl')->return_data();
+        $this->template()->load('edit_news.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('news')
@@ -55,7 +55,7 @@ class Controller_edit extends Controller {
         $selected = $this->db()->table('route')->select(array('menu_id','id'))->where('`name` = \''.$this->val['data']['theme'].'\'')->limit(1)->fetch();
         $this->val['selected'] = $selected['menu_id'];
         
-        $this->template()->load('edit_page.tpl')->return_data();
+        $this->template()->load('edit_page.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $url = $this->template()->url('pages');
             $this->db()
@@ -92,7 +92,7 @@ class Controller_edit extends Controller {
             ? $this->val['data'] = $this->db()->table('banners')->select()->where('`id` = \''.$this->val['id'].'\'')->limit(1)->fetch()
             : Go::to('edit/no_such_page/');
             
-        $this->template()->load('edit_banner.tpl')->return_data();
+        $this->template()->load('edit_banner.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('banners')

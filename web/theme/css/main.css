@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+}
+
+div#main {
+    margin: 50px auto;
+    width: 1000px;
+    min-height: 700px;
+    border: 1px solid #7D7D7D;
+    border-radius: 5px;
+}
+
+div#main #header {
+    text-align: center;
+    font-size: 26px;
+    padding: 10px 0;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    border-bottom: 1px solid #000000;
+}
+
+div#main #content #menu {
+    text-align: right;
+    margin-left: -152px;
+    width: 140px;
+    position: fixed;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 5px 0 0 5px;
+    padding-right: 10px;
+}
+
+div#main #content #menu a {
+    text-decoration: none;
+    color: #00008b;
+}
+
+div#main #content #menu a:hover {
+    text-decoration: underline;
+}
+
+.code {
+    color: #00008b;
+    font-size: 14px;
+}
+
+.template {
+    padding: 10px;
+}
+
+.data_table {
+    margin: 10px;
+}
+
+.data_table td:first-child {
+    padding: 10px 0;
+    width: 250px;
+    text-align: right;
+}
+
+.data_table td:last-child {
+    padding-left: 20px;
+}
+
+.info_table {
+    margin: 10px;
+}
+
+.info_table td:first-child {
+    width: 100px;
+    text-align: right;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.info_table td:last-child {
+    padding-left: 12px;
+    text-indent: -10px;
+}

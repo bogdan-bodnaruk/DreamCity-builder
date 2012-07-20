@@ -12,7 +12,7 @@ class Controller_profile extends Controller {
     }
     
     function save() {
-        $this->template()->load('profile.tpl')->return_data();
+        $this->template()->load('profile.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('users')

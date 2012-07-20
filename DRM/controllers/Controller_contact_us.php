@@ -22,7 +22,7 @@ class Controller_contact_us extends Controller {
             $this->val['data'] = array();  
         };
         
-        $this->template()->load('contact_us.tpl')->return_data();
+        $this->template()->load('contact_us.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->val['name'] = $this->template()->validate('name');
             $this->val['sename'] = $this->template()->validate('sename');
@@ -36,7 +36,7 @@ class Controller_contact_us extends Controller {
             $mail = new PHPMailer();
             $mail->AddAddress($this->registry()->config['admin_email']);
             $mail->Subject = $this->i18n->contact_us;
-            $mail->Body = $this->template()->load('contact_us_email.tpl')->return_data(); 
+            $mail->Body = $this->template()->load('contact_us_email.tpl')->data();
             $mail->Send();
             
             Go::to('contact_us/done/');  

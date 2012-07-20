@@ -12,7 +12,7 @@ class Controller_add extends Controller {
     }
     
     public function news() {
-        $this->template()->load('add_news.tpl')->return_data();
+        $this->template()->load('add_news.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('news')
@@ -39,7 +39,7 @@ class Controller_add extends Controller {
             $this->val['name'][] = $data['name'];
         }
         
-        $this->template()->load('add_page.tpl')->return_data();
+        $this->template()->load('add_page.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $url = $this->template()->url('pages');
             $this->db()
@@ -67,7 +67,7 @@ class Controller_add extends Controller {
     
     public function banner() {
         $this->val['side'] = array('Right', 'Hidden');
-        $this->template()->load('add_banner.tpl')->return_data();
+        $this->template()->load('add_banner.tpl')->data();
         if($_POST && $this->template()->post_is_valide()) {
             $this->db()
                  ->table('banners')

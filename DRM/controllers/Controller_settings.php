@@ -16,7 +16,7 @@ class Controller_settings extends Controller {
     
     function save() {        
         $this->val['db'] = $this->db()->table('config')->select()->where('`id`=1')->limit(1)->fetch();
-        $this->template()->load('settings.tpl')->return_data();
+        $this->template()->load('settings.tpl')->data();
         
         if(isset($_POST['auto_backup']) && $_POST['auto_backup']!=='0'){
             shell_exec('/etc/crontab -r');

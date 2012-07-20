@@ -22,6 +22,7 @@ $i18n = array('admin_panel'     =>  'Admin Panel',
               'text_to_register'=>  ' We recommend you to <a href="registration">register</a>, or <a href="login">login</a> on the site using your login and password.
                                         Registered users can see all available information including hidden links, videos, the ability to add comments, menu updates and other.',
               'lang'            =>  'Language',
+              'test'            =>  'test',
               'theme'           =>  'Theme',
               'short_text'      =>  'Short text (for index page)',
               'full_text'       =>  'Full text',
