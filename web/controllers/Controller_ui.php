@@ -31,4 +31,9 @@ class Controller_ui extends Controller {
         $this->val['data']['array'] = array('{config::app_path}', 'qwe');
         $this->template()->load('radio.tpl')->show();
     }
+
+    public function checkbox() {
+        $this->val['data']['array'] = array('{config::app_path}', 'test');
+        $this->template()->load('checkbox.tpl')->show();
+    }
 }
