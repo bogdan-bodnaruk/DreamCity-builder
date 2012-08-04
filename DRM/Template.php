@@ -87,28 +87,17 @@ class Template extends DRM {
         $this->html = strtr($this->html, $array);
     }
 
-    //TODO: make something with this shit!
     public function post_is_valide() {
-        $data = isset($_SESSION['post_is_valide']) ? $_SESSION['post_is_valide'] : false;
-        unset($_SESSION['post_is_valide']);
-        return $data;
-    }
-    
-    public function validate($data) {
-		$value = isset($_SESSION['validate'][$data]) ? $_SESSION['validate'][$data]: '';
-        return $value;
+        return isset($_SESSION['post_is_valide']) ? true : false;
     }
     
     public function url($table = '') {
-        $try = $this->db()
-                 ->table($table)
-                 ->select('theme')
-                 ->where('`theme` = \''.$this->validate('theme').'\'')
-                 ->num();
+        $value = isset($_SESSION['validate']['theme']) ? $_SESSION['validate']['theme']: '';
+        $try = $this->db()->table($table)->select('theme')->where('`theme` = \''.$value.'\'')->num();
         $array = array(' '      => '_',
                        '%20'    => '_',
-                       ','      => '_', );
-        return ($try == 0 || $try == 1) ? strtr($this->validate('theme'), $array) : strtr($this->validate('theme').$try, $array);
+                       ','      => '_');
+        return $try<=1 ? strtr($value, $array) : strtr($value.$try, $array);
     }
     
     function __destruct() {
