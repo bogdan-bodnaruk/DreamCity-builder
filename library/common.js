@@ -1,3 +1,36 @@
+var client_css = 'web/theme/css';
+var library_path = 'library';
+
+Modernizr.load([
+    {
+        load: [
+                client_css + '/boilerplate.css',
+                client_css + '/main.css',
+                client_css + '/green.css'
+        ]
+    },
+    {
+        load: '//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js',
+        complete: function () {
+            if ( !window.jQuery ) {
+                Modernizr.load(library_path + '/jquery-1.8.0.min.js');
+            }
+        }
+    },
+    {
+        load: [
+                library_path + '/prefixfree.min.js'
+        ]
+    },
+    {
+        load: [client_css + '/mozilla_reset.css']
+    }
+
+]);
+
+//test: Modernizr.input.required, nope: 'js/check_required.js', complete: function() { init(); }
+
+/*
 $(function(){
     
     $("select").chosen();
@@ -36,24 +69,8 @@ $(function(){
     
 });
 
-function open_panel() {
-    $.get("adminpanel/ajax/", onAjaxSuccess);
-   
-    function onAjaxSuccess(data) {
-        $('.background').removeClass();
-        $("#adminpanel").html(data);
-        $("body").prepend("<div class='background' onClick='close_panel()'></div>");
-    }
-    return false;
-}
- 
-function close_panel() {
-   $(".background").detach();
-   $("#adminpanel").html('<div id="adminpanel" onClick="open_panel()">&nbsp;Admin Panel</div>');
-}
-
 function fade_alert() {
     $('html,body').animate({scrollTop:0},0);
     $('.success').delay(1000);
     $('.success').slideUp();
-}
+}*/

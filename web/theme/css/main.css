@@ -40,6 +40,10 @@ div#main #content #menu a:hover {
     text-decoration: underline;
 }
 
+div#main #content #menu p {
+    margin: 10px 0;
+}
+
 .code {
     color: #00008b;
     font-size: 14px;
@@ -61,6 +65,7 @@ div#main #content #menu a:hover {
 
 .data_table td:last-child {
     padding-left: 20px;
+    vertical-align: middle;
 }
 
 .info_table {

@@ -122,7 +122,8 @@ class Tags extends DRM {
                     .(!isset($checked) ? '' : $checked).' />
                     <label for="radio_'.$this->property['name'].'_'.$i.'">&nbsp;'.$text[$i].'</label>';
         }
-        return $html.$this->validate->data($this->property['name'])->check();
+        return '<div class="radio_wrapper">'.$html.'</div>'
+               .$this->validate->data($this->property['name'])->check();
     }
 
     public function checkbox() {
@@ -150,7 +151,8 @@ class Tags extends DRM {
                     .(!isset($checked) ? '' : $checked).' />
                     <label for="checkbox_'.$this->property['name'].'_'.$i.'"> '.$text[$i].'</label>';
         }
-        return $html.$this->validate->data($this->property['name'])->check();
+        return '<div class="checkbox_wrapper">'.$html.'</div>'
+               .$this->validate->data($this->property['name'])->check();
     }
 
     public function fancybox() {

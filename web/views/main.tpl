@@ -7,7 +7,8 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
-    <link href="{config::client_css}/main.css" rel="stylesheet" type="text/css" />
+    <script src="{config::library_path}/modernizr.js" type="text/javascript"></script>
+    <script src="{config::library_path}/common.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="main">
