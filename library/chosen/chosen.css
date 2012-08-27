@@ -1,0 +1,65 @@
+.chzn-container {
+    position: relative;
+    display: inline-block;
+}
+
+.chzn-container-single .chzn-single span {
+    margin-right: 26px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chzn-container-single .chzn-single div {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    width: 18px;
+}
+
+.chzn-container-single .chzn-single div b {
+    background: url('chosen-sprite.png') no-repeat 0 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.chzn-container-single .chzn-search {
+    padding: 4px;
+}
+
+.chzn-container-single .chzn-search input {
+    background: url('chosen-sprite.png') no-repeat 100% -22px;
+    margin: 2px 0;
+    padding: 3px 4px;
+}
+
+.chzn-container .chzn-results {
+    margin: 0 0 1px 0;
+    max-height: 240px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.chzn-container .chzn-results li {
+    display: none;
+    line-height: 15px;
+    padding: 5px 6px;
+    margin: 0;
+    list-style: none;
+}
+
+.chzn-container .chzn-results .active-result {
+    cursor: pointer;
+    display: list-item;
+}
+
+.chzn-container-active .chzn-single-with-drop {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}

@@ -7,6 +7,7 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
     <script src="{config::library_path}/modernizr.js" type="text/javascript"></script>
     <script src="{config::library_path}/common.js" type="text/javascript"></script>
 </head>

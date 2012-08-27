@@ -22,7 +22,7 @@ button:hover, input[type="submit"]:hover, input[type="button"]:hover {
 button:active, input[type="submit"]:active, input[type="button"]:active {
     position: relative;
     top: 2px;
-    box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+    box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0 2px 4px rgba(0, 0, 0, 0.20);
 }
 
 /* Checkbox style */
@@ -49,14 +49,14 @@ div.checkbox_wrapper > input[type="checkbox"] + label:last-child {
 }
 
 input[type="checkbox"] {
-    display: none;
+    position: absolute;
+    left: -100000px;
 }
 
 div.checkbox_wrapper > input[type="checkbox"]:checked + label {
     background: linear-gradient(bottom,#74e036 0%,#5eaf28);
-    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     transition: all 0.3s ease-in-out;
-    padding: 7px 15px;
 }
 
 /* Radio button style */
@@ -83,13 +83,13 @@ div.radio_wrapper > input[type="radio"] + label:last-child {
 }
 
 input[type="radio"] {
-    display: none;
+    position: absolute;
+    left: -100000px;
 }
 
 div.radio_wrapper > input[type="radio"]:checked + label {
     background: linear-gradient(bottom,#74e036 0%,#5eaf28);
-    font-weight: bold;
-    padding: 7px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     transition: all 0.3s ease-in-out;
 }
 
@@ -98,8 +98,79 @@ textarea, textarea:invalid {
     border: 1px solid #CCCCCC;
     box-shadow: 0 0 3px #CCCCCC;
     padding: 5px;
+    background-color: #FFFFFF;
+    color: #999999;
+    outline: none;
+    border-radius: 5px;
 }
 
 textarea:focus {
-    border: 1px solid #5FBE3F;
+    border: 1px solid rgba(73, 220, 22, 0.7);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
+    transition: all 0.6s ease-in-out;
+    background-color: #F9FCEF;
+}
+
+/*input text, password style */
+input[type="text"], input[type="password"] {
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #999999;
+    box-shadow: 0 0 5px #CCCCCC;
+    transition: all 0.6s ease-in-out;
+    outline: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 1px solid rgba(73, 220, 22, 0.7);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
+    transition: all 0.6s ease-in-out;
+    background-color: #F9FCEF;
+}
+
+/* select style */
+select {
+    min-width: 100px;
+}
+
+.chzn-container .chzn-results .highlighted {
+    background: linear-gradient(top,#74e036 0%,#5eaf28);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
+    color: #fff;
+}
+
+.chzn-container .chzn-drop {
+    background: #F9FCEF;
+    border: 1px solid #CCC;
+    border-top: 0;
+    position: absolute;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+    z-index: 1010;
+}
+
+.chzn-container-single .chzn-search input[type="text"]:focus {
+    box-shadow: 0 0 5px #E8EDD5;
+}
+
+.chzn-container-single .chzn-single {
+    background-color: #ffffff;
+    /*background-image: linear-gradient(#ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);*/
+    /*background: linear-gradient(top,#87E94C 0%,#85C957);*/
+    background: linear-gradient(top,#74e036 0%,#5eaf28);
+    border-radius: 5px;
+    background-clip: padding-box;
+    border: 1px solid #aaaaaa;
+    box-shadow: 0 0 3px #ffffff inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4), 0 0 0 rgba(255, 255, 255, 0.2);
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    height: 23px;
+    line-height: 24px;
+    padding: 0 0 0 8px;
+    color: #FFF;
+    text-decoration: none;
 }
