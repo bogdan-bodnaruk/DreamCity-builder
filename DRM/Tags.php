@@ -60,10 +60,9 @@ class Tags extends DRM {
         $this->property['name'] = empty($this->property['name']) ? $type : $this->property['name'];
         unset($_SESSION[$this->property['name']]);
         $this->property['name'] !== 'submit' && isset($_POST[$this->property['name']]) ? $_SESSION[$this->property['name']] = '' : '';
-        $input = '<input '.$this->property['style'].$this->property['class']
-                .$this->property['id'].' type="'.$type.'" name="'.$this->property['name']
+        return '<input '.$this->property['style'].$this->property['class']
+				.$this->property['id'].' type="'.$type.'" name="'.$this->property['name']
                 .'" value="'.$this->property['value'].'" '.$this->property['js'].'/>';
-        return $input;
     }
 
     public function button() {
@@ -74,8 +73,8 @@ class Tags extends DRM {
         $html = '<select name="'.$this->property['name'].'" '.$this->property['style']
                 .$this->property['class'].$this->property['id'].$this->property['js'].'>';
 
-        $value = $this->get_value($this->property['value']);
-        $text = $this->get_value($this->property['text']);
+        $value = !is_array($this->property['value']) ? $this->get_value($this->property['value']) : $this->property['value'];
+        $text = !is_array($this->property['text']) ? $this->get_value($this->property['text']) : $this->property['text'];
 
         for($i=0;$i<count($value);$i++) {
             $selected = !empty($this->property['selected']) && $this->property['selected']==$value[$i] ? 'selected' : '';
@@ -88,8 +87,9 @@ class Tags extends DRM {
     }
 
     public function lang() {
+        $this->property['text'] = $this->registry()->config['names_i18n'];
         $this->property['value'] = $this->registry()->config['all_i18n'];
-        parent::$values[$this->property['text']] = $this->registry()->config['names_i18n'];
+		$this->property['name'] = empty($this->property['name']) ? 'lang' : $this->property['name'];
         $this->property['selected'] = empty($this->property['selected']) ? $this->registry()->config['default_i18n'] : $this->property['selected'];
         return $this->select();
     }
@@ -100,6 +100,7 @@ class Tags extends DRM {
             $this->property['value'][] = $val;
             $this->property['text'][] = $key;
         }
+		
         $this->property['selected'] = empty($this->property['selected']) ? User::login()->permissions() : $this->property['selected'];
         return $this->select();
     }

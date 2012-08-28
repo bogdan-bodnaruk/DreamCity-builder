@@ -148,6 +148,7 @@ select {
     position: absolute;
     box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
     z-index: 1010;
+    border-radius: 0  0 5px 5px;
 }
 
 .chzn-container-single .chzn-search input[type="text"]:focus {

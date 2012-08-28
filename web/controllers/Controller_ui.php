@@ -36,4 +36,8 @@ class Controller_ui extends Controller {
         $this->val['data']['array'] = array('{config::app_path}', 'test');
         $this->template()->load('checkbox.tpl')->show();
     }
+    
+    public function specials() {
+        $this->template()->load('specials.tpl')->show();
+    }
 }

@@ -18,7 +18,7 @@
         </div>
         <div id="content">
             <div id="menu">
-                <p><a href="/ui/">Values</a></p
+                <p><a href="/ui/">Values</a></p>
                 <p><a href="/ui/textfields">Text fields</a></p>
                 <p><a href="/ui/textarea">Text area</a></p>
                 <p><a href="/ui/submit_and_button">Submit, button</a></p>
