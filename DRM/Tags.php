@@ -43,17 +43,9 @@ class Tags extends DRM {
     }
 
     public function ckeditor() {
-        return $this->textarea().'
-		    <script type="text/javascript">
-			    if (CKEDITOR.instances["'.$this->property['cid'].'"]) {
-				    delete CKEDITOR.instances["'.$this->property['cid'].'"]
-			    };
-			    CKEDITOR.replace("'.$this->property['cid'].'",
-			    {
-				    toolbar : "'.$this->property['type'].'",
-				    width: "'.$this->property['rows'].'"
-			    });
-		    </script>';
+        $this->property['id'] = 'id="cked-'.$this->property['cid'].'"';
+        $this->property['class'] = 'class="'.$this->property['type'].'" ';
+        return $this->textarea();
     }
 
     public function submit($type='submit') {

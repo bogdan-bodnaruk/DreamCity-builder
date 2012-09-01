@@ -1,5 +1,3 @@
-<script type="text/javascript" src="/library/ckeditor/ckeditor.js"></script>
-
 <p class="code">&nbsp;Code: &#35;#ckeditor->[name=ckeditor2;id=ckeditor2;type=basic;validate=none;value=test text]#&#35;</p>
 ##ckeditor->[name=ckeditor2;id=ckeditor2;type=basic;validate=none;value=test text]##
 
