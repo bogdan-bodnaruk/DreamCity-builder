@@ -3,10 +3,14 @@ class Tags extends DRM {
     private $property;
     private $i18n;
 
-    function __construct() {
+    public function __construct() {
         $this->validate = new Validate();
         $this->i18n = &$this->i18n();
     }
+	
+	public function __get($name) {
+		Logger::error('Try get unknown tag ['.$name.']');
+	}
 
     public function text($type='text') {
         $value = isset($_POST[$this->property['name']]) && $type!=='password'
@@ -147,6 +151,19 @@ class Tags extends DRM {
         return '<div class="checkbox_wrapper">'.$html.'</div>'
                .$this->validate->data($this->property['name'])->check();
     }
+	
+	public function datepicker() {
+		$this->property['id'] = 'id="datepicker-'.$this->property['name'].'"';
+		return $this->text();
+	}
+	
+	public function window() {
+		$button = $this->property['type']=='button'
+					? '<button id="window-'.$this->property['name'].'">'.$this->property['value'].'</button>'
+					: '<a href="#" id="window-'.$this->property['name'].'">'.$this->property['value'].'</a>';
+				
+		return $button.'<div id="window-'.$this->property['name'].'" style="display: none;">'.$this->property['text'].'</div>';
+	}
 
     public function fancybox() {
         $html = '<div id="fancybox_'.$this->property['cid'].'">';
@@ -164,7 +181,7 @@ class Tags extends DRM {
 
     public function return_input($type, $array) {
         $this->properties($array);
-        return $this->$type();
+		return $this->$type();
     }
 
     private function get_value($value) {

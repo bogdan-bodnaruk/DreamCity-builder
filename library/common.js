@@ -16,9 +16,6 @@ Modernizr.load([
         yep: client_css + '/mozilla_reset.css'
     },
     {
-        load: library_path + '/prefixfree.min.js'
-    },
-    {
         test: Modernizr.input.required,
         nope: library_path + '/modernizr.input.required.js'
     },
@@ -36,6 +33,29 @@ Modernizr.load([
                 );
             }
         }
+    },
+    {
+        test: [$("input").is("[id^=datepicker-]"), $("div").is("[id^=window-]")],
+        yep: [library_path + '/jquery-ui/jquery-ui-1.8.23.custom.min.js',library_path + '/jquery-ui/jquery-ui-1.8.23.custom.css'],
+        complete: function() {
+            $("input[type='text'][id^=datepicker-]").datepicker();
+            
+            $("div[id^=window-]").dialog({
+                autoOpen: false,
+                modal: true
+            });
+            $("a[id^=window-]").on('click',function() {
+                $("div[id^=" + this.id + "]").dialog("open");
+                return false;
+            });
+            $("button[id^=window-]").on('click',function() {
+                $("div[id^=" + this.id + "]").dialog("open");
+                return false;
+            });
+        }
+    },
+    {
+        load: library_path + '/prefixfree.min.js'
     }
 ]);
 
