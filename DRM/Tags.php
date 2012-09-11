@@ -8,9 +8,9 @@ class Tags extends DRM {
         $this->i18n = &$this->i18n();
     }
 	
-	public function __get($name) {
-		Logger::error('Try get unknown tag ['.$name.']');
-	}
+    public function __get($name) {
+        Logger::error('Try get unknown tag ['.$name.']');
+    }
 
     public function text($type='text') {
         $value = isset($_POST[$this->property['name']]) && $type!=='password'
@@ -162,7 +162,8 @@ class Tags extends DRM {
 					? '<button id="window-'.$this->property['name'].'">'.$this->property['value'].'</button>'
 					: '<a href="#" id="window-'.$this->property['name'].'">'.$this->property['value'].'</a>';
 				
-		return $button.'<div id="window-'.$this->property['name'].'" style="display: none;">'.$this->property['text'].'</div>';
+		return $button.'<div id="window-'.$this->property['name'].'" title="'.$this->property['title']
+                      .'" style="display: none;">'.$this->property['text'].'</div>';
 	}
 
     public function fancybox() {
@@ -225,6 +226,7 @@ class Tags extends DRM {
                                 'style'      =>  !isset($array['style']) ? '' : $this->style($array['style']),
                                 'id'         =>  !isset($array['id']) ? '' : $this->id($array['id']),
                                 'cid'        =>  !isset($array['id']) ? '' : $array['id'],
+                                'title'      =>  !isset($array['title']) ? '' : $array['title'],
                                 'class'      =>  !isset($array['class']) ? '' : $this->_class_($array['class']),
                                 'size'       =>  !isset($array['size']) ? $this->registry()->config['input_size'] : $array['size'],
                                 'min'        =>  !isset($array['min']) ? 0 : $array['min'],

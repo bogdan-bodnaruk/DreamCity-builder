@@ -57,10 +57,10 @@
     </tr>
     <tr>
         <td>
-            ##window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!]##
+            ##window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!;title=test title]##
         </td>
         <td>
-            <span class="code">&#35;#window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!]#&#35;</span>
+            <span class="code">&#35;#window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!;title=test title]#&#35;</span>
         </td>
     </tr>
 </table>
