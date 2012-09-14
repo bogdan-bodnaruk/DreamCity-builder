@@ -167,17 +167,23 @@ class Tags extends DRM {
 	}
 
     public function fancybox() {
-        $html = '<div id="fancybox_'.$this->property['cid'].'">';
-        $data = explode(';', $this->property['value']);
-        for($i=0;$i<count($data);$i++) {
-            if(!empty($data[$i])) {
-                $html .= '<a href="'.$this->property['text'].'/src/'.$data[$i].'.jpg" class="fancybox" data-fancybox-group="gallery-'.
-                         $this->property['cid'].'" '.($i>$this->property['min'] ? 'style="display: none;"' : '').'>
-                         <img class="apply_img" style="margin: 0;" src="'.$this->property['text'].'/thumbs/'.$data[$i].'.jpg" alt="galery_'.$i.'" />
-                         </a>';
+        $html = '';
+        if($this->property['type']=='gallery') {
+            $value = $this->get_value($this->property['file']);
+            for($i=0;$i<count($value);$i++) {
+                $max = $this->property['max']>0 ? ($i>$this->property['max']-1 ? 'style="display: none;"' : '') : '';
+                if(!empty($value[$i])) {
+                    $html .= '<a href="'.$this->property['path'].$value[$i].'" rel="gallery-'.$this->property['name'].'" '.$max.'>
+                                <img src="'.$this->property['thumb_path'].$value[$i].'" alt="'.$value[$i].'" />
+                              </a>';
+                };
+            }
+            return empty($html) ? '' : '<div id="fancybox-'.$this->property['name'].'">'.$html.'</div>';
+        } else {
+            if(!empty($this->property['type'])) {
+                return '<a href="'.$this->property['file'].'" class="fancybox-'.$this->property['type'].'">'.$this->property['title'].'</a>';
             };
-        }
-        return empty($this->property['value']) ? '<img src="'.$this->registry()->config['app_path'].'/theme/images/no_photo.png" alt="no photo" />' : $html .= '</div>';
+        };
     }
 
     public function return_input($type, $array) {
@@ -227,6 +233,9 @@ class Tags extends DRM {
                                 'id'         =>  !isset($array['id']) ? '' : $this->id($array['id']),
                                 'cid'        =>  !isset($array['id']) ? '' : $array['id'],
                                 'title'      =>  !isset($array['title']) ? '' : $array['title'],
+                                'file'       =>  !isset($array['file']) ? '' : $array['file'],
+                                'path'       =>  !isset($array['path']) ? '' : $array['path'],
+                                'thumb_path' =>  !isset($array['thumb_path']) ? '' : $array['thumb_path'],
                                 'class'      =>  !isset($array['class']) ? '' : $this->_class_($array['class']),
                                 'size'       =>  !isset($array['size']) ? $this->registry()->config['input_size'] : $array['size'],
                                 'min'        =>  !isset($array['min']) ? 0 : $array['min'],

@@ -55,6 +55,53 @@ Modernizr.load([
         }
     },
     {
+        test: [$("div").is("[id^=fancybox-]"), $('a').is("[class^=fancybox-]")],
+        yep: [library_path + '/fancybox/jquery.fancybox.js', library_path + '/fancybox/jquery.fancybox.css'],
+        complete: function() {
+            $("div[id^=fancybox-] a").fancybox({
+                nextEffect: 'elastic',
+                prevEffect: 'elastic',
+                openEffect	: 'elastic',
+                closeEffect	: 'elastic'
+            });
+            $("a.fancybox-video").on('click',function() {
+                $.fancybox({
+                    'padding' : 0,
+                    'autoScale' : false,
+                    'title' : this.title,
+                    'overlayOpacity' : '.6',
+                    'overlayColor' : '#333',
+                    'transitionIn' : 'none',
+                    'transitionOut' : 'none',
+                    'centerOnScroll' : false,
+                    'showCloseButton' : true,
+                    'hideOnOverlayClick': false,
+                    'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+                    'type' : 'swf',
+                    'swf' : {
+                        'wmode': 'transparent',
+                        'allowfullscreen': 'true'
+                    }
+                });
+                return false;
+            });
+            $("a.fancybox-map, a.fancybox-iframe").on('click',function() {
+                $.fancybox({
+                    'href' : this.href,
+                    'type' : 'iframe'
+                });
+                return false;
+            });
+            $("a.fancybox-ajax").on('click',function() {
+                $.fancybox({
+                    'href' : this.href,
+                    'type' : 'ajax'
+                });
+                return false;
+            });
+        }
+    },
+    {
         load: library_path + '/prefixfree.min.js'
     }
 ]);

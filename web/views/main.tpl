@@ -27,7 +27,7 @@
                 <p><a href="/ui/radio">Radio</a></p>
                 <p><a href="/ui/checkbox">Checkbox</a></p>
                 <p><a href="/ui/specials">Specials</a></p>
-                <p><a href="/ui/fancybox_galery">Fancybox galery</a></p>
+                <p><a href="/ui/fancybox">Fancybox galery</a></p>
             </div>
             {content}
         </div>
