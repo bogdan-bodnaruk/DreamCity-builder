@@ -22,7 +22,7 @@ Modernizr.load([
     {
         test: $("textarea").is("[id^='cked-']"),
         yep: library_path + '/ckeditor/ckeditor.js',
-        complete: function() {
+        callback: function() {
             for(i=0;i<$("textarea[id^='cked-']").length;i++) {
                 if (CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]){
                     delete CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]
@@ -35,9 +35,9 @@ Modernizr.load([
         }
     },
     {
-        test: [$("input").is("[id^=datepicker-]"), $("div").is("[id^=window-]")],
+        test: $("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]"),
         yep: [library_path + '/jquery-ui/jquery-ui-1.8.23.custom.min.js',library_path + '/jquery-ui/jquery-ui-1.8.23.custom.css'],
-        complete: function() {
+        callback: function() {
             $("input[type='text'][id^=datepicker-]").datepicker();
             
             $("div[id^=window-]").dialog({
@@ -55,9 +55,9 @@ Modernizr.load([
         }
     },
     {
-        test: [$("div").is("[id^=fancybox-]"), $('a').is("[class^=fancybox-]")],
+        test: $("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]"),
         yep: [library_path + '/fancybox/jquery.fancybox.js', library_path + '/fancybox/jquery.fancybox.css'],
-        complete: function() {
+        callback: function() {
             $("div[id^=fancybox-] a").fancybox({
                 nextEffect: 'elastic',
                 prevEffect: 'elastic',
@@ -67,15 +67,6 @@ Modernizr.load([
             $("a.fancybox-video").on('click',function() {
                 $.fancybox({
                     'padding' : 0,
-                    'autoScale' : false,
-                    'title' : this.title,
-                    'overlayOpacity' : '.6',
-                    'overlayColor' : '#333',
-                    'transitionIn' : 'none',
-                    'transitionOut' : 'none',
-                    'centerOnScroll' : false,
-                    'showCloseButton' : true,
-                    'hideOnOverlayClick': false,
                     'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
                     'type' : 'swf',
                     'swf' : {
@@ -102,7 +93,14 @@ Modernizr.load([
         }
     },
     {
-        load: library_path + '/prefixfree.min.js'
+        load: library_path + '/prefixfree.min.js',
+        complete: function() {
+            console.clear();
+        }
+    },
+    {
+        test: $.browser.msie && $.browser.version<8,
+        yep: library_path + '/ie_blocker/warning.js'
     }
 ]);
 

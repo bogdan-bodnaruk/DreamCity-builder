@@ -186,6 +186,12 @@ class Tags extends DRM {
         };
     }
 
+    public function kcaptcha() {
+        $this->property['style'] = 'style="width: 103px;" ';
+        return '<img src="/'.$this->registry()->config['library_path'].'/kcaptcha/kcaptcha.php?'.session_name().'='.session_id().date('i:s').'" />'
+                .'<br />'.$this->text();
+    }
+
     public function return_input($type, $array) {
         $this->properties($array);
 		return $this->$type();

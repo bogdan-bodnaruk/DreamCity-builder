@@ -49,4 +49,8 @@ class Controller_ui extends Controller {
 
         $this->template()->load('fancybox.tpl')->show();
     }
+
+    public function kcaptcha() {
+        $this->template()->load('kcaptcha.tpl')->show();
+    }
 }

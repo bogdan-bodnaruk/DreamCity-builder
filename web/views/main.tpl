@@ -28,6 +28,7 @@
                 <p><a href="/ui/checkbox">Checkbox</a></p>
                 <p><a href="/ui/specials">Specials</a></p>
                 <p><a href="/ui/fancybox">Fancybox galery</a></p>
+                <p><a href="/ui/kcaptcha">Kcaptcha</a></p>
             </div>
             {content}
         </div>
