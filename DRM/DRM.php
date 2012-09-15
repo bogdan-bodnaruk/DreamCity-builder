@@ -5,6 +5,7 @@ class DRM {
     static function run($config) {
         include_once(PATH.'.config/routes.php');
         include_once(PATH.'.config/user_status.php');
+
         self::registry()->config = $config;
         self::registry()->routes = $routes;
         self::registry()->user_status = $user_status;

@@ -16,7 +16,7 @@ $config = array(/* main settings */
                 'title'             =>  'DRM',
                 'comment'           =>  'true',
                 'ajax'              =>  false,
-
+                'env'               =>  'test', //if production whan all css and js will be minimized production
                 'client_css'        =>  'web/theme/css',
 
                 /* default values for html */
@@ -40,3 +40,5 @@ $config = array(/* main settings */
                 'active_link'       =>  'class="active_link"',
                 'paginator_link'    =>  'class="link"'
         );
+
+$config['library'] = ($config['env'] == 'production') ? '/'.$config['library_path'].'/min/?f='.$config['library_path'] : $config['library_path'];

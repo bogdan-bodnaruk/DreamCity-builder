@@ -4,7 +4,7 @@
             ##lang->[name=lang]##
         </td>
         <td>
-            <span class="code">&#35;#lang->[name=lang]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#lang->[name=lang]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -12,7 +12,7 @@
             ##lang->[name=lang;selected=ua;style=width:150px]##
         </td>
         <td>
-            <span class="code">&#35;#lang->[name=lang;selected=ua;style=width:150px]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#lang->[name=lang;selected=ua;style=width:150px]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -20,7 +20,7 @@
             ##permissions->[name=protect]##
         </td>
         <td>
-            <span class="code">&#35;#permissions->[name=protect]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#permissions->[name=protect]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -28,7 +28,7 @@
             ##permissions->[name=protect;selected=99]##
         </td>
         <td>
-            <span class="code">&#35;#permissions->[name=protect;selected=99]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#permissions->[name=protect;selected=99]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -36,7 +36,7 @@
             ##datepicker->[name=test_date]##
         </td>
         <td>
-            <span class="code">&#35;#datepicker->[name=test_date;]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#datepicker->[name=test_date;]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -44,7 +44,7 @@
             ##datepicker->[name=test_date1;value=8/11/2012]##
         </td>
         <td>
-            <span class="code">&#35;#datepicker->[name=test_date1;value=8/11/2012]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#datepicker->[name=test_date1;value=8/11/2012]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@
             ##window->[name=test_modal_2;text=test test testtest test test;value=Modal test 2!;type=button]##
         </td>
         <td>
-            <span class="code">&#35;#window->[name=test_modal_2;text=test test testtest test test;value=Modal test 2!;type=button]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#window->[name=test_modal_2;text=test test testtest test test;value=Modal test 2!;type=button]#&#35;</span>
         </td>
     </tr>
     <tr>
@@ -60,7 +60,7 @@
             ##window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!;title=test title]##
         </td>
         <td>
-            <span class="code">&#35;#window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!;title=test title]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#window->[name=test_modal_1;text=test test testtest test test;value=Modal test 2!;title=test title]#&#35;</span>
         </td>
     </tr>
 </table>

@@ -2,19 +2,19 @@
     <tr>
         <td>##radio->[name=radio1;text=$[text 1,text 2,text 3];value=$[3,2,1]]##</td>
         <td>
-            <span class="code">&#35;#radio->[name=radio1;text=$[text 1,text 2,text 3];value=$[3,2,1]]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#radio->[name=radio1;text=$[text 1,text 2,text 3];value=$[3,2,1]]#&#35;</span>
         </td>
     </tr>
     <tr>
         <td>##radio->[name=radio2;text={data::array};value={data::array};class=test_class;]##</td>
         <td>
-            <span class="code">&#35;#radio->[name=radio2;text=&#123;data::array&#125;;value=&#123;data::array&#125;;class=test_class;]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#radio->[name=radio2;text=&#123;data::array&#125;;value=&#123;data::array&#125;;class=test_class;]#&#35;</span>
         </td>
     </tr>
     <tr>
         <td>##radio->[name=radio3;checked=qwe;text={data::array};value={data::array};]##</td>
         <td>
-            <span class="code">&#35;#radio->[name=radio3;checked=qwe;text=&#123;data::array&#125;;value=&#123;data::array&#125;;]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#radio->[name=radio3;checked=qwe;text=&#123;data::array&#125;;value=&#123;data::array&#125;;]#&#35;</span>
         </td>
     </tr>
 </table>

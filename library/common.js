@@ -1,27 +1,27 @@
-var client_css = 'web/theme/css';
-var library_path = 'library';
+var css = (env == 'production') ? library_path + '/min/?f=' + client_css : client_css;
+var library = (env == 'production') ? library_path + '/min/?f=' + library_path : library_path;
 
 Modernizr.load([
     {
-        load: [client_css + '/boilerplate.css', client_css + '/main.css', client_css + '/green.css']
+        load: [css + '/boilerplate.css', css + '/main.css', css + '/green.css']
     },
     {
-        load: [library_path + '/chosen/chosen.css', library_path + '/chosen/chosen.min.js'],
+        load: [library + '/chosen/chosen.css', library + '/chosen/chosen.min.js'],
         complete: function() {
             $('select').chosen();
         }
     },
     {
         test: $.browser.mozilla,
-        yep: client_css + '/mozilla_reset.css'
+        yep: css + '/mozilla_reset.css'
     },
     {
         test: Modernizr.input.required,
-        nope: library_path + '/modernizr.input.required.js'
+        nope: library + '/modernizr.input.required.js'
     },
     {
         test: $("textarea").is("[id^='cked-']"),
-        yep: library_path + '/ckeditor/ckeditor.js',
+        yep: library + '/ckeditor/ckeditor.js',
         callback: function() {
             for(i=0;i<$("textarea[id^='cked-']").length;i++) {
                 if (CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]){
@@ -36,7 +36,7 @@ Modernizr.load([
     },
     {
         test: $("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]"),
-        yep: [library_path + '/jquery-ui/jquery-ui-1.8.23.custom.min.js',library_path + '/jquery-ui/jquery-ui-1.8.23.custom.css'],
+        yep: [library + '/jquery-ui/jquery-ui-1.8.23.custom.min.js',library + '/jquery-ui/jquery-ui-1.8.23.custom.css'],
         callback: function() {
             $("input[type='text'][id^=datepicker-]").datepicker();
             
@@ -56,7 +56,7 @@ Modernizr.load([
     },
     {
         test: $("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]"),
-        yep: [library_path + '/fancybox/jquery.fancybox.js', library_path + '/fancybox/jquery.fancybox.css'],
+        yep: [library + '/fancybox/jquery.fancybox.js', library + '/fancybox/jquery.fancybox.css'],
         callback: function() {
             $("div[id^=fancybox-] a").fancybox({
                 nextEffect: 'elastic',
@@ -93,14 +93,14 @@ Modernizr.load([
         }
     },
     {
-        load: library_path + '/prefixfree.min.js',
+        load: library + '/prefixfree.min.js',
         complete: function() {
             console.clear();
         }
     },
     {
         test: $.browser.msie && $.browser.version<8,
-        yep: library_path + '/ie_blocker/warning.js'
+        yep: library + '/ie_blocker/warning.js'
     }
 ]);
 

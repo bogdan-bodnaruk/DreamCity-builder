@@ -7,9 +7,14 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
+    <script type="text/javascript">
+        var client_css = '{config::client_css}';
+        var library_path = '{config::library_path}';
+        var env = '{config::env}';
+    </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-    <script src="{config::library_path}/modernizr.js" type="text/javascript"></script>
-    <script src="{config::library_path}/common.js" type="text/javascript" defer="defer"></script>
+    <script src="{config::library}/modernizr.js" type="text/javascript"></script>
+    <script src="{config::library}/common.js" type="text/javascript" defer="defer"></script>
 </head>
 <body>
     <div id="main">

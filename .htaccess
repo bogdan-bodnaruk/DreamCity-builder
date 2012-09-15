@@ -22,7 +22,7 @@ ErrorDocument 404 /index.php/request/_404
         RewriteCond %{REQUEST_FILENAME} -d
         RewriteRule ^.*$ - [NC,L]
         RewriteRule ^.*$ index.php?href=$0 [L,QSA]
-        
+
         AddDefaultCharset UTF-8
         php_flag display_errors on
 </IfModule>

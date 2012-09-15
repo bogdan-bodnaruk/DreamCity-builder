@@ -35,6 +35,12 @@
             <span class="code">Code: &#35;#text->[name=text6;size=20;required=false;js=onClick:alert(1);]#&#35;</span>
         </td>
     </tr>
+    <tr>
+        <td>##password->[name=text6;size=20;]##</td>
+        <td>
+            <span class="code">Code: &#35;#password->[name=text6;size=20;]#&#35;</span>
+        </td>
+    </tr>
 </table>
 
 <div style="padding: 10px;">
