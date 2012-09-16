@@ -16,12 +16,14 @@ class User extends DRM {
     }
     
     static public function login($login = '') {
-        self::$login = !empty($login) ? $login : (isset($_SESSION['login']) && !empty($_SESSION['login']) ? $_SESSION['login'] : 'guest');
-        self::$is_user = parent::db()
+        if(self::registry()->config['DB-connected']) {
+            self::$login = !empty($login) ? $login : (isset($_SESSION['login']) && !empty($_SESSION['login']) ? $_SESSION['login'] : 'guest');
+            self::$is_user = parent::db()
                 ->table('users')
                 ->select('*')
                 ->where('`login` = \''.self::$login.'\'')
-                ->num(); 
+                ->num();
+        };
         return new self();
     }
     
@@ -102,7 +104,7 @@ class User extends DRM {
     
     public function permissions() {
         try {
-            if(self::$is_user == 1) {
+            if(self::$is_user == 1 && $this->registry()->config['DB-connected']) {
                 $status = $this->db()
                        ->table('users')
                        ->select('status')

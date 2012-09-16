@@ -9,9 +9,14 @@ class DRM {
         self::registry()->config = $config;
         self::registry()->routes = $routes;
         self::registry()->user_status = $user_status;
-        self::db()->connect();
-        self::registry()->config += self::db()->table('config')->select()->where('`id` = 1')->limit(1)->fetch();
-        new Session();
+        if(self::db()->connect()) {
+            self::db()->connect();
+            self::registry()->config += array('DB-connected' => true);
+            self::registry()->config += self::db()->table('config')->select()->where('`id` = 1')->limit(1)->fetch();
+            new Session();
+        } else {
+            self::registry()->config += array('DB-connected' => false);
+        };
         new Router();
     }
     

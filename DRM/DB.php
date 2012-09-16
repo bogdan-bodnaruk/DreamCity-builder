@@ -16,12 +16,20 @@ class DB extends DRM {
     }
     
     public function connect() {
-        mysql_connect($this->registry()->config['db_host'],
-                      $this->registry()->config['db_user'],
-                      $this->registry()->config['db_password'])
-                    or die ('Error connecting to MySQL database');
-		mysql_select_db($this->registry()->config['db_table']);
-		mysql_query('SET NAMES '.$this->registry()->config['db_encoding']);
+        $connect = mysql_connect($this->registry()->config['db_host'],
+                                 $this->registry()->config['db_user'],
+                                 $this->registry()->config['db_password']);
+        if($connect) {
+            $table = mysql_select_db($this->registry()->config['db_table']);
+            if($table) {
+                mysql_query('SET NAMES '.$this->registry()->config['db_encoding']);
+                return true;
+            } else {
+                return false;
+            };
+        } else {
+            return false;
+        };
     }
     
     public function table($table) {

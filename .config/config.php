@@ -3,8 +3,11 @@ $config = array(/* main settings */
                 'system_path'       =>  'DRM',
                 'library_path'	    =>  'library',
                 'app_path'	        =>	'web',
-                'main_page'         =>  'index',
+                'main_page'         =>  '/ui/',
                 'encoding'          =>  'UTF-8',
+                'description'       =>  '',
+                'keyword'           =>  '',
+                'generator'         =>  '',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',      
                 'base_href'         =>  'http://engine.drm/',
@@ -18,6 +21,9 @@ $config = array(/* main settings */
                 'ajax'              =>  false,
                 'env'               =>  'test', //if production whan all css and js will be minimized production
                 'client_css'        =>  'web/theme/css',
+                'enable'            =>  0, // 0 - site enabled, 1 site disabled
+                'log_error_to_file' =>  false,
+                'log_changes_to_db' =>  true,
 
                 /* default values for html */
                 'input_size'        =>  15,
@@ -31,7 +37,7 @@ $config = array(/* main settings */
                 'db_host'           =>  'localhost',
                 'db_user'           =>  'root',
                 'db_password'       =>  'root',
-                'db_table'          =>  'engine',
+                'db_table'          =>  'engine1',
                 'db_encoding'       =>  'utf8',
                 
                 /*paginator */
