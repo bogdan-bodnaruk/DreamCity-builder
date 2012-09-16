@@ -8,6 +8,7 @@ $config = array(/* main settings */
                 'description'       =>  '',
                 'keyword'           =>  '',
                 'generator'         =>  '',
+                'generator_version' =>  'v.0.8.0',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',      
                 'base_href'         =>  'http://engine.drm/',
@@ -24,6 +25,7 @@ $config = array(/* main settings */
                 'enable'            =>  0, // 0 - site enabled, 1 site disabled
                 'log_error_to_file' =>  false,
                 'log_changes_to_db' =>  true,
+                'copyright'         =>  'Copyright &copy; 2011 - 2012 Bogdan Bodnaruk. All Rights Reserved. ',
 
                 /* default values for html */
                 'input_size'        =>  15,

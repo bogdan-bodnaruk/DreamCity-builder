@@ -1,47 +1,56 @@
 body {
     margin: 0;
+    background-image: url("../images/background.png");
+    background-repeat: repeat;
 }
 
 div#main {
     margin: 50px auto;
     width: 1000px;
-    min-height: 700px;
-    border: 1px solid #7D7D7D;
-    border-radius: 5px;
+    min-height: 700px;;
+}
+
+div#main ul#menu {
+    list-style: none;
+    margin: 10px 0;
+    text-align: center;
+}
+
+div#main ul#menu li {
+    padding: 10px 0;
+    background: linear-gradient(top,#74e036 0%,#5eaf28);
+    box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+    text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
+    display: inline-block;
+    margin-left: -3px;
+}
+
+div#main ul#menu li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+div#main ul#menu li:hover {
+    background: linear-gradient(bottom,#74e036 0%,#5eaf28);
+    cursor: pointer;
 }
 
 div#main #header {
     text-align: center;
     font-size: 26px;
+    color: #FFFFFF;
     padding: 10px 0;
-    background-color: #EEEEEE;
-    border-radius: 5px;
-    border-bottom: 1px solid #000000;
+    background: linear-gradient(top,#74e036 0%,#5eaf28);
+    border: 1px solid #70a232;
+    box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+    text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
 }
 
-div#main #content #menu {
-    text-align: right;
-    margin-left: -152px;
-    width: 140px;
-    position: fixed;
-    border-left: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-radius: 5px 0 0 5px;
-    padding-right: 10px;
-}
-
-div#main #content #menu a {
-    text-decoration: none;
-    color: #00008b;
-}
-
-div#main #content #menu a:hover {
-    text-decoration: underline;
-}
-
-div#main #content #menu p {
-    margin: 10px 0;
+div#main #content {
+    border: 1px solid #70a232;
+    box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+    background-color: #FFFFFF
 }
 
 .code {
@@ -82,4 +91,9 @@ div#main #content #menu p {
 .info_table td:last-child {
     padding-left: 12px;
     text-indent: -10px;
+}
+
+div#main #footer {
+    text-align: center;
+    margin-top: 10px;
 }

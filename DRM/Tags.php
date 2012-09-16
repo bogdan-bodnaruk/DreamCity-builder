@@ -21,7 +21,7 @@ class Tags extends DRM {
         $input = '<input '.$this->property['style'].$this->property['class']
                 .$this->property['id'].'type="'.$type.'" name="'.$this->property['name']
                 .'" value="'.$value.'" size="'.$this->property['size']
-                .'"maxlength="'.$this->property['max'].'" '.$this->property['js']
+                .'" maxlength="'.$this->property['max'].'" '.$this->property['js']
                 .$this->property['placeholder'].$this->property['required'].' />'
                 .$this->validate->data($this->property['name'])->$validate_type($this->property['min'], $this->property['max']);
         return $input;

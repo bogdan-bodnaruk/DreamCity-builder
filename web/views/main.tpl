@@ -18,26 +18,26 @@
 </head>
 <body>
     <div id="main">
+        <ul id="menu">
+            <li><a href="/ui/">Values</a></li>
+            <li><a href="/ui/textfields">Text fields</a></li>
+            <li><a href="/ui/textarea">Text area</a></li>
+            <li><a href="/ui/submit_and_button">Submit, button</a></li>
+            <li><a href="/ui/ckeditor">Ckeditor</a></li>
+            <li><a href="/ui/select">Select</a></li>
+            <li><a href="/ui/radio">Radio</a></li>
+            <li><a href="/ui/checkbox">Checkbox</a></li>
+            <li><a href="/ui/specials">Specials</a></li>
+            <li><a href="/ui/fancybox">Fancybox galery</a></li>
+            <li><a href="/ui/kcaptcha">Kcaptcha</a></li>
+        </ul>
         <div id="header">
-            UI builder
+            UI builder {config::generator_version}
         </div>
         <div id="content">
-            <div id="menu">
-                <p><a href="/ui/">Values</a></p>
-                <p><a href="/ui/textfields">Text fields</a></p>
-                <p><a href="/ui/textarea">Text area</a></p>
-                <p><a href="/ui/submit_and_button">Submit, button</a></p>
-                <p><a href="/ui/ckeditor">Ckeditor</a></p>
-                <p><a href="/ui/select">Select</a></p>
-                <p><a href="/ui/radio">Radio</a></p>
-                <p><a href="/ui/checkbox">Checkbox</a></p>
-                <p><a href="/ui/specials">Specials</a></p>
-                <p><a href="/ui/fancybox">Fancybox galery</a></p>
-                <p><a href="/ui/kcaptcha">Kcaptcha</a></p>
-            </div>
             {content}
         </div>
-        <div id="footer">&nbsp;</div>
+        <div id="footer">{config::copyright}</div>
     </div>
 </body>
 </html>
