@@ -18,6 +18,11 @@
 </head>
 <body>
     <div id="main">
+        <div id="logo">
+            <a href="{config::base_href}">
+                {DRM} <span> - make development easiest</span>
+            </a>
+        </div>
         <ul id="menu">
             <li><a href="/ui/">Values</a></li>
             <li><a href="/ui/textfields">Text fields</a></li>

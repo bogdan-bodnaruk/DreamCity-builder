@@ -5,9 +5,22 @@ body {
 }
 
 div#main {
-    margin: 50px auto;
+    margin: 30px auto;
     width: 1000px;
     min-height: 700px;;
+}
+
+div#main div#logo a{
+    font-size: 30px;
+    color: #5eaf28;
+    text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+div#main div#logo a span {
+    font-size: 14px;
+    color: #74e036;
 }
 
 div#main ul#menu {
