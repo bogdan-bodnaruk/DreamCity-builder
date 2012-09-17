@@ -93,6 +93,13 @@ Modernizr.load([
         }
     },
     {
+        test: $('form').length > 0,
+        yep: library + '/jquery.h5validate.js',
+        callback: function() {
+            $('form').h5Validate();
+        }
+    },
+    {
         load: library + '/prefixfree.min.js',
         complete: function() {
             console.clear();

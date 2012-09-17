@@ -41,7 +41,7 @@ div#main ul#menu li {
 div#main ul#menu li a {
     color: #FFFFFF;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 10px 14px;
 }
 
 div#main ul#menu li:hover {
@@ -109,4 +109,10 @@ div#main #content {
 div#main #footer {
     text-align: center;
     margin-top: 10px;
+}
+
+/* errors styling */
+
+.drm-error {
+    background-color: #FFD4C3;
 }

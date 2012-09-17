@@ -59,6 +59,12 @@
             <td> - Size of chars and maxlenght of field. Value: [num]. Default: [15];</td>
         </tr>
         <tr>
+            <td>max, min</td>
+            <td>
+                - Maxlength and Minlength. Value: [num]. Default: [0, 1000]
+            </td>
+        </tr>
+        <tr>
             <td>value</td>
             <td> - Value: [num | chars | mixed];</td>
         </tr>
@@ -77,7 +83,7 @@
         </tr>
         <tr>
             <td>validate</td>
-            <td> - Validate type textfield. Values [none, text, num, phone, email, url, date, re_password, web, login];
+            <td> - Validate type textfield. Values [none, text, num, phone, email, url, dateYYYYmmdd, datemmddYYYY, url, login];
                 Default: [text];</td>
         </tr>
     </table>

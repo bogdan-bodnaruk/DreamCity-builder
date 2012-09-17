@@ -53,4 +53,8 @@ class Controller_ui extends Controller {
     public function kcaptcha() {
         $this->template()->load('kcaptcha.tpl')->show();
     }
+
+    public function validate() {
+        $this->template()->load('validate.tpl')->show();
+    }
 }

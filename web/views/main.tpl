@@ -11,6 +11,10 @@
         var client_css = '{config::client_css}';
         var library_path = '{config::library_path}';
         var env = '{config::env}';
+        var warning_class = '{config::warning_class}';
+        var error_class = '{config::error_class}';
+        var valid_class = '{config::valid_class}';
+        var active_class = '{config::active_class}';
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
     <script src="{config::library}/modernizr.js" type="text/javascript"></script>
@@ -33,8 +37,9 @@
             <li><a href="/ui/radio">Radio</a></li>
             <li><a href="/ui/checkbox">Checkbox</a></li>
             <li><a href="/ui/specials">Specials</a></li>
-            <li><a href="/ui/fancybox">Fancybox galery</a></li>
+            <li><a href="/ui/fancybox">Fancybox</a></li>
             <li><a href="/ui/kcaptcha">Kcaptcha</a></li>
+            <li><a href="/ui/validate">Validate</a></li>
         </ul>
         <div id="header">
             UI builder {config::generator_version}

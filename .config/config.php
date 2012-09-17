@@ -32,8 +32,10 @@ $config = array(/* main settings */
                 'input_max_chars'   =>  1000,
                 'textarea_cols'     =>  25,
                 'textarea_rows'     =>  5,
-                'warning_class'     =>  'warning',
-                'error_class'       =>  'error',
+                'warning_class'     =>  'drm-warning',
+                'error_class'       =>  'drm-error',
+                'valid_class'       =>  'drm-valide',
+                'active_class'      =>  'drm-active',
                 
                 /* db settings */
                 'db_host'           =>  'localhost',
