@@ -34,12 +34,7 @@ abstract class Controller extends DRM {
     }
     
     function bootstrap() {
-                
-        //$this->val['adminpanel'] = User::login()->permissions()>50 ? '<div id="adminpanel" onClick="open_panel()" >&nbsp;'.$this->i18n->adminpanel.'</div>' : '';
-        
-        $this->val['js'] = $this->registry()->config['ajax']=='1'
-            ? '<script type="text/javascript" src="/library/jquery.form.js"></script><script type="text/javascript" src="/library/ajax.js"></script>'
-            : '';
+        !isset($_SESSION['status']) ? $_SESSION['status'] = 'guest' : '';
     }
     
     abstract function index();
