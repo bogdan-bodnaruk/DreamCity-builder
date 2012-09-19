@@ -109,6 +109,11 @@
                     var $element = $(options.element),
                         $errorID = $(options.errorID);
                     $element.addClass(options.errorClass).removeClass(options.validClass);
+                    $element.after(function(){
+                        if(!$(this).next().hasClass('drm-error_text')) {
+                            $element.after('<div class="drm-error_text" id="'+ $element.attr('name') +'">i</div> ');
+                        }
+                    });
 
 // User needs help. Enable active validation.
                     $element.addClass(options.settings.activeClass);
@@ -128,8 +133,8 @@
                 markValid: function markValid(options) {
                     var $element = $(options.element),
                         $errorID = $(options.errorID);
-
                     $element.addClass(options.validClass).removeClass(options.errorClass);
+
                     if ($errorID.length) {
                         $errorID.hide();
                     }
@@ -348,7 +353,7 @@
                         if(max >= 1000 || max == null) {
                             max = '+';
                         } else {
-                            max = '{'+ (min==undefined ? '' : min) +',' + max + '}';
+                            max = '{'+ (min==undefined ? '0' : min) +',' + max + '}';
                         };
                         pattern = pattern.substring(1, pattern.length - 1) + max;
                     } else {
@@ -483,3 +488,68 @@
         return methods.bindDelegation.call(this, settings);
     };
 }(jQuery));
+
+$('input[type=text], input[type=password]').live('click', function(){
+    var name = '#' + $(this).attr('name');
+    $(name).remove();
+});
+
+$('div.drm-error_text').live('mouseover', function(){
+    var name = $(this).attr('id');
+    var error = '';
+    var get_charset = Number($('input[name='+ name +']').val().length);
+    var min_charset = Number($('input[name='+ name +']').attr('data-min').length)+1;
+    var max_charset = Number($('input[name='+ name +']').attr('maxlength').length)+1;
+
+    if(get_charset < min_charset) {
+        error += "Minimum charset is " + min_charset + "simbols";
+    };
+
+    if(get_charset > max_charset) {
+        error += "Maximum charset is " + max_charset + "simbols";
+    };
+
+    if(get_charset == 0 && $('input[name='+ name +']').attr('required')) {
+        error = "This is required";
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_login') || $('input[name='+ name +']').hasClass('drm_password')) {
+        if(get_charset < min_charset && get_charset > max_charset && get_charset !== 0) {
+            error = "Must be only alphabetical";
+        }
+    };
+
+    if($('input[name='+ name +']').hasClass('drm_text')) {
+
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_num')) {
+
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_phone')) {
+
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_email')) {
+
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_url')) {
+
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_dateYYYYmmdd')) {
+
+    }
+
+    if($('input[name='+ name +']').hasClass('drm_datemmddYYYY')) {
+
+    }
+
+    $(this).after('<div class="tooltip">'+ error +'</div>');
+});
+
+$('div.drm-error_text').live('mouseout', function(){
+    $('.tooltip').detach();
+});
