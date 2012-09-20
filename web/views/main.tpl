@@ -51,10 +51,5 @@
         </div>
         <div id="footer">{config::copyright}</div>
     </div>
-<script type="text/javascript">
-//    $('.drm-error').live('hover', function() {
-//        alert('1');
-//    });
-</script>
 </body>
 </html>
