@@ -2,12 +2,12 @@
 $config = array(/* main settings */
                 'system_path'       =>  'DRM',
                 'library_path'	    =>  'library',
-                'app_path'	        =>	'web',
+	'app_path'	    =>  'web',
                 'main_page'         =>  'index',
                 'encoding'          =>  'UTF-8',
-                'description'       =>  '',
-                'keyword'           =>  '',
-                'generator'         =>  '',
+                'description'       =>  '{DRM} - make development easiest',
+                'keyword'           =>  '{DRM} - make development easiest',
+                'generator'         =>  '{DRM}.v.0.8.0',
                 'generator_version' =>  'v.0.8.0',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',      
@@ -17,14 +17,14 @@ $config = array(/* main settings */
                 'default_i18n'      =>  'en',
                 'all_i18n'          =>  array('all', 'en', 'ua'),
                 'names_i18n'        =>  array('All', 'English', 'Українська'),
-                'title'             =>  'DRM',
+                'title'             =>  '{DRM} - make development easiest',
                 'comment'           =>  'true',
                 'ajax'              =>  false,
                 'env'               =>  'test', //if production whan all css and js will be minimized production
                 'client_css'        =>  'web/theme/css',
                 'enable'            =>  0, // 0 - site enabled, 1 site disabled
                 'log_error_to_file' =>  false,
-                'log_changes_to_db' =>  true,
+                'log_changes_to_db' =>  false,
                 'copyright'         =>  'Copyright &copy; 2011 - 2012 Bogdan Bodnaruk. All Rights Reserved. ',
 
                 /* default values for html */
