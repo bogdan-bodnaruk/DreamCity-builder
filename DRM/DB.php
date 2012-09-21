@@ -16,20 +16,24 @@ class DB extends DRM {
     }
     
     public function connect() {
-        $connect = mysql_connect($this->registry()->config['db_host'],
-                                 $this->registry()->config['db_user'],
-                                 $this->registry()->config['db_password']);
-        if($connect) {
-            $table = mysql_select_db($this->registry()->config['db_table']);
-            if($table) {
-                mysql_query('SET NAMES '.$this->registry()->config['db_encoding']);
-                return true;
+		try {
+			$connect = @mysql_connect($this->registry()->config['db_host'],
+									 $this->registry()->config['db_user'],
+									 $this->registry()->config['db_password']);
+            if(!$connect) {
+                throw new Exception('DB is not connected');
             } else {
-                return false;
+                $table = mysql_select_db($this->registry()->config['db_table']);
+				if($table) {
+					mysql_query('SET NAMES '.$this->registry()->config['db_encoding']);
+					return true;
+				} else {
+					return false;
+				};
             };
-        } else {
-            return false;
-        };
+        } catch (Exception $e) {
+            Logger::error($e->getMessage());
+        }
     }
     
     public function table($table) {
