@@ -20,11 +20,11 @@ class DRM {
         new Router();
     }
     
-    public function registry() {
+    static public function registry() {
         return Registry::get_instance();
     }
     
-    public function db() {
+    static public function db() {
         return new DB();
     }
     
