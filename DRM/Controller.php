@@ -6,7 +6,6 @@ abstract class Controller extends DRM {
     
     function __construct() {
         $this->val = &parent::$values; 
-        $this->i18n = &$this->i18n();
         $this->lang = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $this->registry()->config['default_i18n'];
         $this->bootstrap();
         $this->lang();
