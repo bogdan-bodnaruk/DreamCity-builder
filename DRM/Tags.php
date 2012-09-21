@@ -5,7 +5,7 @@ class Tags extends DRM {
 
     public function __construct() {
         $this->validate = new Validate();
-        $this->i18n = &$this->i18n();
+        $this->i18n = $this->i18n();
     }
 	
     public function __get($name) {
