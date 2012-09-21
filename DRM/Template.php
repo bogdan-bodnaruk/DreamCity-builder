@@ -7,7 +7,7 @@ class Template extends DRM {
 
     public function __construct() {
         $this->tags = new Tags();
-        $this->i18n = &$this->i18n();
+        $this->i18n = $this->i18n();
     }
     
     function __call($name, $values) {
@@ -42,7 +42,7 @@ class Template extends DRM {
     public function main($value = '') {
         $value = empty($value) ? $this->registry()->config['main_content_value'] : $value;
         parent::$values[$value] = $this->html;
-        $this->load($this->registry()->config['main_template']);
+        $this->load('./'.$this->registry()->config['app_path'].'/views/'.$this->registry()->config['main_template']);
         $this->ajax();
     }
 
