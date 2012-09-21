@@ -2,7 +2,7 @@
 $config = array(/* main settings */
                 'system_path'       =>  'DRM',
                 'library_path'	    =>  'library',
-	'app_path'	    =>  'web',
+		'app_path'	    =>  'web',
                 'main_page'         =>  'index',
                 'encoding'          =>  'UTF-8',
                 'description'       =>  '{DRM} - make development easiest',
