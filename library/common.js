@@ -16,10 +16,6 @@ Modernizr.load([
         yep: css + '/mozilla_reset.css'
     },
     {
-        test: Modernizr.input.required,
-        nope: library + '/modernizr.input.required.js'
-    },
-    {
         test: $("textarea").is("[id^='cked-']"),
         yep: library + '/ckeditor/ckeditor.js',
         callback: function() {
@@ -99,16 +95,19 @@ Modernizr.load([
             $('form').h5Validate();
         }
     },
-    {
-        load: library + '/prefixfree.min.js',
-        complete: function() {
-            console.clear();
-        }
-    },
+	{
+		test: $.browser.msie,
+		yep: [css + '/ie.css', library + '/PIE.js'],
+		callback: function() {
+			if (window.PIE) {
+				$('*').each(function() {
+					PIE.attach(this);
+				});
+			}
+		}
+	},
     {
         test: $.browser.msie && $.browser.version<8,
         yep: library + '/ie_blocker/warning.js'
     }
 ]);
-
-//test: Modernizr.input.required, nope: 'js/check_required.js', complete: function() { init(); }

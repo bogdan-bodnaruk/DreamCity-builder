@@ -1,0 +1,10 @@
+.drm-error_text {
+	top: 1px;
+	-pie-lazy-init: true;
+}
+
+.tooltip {
+    top: -58px;
+	position: static;
+	-pie-lazy-init: true;
+}

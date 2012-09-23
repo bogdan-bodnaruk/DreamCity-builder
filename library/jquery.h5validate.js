@@ -498,53 +498,65 @@ $('div.drm-error_text').live('mouseover', function(){
     var name = $(this).attr('id');
     var error = '';
     var get_charset = Number($('input[name='+ name +']').val().length);
-    var min_charset = Number($('input[name='+ name +']').attr('data-min').length)+1;
-    var max_charset = Number($('input[name='+ name +']').attr('maxlength').length)+1;
 
-    if(get_charset < min_charset) {
-        error += "Minimum charset is " + min_charset + "simbols";
+    if($('input[name='+ name +']').attr('data-min')==undefined) {
+        var min_charset = 0;
+    } else {
+        var min_charset = Number($('input[name='+ name +']').attr('data-min').length)+1;
     };
 
-    if(get_charset > max_charset) {
-        error += "Maximum charset is " + max_charset + "simbols";
-    };
-
-    if(get_charset == 0 && $('input[name='+ name +']').attr('required')) {
-        error = "This is required";
-    }
-
-    if($('input[name='+ name +']').hasClass('drm_login') || $('input[name='+ name +']').hasClass('drm_password')) {
-        if(get_charset < min_charset && get_charset > max_charset && get_charset !== 0) {
-            error = "Must be only alphabetical";
-        }
+    if($('input[name='+ name +']').attr('maxlength')==undefined) {
+        var max_charset = 100000;
+    } else {
+        var max_charset = Number($('input[name='+ name +']').attr('maxlength').length)+1;
     };
 
     if($('input[name='+ name +']').hasClass('drm_text')) {
-
-    }
+        error = 'Please enter a valid text.';
+    };
 
     if($('input[name='+ name +']').hasClass('drm_num')) {
-
-    }
+        error = 'Please enter only digits.';
+    };
 
     if($('input[name='+ name +']').hasClass('drm_phone')) {
-
-    }
+        error = 'Please enter a valid phone number.';
+    };
 
     if($('input[name='+ name +']').hasClass('drm_email')) {
-
-    }
+        error = 'Please enter a valid email address.';
+    };
 
     if($('input[name='+ name +']').hasClass('drm_url')) {
-
-    }
+        error = 'Please enter a valid URL.';
+    };
 
     if($('input[name='+ name +']').hasClass('drm_dateYYYYmmdd')) {
-
-    }
+        error = 'Please enter a valid date. (YYYYmmdd)';
+    };
 
     if($('input[name='+ name +']').hasClass('drm_datemmddYYYY')) {
+        error = 'Please enter a valid date. (mmddYYYY)';
+    };
 
+    if($('input[name='+ name +']').hasClass('drm_login') || $('input[name='+ name +']').hasClass('drm_password')) {
+        if(get_charset < min_charset && get_charset > max_charset && get_charset !== 0) {
+            error = "Login must be only alphabetic symbols";
+        }
+    };
+
+
+
+    if(get_charset < min_charset) {
+        error = 'Please enter at least ' + min_charset + ' characters';
+    };
+
+    if(get_charset > max_charset) {
+        error = 'Please enter no more than ' + min_charset + ' characters.';
+    };
+
+    if(get_charset == 0 && $('input[name='+ name +']').attr('required')) {
+        error = "This field is required";
     }
 
     $(this).after('<div class="tooltip">'+ error +'</div>');
