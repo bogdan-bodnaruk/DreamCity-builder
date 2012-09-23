@@ -15,6 +15,10 @@ Modernizr.load([
         test: $.browser.mozilla,
         yep: css + '/mozilla_reset.css'
     },
+	{
+		test: $.browser.msie,
+		yep: library + '/classList.js'
+	},
     {
         test: $("textarea").is("[id^='cked-']"),
         yep: library + '/ckeditor/ckeditor.js',
@@ -26,7 +30,7 @@ Modernizr.load([
                 CKEDITOR.replace(
                     $("textarea[id^='cked-']")[i].id,
                     {toolbar : $("textarea[id^='cked-']")[i].classList[0]}
-                );
+		        );
             }
         }
     },
@@ -96,8 +100,19 @@ Modernizr.load([
         }
     },
 	{
-		test: $.browser.msie,
-		yep: [css + '/ie.css', library + '/PIE.js'],
+		test: $.browser.msie && $.browser.version==8.0,
+		yep: [css + '/ie8.css', library + '/PIE.js'],
+		callback: function() {
+			if (window.PIE) {
+				$('*').each(function() {
+					PIE.attach(this);
+				});
+			}
+		}
+	},
+	{
+		test: $.browser.msie && $.browser.version==9.0,
+		yep: [css + '/ie9.css', library + '/PIE.js'],
 		callback: function() {
 			if (window.PIE) {
 				$('*').each(function() {

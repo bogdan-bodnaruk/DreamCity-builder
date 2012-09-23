@@ -111,7 +111,7 @@
                     $element.addClass(options.errorClass).removeClass(options.validClass);
                     $element.after(function(){
                         if(!$(this).next().hasClass('drm-error_text')) {
-                            $element.after('<div class="drm-error_text" id="'+ $element.attr('name') +'">i</div> ');
+                            $element.after('<div class="drm-error_text" id="'+ $element.attr('name') +'">i</div>');
                         }
                     });
 

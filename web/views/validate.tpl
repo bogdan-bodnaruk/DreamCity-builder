@@ -3,6 +3,8 @@
         <td style="width: 320px;">
             <form name="form1" method="POST" action="/ui/validate">
                 Login:  ##text->[name=test1;validate=login;min=2;required=false;max=50;]##
+                <div class="drm-error_text" id="test1">i</div>
+                <div class="tooltip">TEXT text</div>
             </form>
         </td>
         <td>
