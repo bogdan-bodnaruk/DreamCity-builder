@@ -28,9 +28,9 @@ Modernizr.load([
                     delete CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]
                 };
                 CKEDITOR.replace(
-                    $("textarea[id^='cked-']")[i].id,
-                    {toolbar : $("textarea[id^='cked-']")[i].classList[0]}
-		        );
+			$("textarea[id^='cked-']")[i].id,
+                    	{toolbar : $("textarea[id^='cked-']")[i].classList[0]}
+		);
             }
         }
     },
@@ -108,6 +108,27 @@ Modernizr.load([
 					PIE.attach(this);
 				});
 			}
+			
+			$('label[for^=radio_]').on('click', function() {
+				var idRadio = $(this).attr('for');
+				var nameRadio = $('input[id='+ idRadio +']').attr('name');
+				$('label[for^=radio_'+nameRadio+']').removeClass('radioСhecked');
+				$('input[id=' + idRadio +']').attr('checked', 'checked');
+				$(this).addClass('radioСhecked');
+			});
+
+
+			$('label[for^=checkbox_]').on('click', function() {
+				$('input[id=' + $(this).attr('for') +']').attr('checked', 'checked');
+				$(this).addClass('checkboxСhecked');
+				$('body').click();
+			});
+
+			$('label[class^=checkboxСhecked]').live('click', function(){
+				$('input[id=' + $(this).attr('for') +']').removeAttr('checked');
+				$(this).removeClass('checkboxСhecked');
+				$('body').click();
+			});
 		}
 	},
 	{

@@ -1,10 +1,37 @@
-.drm-error_text {
-	top: 1px;
-	-pie-lazy-init: true;
+div.radio_wrapper label {
+	-pie-background: linear-gradient(#74e036,#5eaf28);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
+	padding: 7px 10px;
+	color: #FFFFFF;
+    	font-family: Arial, Helvetica, sans-serif;
+    	font-size: 13px;
+    	border: 1px solid #70a232;
+	margin-left: -4px;
 }
 
-.tooltip {
-    top: -58px;
-	position: static;
-	-pie-lazy-init: true;
+div.radio_wrapper label.radioСhecked {
+	-pie-background: linear-gradient(#5eaf28,#74e036);
+}
+
+div.checkbox_wrapper label {
+    	padding: 7px 10px;
+	-pie-background: linear-gradient(#74e036, #5eaf28);
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	border: 1px solid #70a232;
+	text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
+	margin-left: -4px;
+}
+
+div.checkbox_wrapper label.checkboxСhecked {
+	-pie-background: linear-gradient(#5eaf28,#74e036);
+}
+
+* {
+	outline: none;
+}
+
+textarea {
+	border: 1px solid #999999;
 }
