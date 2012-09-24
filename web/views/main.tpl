@@ -12,6 +12,7 @@
         var client_css = '{config::client_css}';
         var library_path = '{config::library_path}';
         var env = '{config::env}';
+        var locale = '{config::current_locale}';
         var warning_class = '{config::warning_class}';
         var error_class = '{config::error_class}';
         var valid_class = '{config::valid_class}';

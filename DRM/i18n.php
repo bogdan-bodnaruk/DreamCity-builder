@@ -4,12 +4,8 @@ class i18n extends DRM {
     
     function __construct() {
         if(!isset($this->data)) {
-            $current = isset($_COOKIE['i18n'])
-                        ? $_COOKIE['i18n']
-                        : $this->registry()->config['default_i18n'];
-                        
-            is_file(PATH.$this->registry()->config['library_path'].'/i18n/'.$current.'.php')
-                    ? include (PATH.$this->registry()->config['library_path'].'/i18n/'.$current.'.php')
+            is_file(PATH.'/.config/i18n/messages.'.$this->registry()->config['current_locale'].'.php')
+                    ? include (PATH.'/.config/i18n/messages.'.$this->registry()->config['current_locale'].'.php')
                     : '';
             $this->data = isset($i18n) ? $i18n : $this->data;
         };

@@ -6,6 +6,9 @@ Modernizr.load([
         load: [css + '/boilerplate.css', css + '/main.css', css + '/green.css']
     },
     {
+      load: '/.config/i18n/messages.'+ locale + '.js'
+    },
+    {
         load: [library + '/chosen/chosen.css', library + '/chosen/chosen.min.js'],
         complete: function() {
             $('select').chosen();
@@ -104,6 +107,10 @@ Modernizr.load([
 		yep: [css + '/ie8.css', library + '/PIE.js'],
 		callback: function() {
 			if (window.PIE) {
+				$('div.radio_wrapper > input[type="radio"]:first-child + label').css('border-radius', '5px 0 0 5px');
+				$('div.radio_wrapper > input[type="radio"] + label:last-child').css('border-radius', '0 5px 5px 0');
+				$('div.checkbox_wrapper > input[type="checkbox"]:first-child +label').css('border-radius', '5px 0 0 5px');
+				$('div.checkbox_wrapper > input[type="checkbox"] + label:last-child').css('border-radius', '0 5px 5px 0');
 				$(document).ready(function(){
 					$('*').each(function() {
 						PIE.attach(this);

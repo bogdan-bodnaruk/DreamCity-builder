@@ -523,47 +523,47 @@ $('div.drm-error_text').live('mouseover', function(){
     };
 
     if($('input[name='+ name +']').hasClass('drm_text')) {
-        error = 'Please enter a valid text.';
+        error = message.validText;
     };
 
     if($('input[name='+ name +']').hasClass('drm_num')) {
-        error = 'Please enter only digits.';
+        error = message.validDigits;
     };
 
     if($('input[name='+ name +']').hasClass('drm_phone')) {
-        error = 'Please enter a valid phone number.';
+        error = message.validPhone;
     };
 
     if($('input[name='+ name +']').hasClass('drm_email')) {
-        error = 'Please enter a valid email address.';
+        error = message.validEmail;
     };
 
     if($('input[name='+ name +']').hasClass('drm_url')) {
-        error = 'Please enter a valid URL.';
+        error = message.validURL;
     };
 
     if($('input[name='+ name +']').hasClass('drm_dateYYYYmmdd')) {
-        error = 'Please enter a valid date. (YYYYmmdd)';
+        error = message.validDateYYYYmmdd;
     };
 
     if($('input[name='+ name +']').hasClass('drm_datemmddYYYY')) {
-        error = 'Please enter a valid date. (mmddYYYY)';
+        error = message.validDatemmddYYYY;
     };
 
     if($('input[name='+ name +']').hasClass('drm_login') || $('input[name='+ name +']').hasClass('drm_password')) {
-        error = "This field must be only alphabetic symbols";
+        error = message.validLogin;
     };
 	
 	if(get_charset < min_charset) {
-        error = 'Please enter at least ' + min_charset + ' characters';
+        error = message.minChar + min_charset + message.characters;
     };
 
     if(get_charset > max_charset) {
-        error = 'Please enter no more than ' + min_charset + ' characters.';
+        error = message.maxChar + min_charset + message.characters;
     };
 
     if(get_charset == 0 && $('input[name='+ name +']').attr('required')) {
-        error = "This field is required";
+        error = message.required;
     };
 	
 
@@ -576,7 +576,6 @@ $('div.drm-error_text').live('mouseover', function(){
 });
 
 $('div.drm-error_text').live('mouseout', function(){
-	
 	$('.tooltip').hide();
     $('.tooltip').detach();
 });

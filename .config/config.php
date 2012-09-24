@@ -52,3 +52,4 @@ $config = array(/* main settings */
         );
 
 $config['library'] = ($config['env'] == 'production') ? '/'.$config['library_path'].'/min/?f='.$config['library_path'] : $config['library_path'];
+$config['current_locale'] = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $config['default_i18n'];

@@ -1,9 +1,4 @@
 (function(){
-    var text = ["Did you know that your Internet Explorer is out of date?",
-        "To get better browsing experience and enhanced security, try one of the free, modern" +
-            " web browsers or upgrade to the newest version of Internet Explorer.",
-        "Some popular web browsers - just click on the icon to get to the download page!"];
-
     var browsers = [
         {
             name : "Firefox",
@@ -25,9 +20,9 @@
             icon : library_path + "/ie_blocker/ie.png",
             link : "http://windows.microsoft.com/en-US/internet-explorer/downloads/ie"
         }];
-    var markup = "<div style='margin: 10% 20%;'><h1 style='color:white;font-size: 18px;'>" + text[0] + "</h1>"
-                  + "<p style='color:white;margin-top: 20px;'>" + text[1] + "</p>"
-                  + "<p style='color:white;'>" + text[2] + "</p>"
+    var markup = "<div style='margin: 10% 20%;'><h1 style='color:white;font-size: 18px;'>" + message.ie_out_of_date + "</h1>"
+                  + "<p style='color:white;margin-top: 20px;'>" + message.ie_recomendations + "</p>"
+                  + "<p style='color:white;'>" + message.ie_other_browsers + "</p>"
                   + "<div style='text-align: center;margin-top: 20px;'>";
 
     for (var i=0;i<browsers.length;i++) {
