@@ -7,6 +7,7 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <script type="text/javascript">
         var client_css = '{config::client_css}';
         var library_path = '{config::library_path}';

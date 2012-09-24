@@ -40,7 +40,7 @@
                     drm_datemmddYYYY: /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}/,
 
                     drm_login: /[a-zA-Z]/,
-                    drm_password: /[a-zA-Z]/,
+                    drm_password: /[a-zA-Z0-9]/,
                     drm_text: /[\w!@$%^&*()№_+|\-\\,=.?'";:а-яА-ЯіІїЇєЄёЁ\s\ ]/,
                     drm_num: /[0-9]/,
 
@@ -110,8 +110,14 @@
                         $errorID = $(options.errorID);
                     $element.addClass(options.errorClass).removeClass(options.validClass);
                     $element.after(function(){
-                        if(!$(this).next().hasClass('drm-error_text')) {
+						var drmError = $(this).attr('name');
+                        if(!$('div[id^='+drmError+']').hasClass('drm-error_text')) {
                             $element.after('<div class="drm-error_text" id="'+ $element.attr('name') +'">i</div>');
+							if (window.PIE && $.browser.msie) {
+								$('div.drm-error_text').each(function() {
+									PIE.attach(this);
+								});
+							}
                         }
                     });
 
@@ -146,8 +152,13 @@
 // Unmark field
                 unmark: function unmark(options) {
                     var $element = $(options.element);
+                    var drmError = $element.form.find("#" + options.element.id);
                     $element.removeClass(options.errorClass).removeClass(options.validClass);
-                    $element.form.find("#" + options.element.id).removeClass(options.errorClass).removeClass(options.validClass);
+					if ($.browser.msie) {
+						$('.drm-error_text').hide();
+					}
+					drmError.removeClass(options.errorClass);
+					drmError.removeClass(options.validClass);
                     return $element;
                 }
             }
@@ -498,7 +509,7 @@ $('div.drm-error_text').live('mouseover', function(){
     var name = $(this).attr('id');
     var error = '';
     var get_charset = Number($('input[name='+ name +']').val().length);
-
+	
     if($('input[name='+ name +']').attr('data-min')==undefined) {
         var min_charset = 0;
     } else {
@@ -540,14 +551,10 @@ $('div.drm-error_text').live('mouseover', function(){
     };
 
     if($('input[name='+ name +']').hasClass('drm_login') || $('input[name='+ name +']').hasClass('drm_password')) {
-        if(get_charset < min_charset && get_charset > max_charset && get_charset !== 0) {
-            error = "Login must be only alphabetic symbols";
-        }
+        error = "This field must be only alphabetic symbols";
     };
-
-
-
-    if(get_charset < min_charset) {
+	
+	if(get_charset < min_charset) {
         error = 'Please enter at least ' + min_charset + ' characters';
     };
 
@@ -557,11 +564,19 @@ $('div.drm-error_text').live('mouseover', function(){
 
     if(get_charset == 0 && $('input[name='+ name +']').attr('required')) {
         error = "This field is required";
-    }
+    };
+	
 
     $(this).after('<div class="tooltip">'+ error +'</div>');
+	if (window.PIE && $.browser.msie) {
+		$('div.tooltip').each(function() {
+			PIE.attach(this);
+		});
+	}
 });
 
 $('div.drm-error_text').live('mouseout', function(){
+	
+	$('.tooltip').hide();
     $('.tooltip').detach();
 });

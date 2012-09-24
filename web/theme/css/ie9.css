@@ -1,13 +1,12 @@
-.tooltip {
-    top: 0;
-	position: relative;
-	border: 1px solid #999999;
-}
-
 * {
 	outline: none;
 }
 
 textarea {
+	border: 1px solid #999999;
+}
+
+
+.tooltip {
 	border: 1px solid #999999;
 }

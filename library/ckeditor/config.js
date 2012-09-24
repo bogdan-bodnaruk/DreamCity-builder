@@ -12,6 +12,7 @@ CKEDITOR.editorConfig = function( config )
     
     config.skin = 'BootstrapCK-Skin';
     config.filebrowserImageUploadUrl = "upload/ckeditor/";
+	config.smiley_path = '/' + library_path + '/ckeditor/plugins/smiley/images/';
     
     config.toolbar_admin =
     [

@@ -104,8 +104,10 @@ Modernizr.load([
 		yep: [css + '/ie8.css', library + '/PIE.js'],
 		callback: function() {
 			if (window.PIE) {
-				$('*').each(function() {
-					PIE.attach(this);
+				$(document).ready(function(){
+					$('*').each(function() {
+						PIE.attach(this);
+					});
 				});
 			}
 			
@@ -116,7 +118,6 @@ Modernizr.load([
 				$('input[id=' + idRadio +']').attr('checked', 'checked');
 				$(this).addClass('radioСhecked');
 			});
-
 
 			$('label[for^=checkbox_]').on('click', function() {
 				$('input[id=' + $(this).attr('for') +']').attr('checked', 'checked');
@@ -129,6 +130,20 @@ Modernizr.load([
 				$(this).removeClass('checkboxСhecked');
 				$('body').click();
 			});
+			
+			var checkedCheckbox = $('body').find('input[type=checkbox]:checked');
+			if(checkedCheckbox.length >= 0) {
+				for(var i=0; i<checkedCheckbox.length; i++) {
+					$('label[for=checkbox_'+ $(checkedCheckbox[i]).attr('name') +']').addClass('checkboxСhecked');
+				}
+			};
+			
+			var checkedRadio = $('body').find('input[type=radio]:checked');
+			if(checkedRadio.length >= 0) {
+				for(var j=0; j<checkedRadio.length; j++) {
+					$('label[for='+ $(checkedRadio[j]).attr('id') +']').addClass('radioСhecked');
+				}
+			};
 		}
 	},
 	{

@@ -35,3 +35,7 @@ div.checkbox_wrapper label.checkboxСhecked {
 textarea {
 	border: 1px solid #999999;
 }
+
+.tooltip {
+	position: relative;
+}
