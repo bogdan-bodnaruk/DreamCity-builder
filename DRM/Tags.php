@@ -20,7 +20,7 @@ class Tags extends DRM {
         $class = $this->_class_($this->property['class'].' drm_'.($type=='password' ? 'password' : $validate_type));
 
         $input = '<input '.$this->property['style'].$class
-                .(!empty($this->property['min']) ? ' data-min="'.$this->property['min'].'"' : '')
+                .(!empty($this->property['min']) ? ' data-min="'.$this->property['min'].'" ' : '')
                 .$this->property['id'].'type="'.$type.'" name="'.$this->property['name']
                 .'" value="'.$value.'" size="'.$this->property['size']
                 .'" maxlength="'.$this->property['max'].'" '.$this->property['js']

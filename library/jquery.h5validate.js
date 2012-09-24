@@ -39,8 +39,8 @@
                     drm_dateYYYYmmdd: /\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}/,
                     drm_datemmddYYYY: /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}/,
 
-                    drm_login: /[a-zA-Z]/,
-                    drm_password: /[a-zA-Z0-9]/,
+                    drm_login: /[a-zA-Z0-9_-]/,
+                    drm_password: /[a-zA-Z0-9_-]/,
                     drm_text: /[\w!@$%^&*()№_+|\-\\,=.?'";:а-яА-ЯіІїЇєЄёЁ\s\ ]/,
                     drm_num: /[0-9]/,
 
@@ -519,7 +519,7 @@ $('div.drm-error_text').live('mouseover', function(){
     if($('input[name='+ name +']').attr('maxlength')==undefined) {
         var max_charset = 100000;
     } else {
-        var max_charset = Number($('input[name='+ name +']').attr('maxlength').length)+1;
+        var max_charset = Number($('input[name='+ name +']').attr('maxlength'));
     };
 
     if($('input[name='+ name +']').hasClass('drm_text')) {
@@ -559,6 +559,7 @@ $('div.drm-error_text').live('mouseover', function(){
     };
 
     if(get_charset > max_charset) {
+        console.log(max_charset);
         error = message.maxChar + min_charset + message.characters;
     };
 
