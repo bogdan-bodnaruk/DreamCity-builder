@@ -41,7 +41,7 @@
 
                     drm_login: /[a-zA-Z0-9_-]/,
                     drm_password: /[a-zA-Z0-9_-]/,
-                    drm_text: /[\w!@$%^&*()№_+|\-\\,=.?'";:а-яА-ЯіІїЇєЄёЁ\s\ ]/,
+                    drm_text: /[\w!@$%^&*()№_+|\-\\\/,=.?'";:а-яА-ЯіІїЇєЄёЁ\s\ ]/,
                     drm_num: /[0-9]/,
 
                     drm_phone: /[0-9\-+]{5,18}/,
@@ -53,7 +53,7 @@
 // The prefix to use for dynamically-created class names.
                 classPrefix: '',
 
-                errorClass: error_class, // No prefix for these.
+                errorClass: warning_class, // No prefix for these.
                 validClass: valid_class, // "
                 activeClass: active_class, // Prefix will get prepended.
                 requiredClass: 'required',
@@ -61,7 +61,7 @@
                 patternAttribute: 'pattern',
 
 // Attribute which stores the ID of the error container element (without the hash).
-                errorAttribute: 'data-error-text',
+                errorAttribute: error_class,
 
 // Events API
                 customEvents: {
@@ -111,10 +111,10 @@
                     $element.addClass(options.errorClass).removeClass(options.validClass);
                     $element.after(function(){
 						var drmError = $(this).attr('name');
-                        if(!$('div[id^='+drmError+']').hasClass('drm-error_text')) {
-                            $element.after('<div class="drm-error_text" id="'+ $element.attr('name') +'">i</div>');
+                        if(!$('span[id^='+drmError+']').hasClass(error_class)) {
+                            $element.after('<span class="' + error_class + '" id="'+ $element.attr('name') +'">i</span>');
 							if (window.PIE && $.browser.msie) {
-								$('div.drm-error_text').each(function() {
+								$('span.' + error_class).each(function() {
 									PIE.attach(this);
 								});
 							}
@@ -155,7 +155,7 @@
                     var drmError = $element.form.find("#" + options.element.id);
                     $element.removeClass(options.errorClass).removeClass(options.validClass);
 					if ($.browser.msie) {
-						$('.drm-error_text').hide();
+						$('.' + error_class).hide();
 					}
 					drmError.removeClass(options.errorClass);
 					drmError.removeClass(options.validClass);
@@ -274,11 +274,6 @@
                     required = ($this.attr('required') !== undefined);
                 }
 
-                if (settings.debug && window.console) {
-                    console.log('Validate called on "' + value + '" with regex "' + re + '". Required: ' + required); // **DEBUG
-                    console.log('Regex test: ' + re.test(value) + ', Pattern: ' + pattern); // **DEBUG
-                }
-
                 if (required && !value) {
                     validity.valid = false;
                     validity.valueMissing = true;
@@ -374,11 +369,7 @@
                     $('.' + settings.classPrefix + key).attr('pattern', pattern);
                 });
 
-                $this.filter('form').attr('novalidate', 'novalidate');
-                $this.find('form').attr('novalidate', 'novalidate');
-                $this.parents('form').attr('novalidate', 'novalidate');
-
-                return this.each(function () {
+                  return this.each(function () {
                     var kbEvents = {
                             focusout: settings.focusout,
                             focusin: settings.focusin,
@@ -505,7 +496,7 @@ $('input[type=text], input[type=password]').live('click', function(){
     $(name).remove();
 });
 
-$('div.drm-error_text').live('mouseover', function(){
+$('span.' + error_class).live('mouseover', function(){
     var name = $(this).attr('id');
     var error = '';
     var get_charset = Number($('input[name='+ name +']').val().length);
@@ -568,15 +559,20 @@ $('div.drm-error_text').live('mouseover', function(){
     };
 	
 
-    $(this).after('<div class="tooltip">'+ error +'</div>');
+   // $(this).after('<span class="tooltip">'+ error +'</span>');
+    $('<span class="tooltip">'+ error +'</span>').appendTo(this);
 	if (window.PIE && $.browser.msie) {
-		$('div.tooltip').each(function() {
+		$('span.tooltip').each(function() {
 			PIE.attach(this);
 		});
 	}
 });
 
-$('div.drm-error_text').live('mouseout', function(){
+$('span.' + error_class).live('mouseout', function(){
 	$('.tooltip').hide();
     $('.tooltip').detach();
+});
+
+$('input[type=text]').live('focus', function(){
+    $('.tooltip').hide();
 });

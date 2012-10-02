@@ -78,13 +78,13 @@ class PHPMailer {
    * Sets the From email address for the message.
    * @var string
    */
-  public $From              = 'interedinfo@gmail.com';
+  public $From              = ''; //TODO: use global base href
 
   /**
    * Sets the From name of the message.
    * @var string
    */
-  public $FromName          = 'interedinfo';
+  public $FromName          = ''; //Todo: use global site name or base href
 
   /**
    * Sets the Sender email (Return-Path) of the message.  If not empty,
@@ -226,13 +226,13 @@ class PHPMailer {
    * Sets SMTP username.
    * @var string
    */
-  public $Username      = 'babak.47031@gmail.com';
+  public $Username      = 'drm.proxy.mail@gmail.com';
 
   /**
    * Sets SMTP password.
    * @var string
    */
-  public $Password      = 'sorok949';
+  public $Password      = 'drmproxymail';
 
   /**
    * Sets the SMTP server timeout in seconds.

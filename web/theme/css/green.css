@@ -8,6 +8,7 @@ button, input[type="submit"], input[type="button"] {
     font-size: 14px;
     color: #ffffff;
     padding: 10px 20px;
+    text-decoration: none;
     background: linear-gradient(top,#74e036 0%,#5eaf28);
     background: -moz-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -webkit-linear-gradient(top,#74e036 0%,#5eaf28);
@@ -47,7 +48,7 @@ button:active, input[type="submit"]:active, input[type="button"]:active {
 }
 
 /* Checkbox style */
-div.checkbox_wrapper > input[type="checkbox"]:first-child +label {
+div.checkbox_wrapper > input[type="checkbox"]:first-child + label {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
 }
@@ -70,11 +71,6 @@ div.checkbox_wrapper > input[type="checkbox"] + label {
     -o-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     -ms-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     margin-left: -4px;
-    transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
 }
 
 div.checkbox_wrapper > input[type="checkbox"] + label:last-child {
@@ -99,15 +95,10 @@ div.checkbox_wrapper > input[type="checkbox"]:checked + label {
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     -ms-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
 }
 
 /* Radio button style */
-div.radio_wrapper > input[type="radio"]:first-child +label {
+div.radio_wrapper > input[type="radio"]:first-child + label {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
 }
@@ -130,11 +121,6 @@ div.radio_wrapper > input[type="radio"] + label {
     -o-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     -ms-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     margin-left: -4px;
-    transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
 }
 
 div.radio_wrapper > input[type="radio"] + label:last-child {
@@ -159,11 +145,6 @@ div.radio_wrapper > input[type="radio"]:checked + label {
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     -ms-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
 }
 
 /* textarea style */
@@ -188,11 +169,6 @@ textarea:focus {
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
     -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
     -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    transition: all 0.6s ease-in-out;
-    -moz-transition: all 0.6s ease-in-out;
-    -webkit-transition: all 0.6s ease-in-out;
-    -o-transition: all 0.6s ease-in-out;
-    -ms-transition: all 0.6s ease-in-out;
     background-color: #F9FCEF;
 }
 
@@ -204,10 +180,6 @@ input[type="text"], input[type="password"] {
     font-size: 12px;
     color: #999999;
     box-shadow: 0 0 5px #CCCCCC;
-    -moz-transition: all 0.6s ease-in-out;
-    -webkit-transition: all 0.6s ease-in-out;
-    -o-transition: all 0.6s ease-in-out;
-    -ms-transition: all 0.6s ease-in-out;
     outline: none;
 }
 
@@ -218,17 +190,17 @@ input[type="text"]:focus, input[type="password"]:focus {
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
     -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
     -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -moz-transition: all 0.6s ease-in-out;
-    -webkit-transition: all 0.6s ease-in-out;
-    -o-transition: all 0.6s ease-in-out;
-    -ms-transition: all 0.6s ease-in-out;
     background-color: #F9FCEF;
 }
 
 /* select style */
 select {
-	width: 100px\8/;
-    min-width: 100px;
+	width: 150px\8/;
+    min-width: 150px;
+}
+
+.chzn-drop .chzn-results {
+    clear: both;
 }
 
 .chzn-container .chzn-results .highlighted {
@@ -243,7 +215,7 @@ select {
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
     -ms-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    color: #fff;
+    color: #ffffff;
 }
 
 .chzn-container .chzn-drop {
@@ -296,46 +268,48 @@ select {
     height: 23px;
     line-height: 24px;
     padding: 0 0 0 8px;
-    color: #FFF;
+    color: #FFF !important;
     text-decoration: none;
 }
 
-/* login style */
-div#main div#login_wrapper {
-    margin: 150px auto;
-    border: 1px solid #70a232;
-    box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -moz-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -webkit-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -o-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -ms-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+/* errors styling */
+.drm-warning {
+    background-color: #FFD4C3;
+}
+
+.drm-error {
+    background-color: #EE4200;
+    border-radius: 16px 16px 16px 16px;
+    color: white;
+    margin-left: -20px;
+    padding: 2px 8px;
+    position: relative;
+    text-align: center;
+    width: 15px;
+    left: -4px;
+    top: 2px;
+    font-weight: bolder;
+    box-shadow:  inset 0 0 1px #747474;
+    -moz-box-shadow:  inset 0 0 1px #747474;
+    -webkit-box-shadow:  inset 0 0 1px #747474;
+    -o-box-shadow:  inset 0 0 1px #747474;
+    -ms-box-shadow:  inset 0 0 1px #747474;
+    cursor: help;
+}
+
+.tooltip {
+    background-color: yellow;
+    border: 1px solid yellow;
     border-radius: 5px 5px 5px 5px;
-    width: 350px;
-    padding: 20px;
-    background-color: #FFFFFF;
-}
-
-div#main div#login_wrapper p {
-    margin: 8px 0;
-    text-align: right;
-}
-
-/* forgotpass style */
-#forgot {
-    margin: 100px auto;
-    border: 1px solid #70a232;
-    box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -moz-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -webkit-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -o-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -ms-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    border-radius: 5px;
-    width: 350px;
-    padding: 20px;
-    background-color: #FFFFFF;
-}
-
-#forgot p {
-    margin: 8px 0;
-    text-align: right;
+    box-shadow: 0 0 10px #999999;
+    -moz-box-shadow: 0 0 10px #999999;
+    -webkit-box-shadow: 0 0 10px #999999;
+    -o-box-shadow: 0 0 10px #999999;
+    -ms-box-shadow: 0 0 10px #999999;
+    position: absolute;
+    top: -40px;
+    min-width: 150px;
+    width: 150px\8/;
+    padding: 5px;
+    color: #333;
 }

@@ -2,7 +2,6 @@
 class Validate extends DRM {
     private $data;
     private $name;
-    static private $revert;
     
     function __call($name, $values) {
         Logger::error('Method ['.$name.'] not isset in class ['.__CLASS__.']');

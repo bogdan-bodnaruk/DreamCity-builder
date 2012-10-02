@@ -92,14 +92,23 @@ class Template extends DRM {
     }
     
     public function url($table = '') {
-        $value = isset($_SESSION['validate']['theme']) ? $_SESSION['validate']['theme']: '';
-        $try = $this->db()->table($table)->select('theme')->where('`theme` = \''.$value.'\'')->num();
+        $try = $this->db()->table($table)->select('theme')->where('`theme` = \''.$this->validate('theme').'\'')->num();
         $array = array(' '      => '_',
+						'/'		=>	'_',
                        '%20'    => '_',
                        ','      => '_');
-        return $try<=1 ? strtr($value, $array) : strtr($value.$try, $array);
+        return $try<=1 ? strtr($this->validate('theme'), $array) : strtr($this->validate('theme').$try, $array);
     }
-    
+
+    public function validate($data) {
+        $value = isset($_POST[$data]) ? $_POST[$data] : '';
+        $value = strtr($value, array('\'' =>  '&#39;',
+                                     '"'  =>  '&quot;',
+                                     '$'  =>  '&#36;'));
+
+        return $value;
+    }
+
     function __destruct() {
         unset($this->html);
     }

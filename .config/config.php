@@ -2,13 +2,13 @@
 $config = array(/* main settings */
                 'system_path'       =>  'DRM',
                 'library_path'	    =>  'library',
-		'app_path'	    =>  'web',
                 'main_page'         =>  'index',
                 'encoding'          =>  'UTF-8',
+                'app_path'          =>  'web',
                 'description'       =>  '{DRM} - make development easiest',
                 'keyword'           =>  '{DRM} - make development easiest',
-                'generator'         =>  '{DRM}.v.0.8.0',
-                'generator_version' =>  'v.0.8.0',
+                'generator'         =>  '{DRM}.v.0.8.2',
+                'generator_version' =>  'v.0.8.2',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',      
                 'base_href'         =>  'http://engine.drm/',
@@ -26,6 +26,10 @@ $config = array(/* main settings */
                 'log_error_to_file' =>  false,
                 'log_changes_to_db' =>  false,
                 'copyright'         =>  'Copyright &copy; 2011 - 2012 Bogdan Bodnaruk. All Rights Reserved. ',
+
+                /* Using when DB not connected */
+                'admin_login'       =>  'admin',
+                'admin_pass'        =>  '21232f297a57a5a743894a0e4a801fc3',
 
                 /* default values for html */
                 'input_size'        =>  15,
@@ -51,5 +55,12 @@ $config = array(/* main settings */
                 'paginator_link'    =>  'class="link"'
         );
 
-$config['library'] = ($config['env'] == 'production') ? '/'.$config['library_path'].'/min/?f='.$config['library_path'] : $config['library_path'];
+if($config['env'] == 'production') {
+    $config['library'] = '/'.$config['library_path'].'/min/?f='.$config['library_path'];
+    $config['css'] = '/'.$config['library_path'].'/min/?f='.$config['client_css'];
+} else {
+    $config['library'] = $config['library_path'];
+    $config['css'] =  $config['client_css'];
+};
+
 $config['current_locale'] = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $config['default_i18n'];

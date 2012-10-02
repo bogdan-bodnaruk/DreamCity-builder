@@ -63,7 +63,7 @@ class Paginator extends DRM {
             };
         }
         $this->link = $this->registry()->controller.$link;
-        $this->onpage = $this->registry()->config['items_onpage'];
+        $this->onpage = $this->registry()->config['on_page'];
         $array = $this->db()
                  ->table($this->table)
                  ->select()
@@ -79,7 +79,7 @@ class Paginator extends DRM {
                     };
                 }
             };
-            parent::$values[''] = $data;
+            parent::$values['paginator'] = $data;
             $this->data .= $this->template()->load(self::$tpl)->data();
         }
         parent::$values['paginator_buttons'] = $this->count($page);
@@ -135,8 +135,6 @@ class Paginator extends DRM {
                         .' '.$this->registry()->config['paginator_link'].'>&nbsp;'.(intval($count/$this->onpage)).'&nbsp;</a>'
                     : '';
             return '<div '.$this->registry()->config['paginator_class'].'>'.$str.'</div>';
-        } else {
-            return '';  
         };
     }
 }

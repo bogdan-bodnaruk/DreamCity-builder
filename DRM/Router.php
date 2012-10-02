@@ -58,7 +58,7 @@ class Router extends DRM {
 
         $this->parse_url();
          if (!isset($this->path[0]) || $this->path[0] == $this->registry()->config['main_page']) {
-               $this->path[0] = $this->registry()->config['main_page'];
+               $this->path = explode('/', $this->registry()->config['main_page']);
          };
         if(isset($this->registry()->routes[$this->path[0]])) {
             $this->path = $this->registry()->routes[$this->path[0]];
