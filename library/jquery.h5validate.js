@@ -561,11 +561,11 @@ $('span.' + error_class).live('mouseover', function(){
 
    // $(this).after('<span class="tooltip">'+ error +'</span>');
     $('<span class="tooltip">'+ error +'</span>').appendTo(this);
-	if (window.PIE && $.browser.msie) {
+	/*if (window.PIE && $.browser.msie) {
 		$('span.tooltip').each(function() {
 			PIE.attach(this);
 		});
-	}
+	}*/
 });
 
 $('span.' + error_class).live('mouseout', function(){
