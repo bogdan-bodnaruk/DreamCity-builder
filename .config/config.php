@@ -32,7 +32,7 @@ $config = array(/* main settings */
                 'admin_pass'        =>  '21232f297a57a5a743894a0e4a801fc3',
 
                 /* default values for html */
-                'input_size'        =>  15,
+                'input_size'        =>  25,
                 'input_max_chars'   =>  1000,
                 'textarea_cols'     =>  25,
                 'textarea_rows'     =>  5,

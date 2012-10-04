@@ -313,3 +313,13 @@ select {
     padding: 5px;
     color: #333;
 }
+
+.db_not_connected {
+    font-size: 16px;
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+    font-variant: small-caps;
+    font-family: sans-serif;
+}

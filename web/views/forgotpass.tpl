@@ -1,7 +1,7 @@
 <div id="forgot">
 	<div id="logo">
 	    <a href="{config::base_href}">
-	    {DRM} <span> - make development easiest</span>
+            &#123;DRM&#125; <span> - make development easiest</span>
 	    </a>
 	</div>
 	<form method="post" action="login/forgotpass">

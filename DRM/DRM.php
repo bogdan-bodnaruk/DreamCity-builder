@@ -12,7 +12,7 @@ class DRM {
         if(self::db()->connect()) {
             self::db()->connect();
             self::registry()->config += array('DB-connected' => true);
-            self::registry()->config += self::db()->table('config')->select()->where('`id` = 1')->limit(1)->fetch();
+            self::registry()->config = array_merge($config, self::db()->table('config')->select()->where('`id`=1')->limit(1)->fetch());
             new Session();
         } else {
             self::registry()->config += array('DB-connected' => false);

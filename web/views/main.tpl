@@ -7,7 +7,6 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <script type="text/javascript">
         var client_css = '{config::client_css}';
         var library_path = '{config::library_path}';
@@ -26,11 +25,12 @@
     <script src="{config::library}/common.js" type="text/javascript" defer="defer"></script>
 </head>
 <body>
+{session::login}
     <div id="main">
         <div id="menu_wrapper">
             <div id="logo">
                 <a href="{config::base_href}">
-                    {DRM} <span> - make development easiest</span>
+                    &#123;DRM&#125; <span> - make development easiest</span>
                 </a>
             </div>
             <ul id="menu">

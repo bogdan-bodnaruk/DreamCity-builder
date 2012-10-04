@@ -76,12 +76,17 @@ class Template extends DRM {
                     case('config'):
                         $array[$val[0][$i]] = $this->registry()->get($value[0], $value[1]);
                     break;
+                    case('session'):
+                        $array[$val[0][$i]] = isset($_SESSION[$value[1]]) ? $_SESSION[$value[1]] : '';
+                    break;
                     case('i18n'):
                         $array[$val[0][$i]] = $this->i18n->$value[1];
                     break;
                 };
             } elseif (isset(parent::$values[$value])) {
                 $array[$val[0][$i]] = parent::$values[$value];
+            } else {
+                $array[$val[0][$i]] = '';
             };
         }
         $this->html = strtr($this->html, $array);

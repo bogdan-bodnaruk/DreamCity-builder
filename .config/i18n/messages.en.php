@@ -132,4 +132,8 @@ $i18n = array('admin_panel'     =>  'Admin Panel',
                                          'Kyrgyzstan','China','Cuba','Latvia','Lithuania','Malta','Moldova','Mongolia','Netherlands','Germany','Germany',
                                          'New Zealand','Norway','Poland','Russia','Syria','Slovakia','United States','Tajikistan','Turkey','Turkmenistan',
                                          'Hungary','Uzbekistan', 'Ukraine','France','Czech Republic','Switzerland'),
+
+
+              // DRM admin panel messages
+              'db_not_connected'=>  'DB not connected! Web site on developer mode!',
     );
