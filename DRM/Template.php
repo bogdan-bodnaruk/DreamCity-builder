@@ -48,8 +48,8 @@ class Template extends DRM {
 
     private function render() {
         $data = array();
-        $array = array();
 
+        $this->html = strtr($this->html, $this->get_value());
         preg_match_all("/[\#\#]{2}[a-z]+[\-\>]{2}(.*)[\#\#]{2}/u", $this->html, $val);
         for($i=0;$i<count($val[0]);$i++) {
             $value = strtr($val[0][$i], array('##'=>''));
@@ -65,11 +65,31 @@ class Template extends DRM {
             $data['##'.$value.'##'] = $this->tags->return_input($type, $tags);
             unset($type, $tags);
         }
-
         $this->html = strtr($this->html, $data);
-        preg_match_all("/[\{][\w\_\-\/\:\,\;]+[\}]/", $this->html, $val);
+        $this->html = strtr($this->html, $this->get_value('safe'));
+    }
+
+    public function hash($lenght = 1) {
+        $code = '';
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789';
+        $chars_lenght = strlen($chars) - 1;
+        while (strlen($code) < $lenght) {
+            $code .= $chars[mt_rand(0,$chars_lenght)];
+        }
+        return $code;
+    }
+
+    private function get_value($type = '') {
+        $array = array();
+        if($type == 'safe') {
+            preg_match_all("/[\{][\w\_\-\/\:\,\;]+[\}]/", $this->html, $val);
+            $type = array('{'=>'','}'=>'');
+        } else {
+            preg_match_all("/[\$\{]{2}[\w\_\-\/\:\,\;]+[\}]/", $this->html, $val);
+            $type = array('${'=>'','}'=>'');
+        };
         for($i=0;$i<count($val[0]);$i++) {
-            $value = strtr($val[0][$i], array('{'=>'','}'=>''));
+            $value = strtr($val[0][$i], $type);
             if(preg_match("/[\:\:]/", $value)) {
                 $value = explode('::', $value);
                 switch($value[0]) {
@@ -89,7 +109,7 @@ class Template extends DRM {
                 $array[$val[0][$i]] = '';
             };
         }
-        $this->html = strtr($this->html, $array);
+        return $array;
     }
 
     public function post_is_valide() {

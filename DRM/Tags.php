@@ -1,6 +1,6 @@
 <?php
 class Tags extends DRM {
-    private $property;
+    private $D;
     private $i18n;
 
     public function __construct() {
@@ -13,19 +13,19 @@ class Tags extends DRM {
     }
 
     public function text($type='text') {
-        $value = isset($_POST[$this->property['name']]) && $type!=='password'
-                ? $_POST[$this->property['name']]
-                : $this->property['value'];
-        $validate_type = $this->property['validate'];
-        $class = $this->_class_($this->property['class'].' drm_'.($type=='password' ? 'password' : $validate_type));
+        $value = isset($_POST[$this->D['name']]) && $type!=='password'
+                ? $_POST[$this->D['name']]
+                : $this->D['value'];
+        $validate_type = $this->D['validate'];
+        $class = $this->_class_($this->D['class'].' drm_'.($type=='password' ? 'password' : $validate_type));
 
-        $input = '<input '.$this->property['style'].$class
-                .(!empty($this->property['min']) ? ' data-min="'.$this->property['min'].'" ' : '')
-                .$this->property['id'].'type="'.$type.'" name="'.$this->property['name']
-                .'" value="'.$value.'" size="'.$this->property['size']
-                .'" maxlength="'.$this->property['max'].'" '.$this->property['js']
-                .$this->property['placeholder'].$this->property['required'].' />'
-                .$this->validate->data($this->property['name'])->$validate_type($this->property['min'], $this->property['max']);
+        $input = '<input '.$this->D['style'].$class
+                .(!empty($this->D['min']) ? ' data-min="'.$this->D['min'].'" ' : '')
+                .$this->D['id'].'type="'.$type.'" name="'.$this->D['name']
+                .'" value="'.$value.'" size="'.$this->D['size']
+                .'" maxlength="'.$this->D['max'].'" '.$this->D['js']
+                .$this->D['placeholder'].$this->D['required'].' />'
+                .$this->validate->data($this->D['name'])->$validate_type($this->D['min'], $this->D['max']);
         return $input;
     }
 
@@ -34,33 +34,33 @@ class Tags extends DRM {
     }
 
     public function textarea() {
-        $text = isset($_POST[$this->property['name']])
-                ? $_POST[$this->property['name']]
-                : $this->property['value'];
-        $validate_type = $this->property['validate'];
+        $text = isset($_POST[$this->D['name']])
+                ? $_POST[$this->D['name']]
+                : $this->D['value'];
+        $validate_type = $this->D['validate'];
 
-        $input = '<textarea '.$this->property['style'].$this->property['class']
-                .$this->property['id'].' name="'.$this->property['name']
-                .'" rows='.$this->property['rows'].' cols="'.$this->property['cols']
-                .'" '.$this->property['placeholder'].'maxlength="'.$this->property['max']
-                .'" '.$this->property['js'].$this->property['required'].'>'.$text.'</textarea>'
-                .$this->validate->data($this->property['name'])->$validate_type($this->property['min'], $this->property['max']);
+        $input = '<textarea '.$this->D['style'].$this->D['class']
+                .$this->D['id'].' name="'.$this->D['name']
+                .'" rows='.$this->D['rows'].' cols="'.$this->D['cols']
+                .'" '.$this->D['placeholder'].'maxlength="'.$this->D['max']
+                .'" '.$this->D['js'].$this->D['required'].'>'.$text.'</textarea>'
+                .$this->validate->data($this->D['name'])->$validate_type($this->D['min'], $this->D['max']);
         return $input;
     }
 
     public function ckeditor() {
-        $this->property['id'] = 'id="cked-'.$this->property['cid'].'"';
-        $this->property['class'] = 'class="'.$this->property['type'].'" ';
+        $this->D['id'] = 'id="cked-'.$this->D['cid'].'"';
+        $this->D['class'] = 'class="'.$this->D['type'].'" ';
         return $this->textarea();
     }
 
     public function submit($type='submit') {
-        $this->property['name'] = empty($this->property['name']) ? $type : $this->property['name'];
-        unset($_SESSION[$this->property['name']]);
-        $this->property['name'] !== 'submit' && isset($_POST[$this->property['name']]) ? $_SESSION[$this->property['name']] = '' : '';
-        return '<input '.$this->property['style'].$this->property['class']
-				.$this->property['id'].' type="'.$type.'" name="'.$this->property['name']
-                .'" value="'.$this->property['value'].'" '.$this->property['js'].'/>';
+        $this->D['name'] = empty($this->D['name']) ? $type : $this->D['name'];
+        unset($_SESSION[$this->D['name']]);
+        $this->D['name'] !== 'submit' && isset($_POST[$this->D['name']]) ? $_SESSION[$this->D['name']] = '' : '';
+        return '<input '.$this->D['style'].$this->D['class']
+				.$this->D['id'].' type="'.$type.'" name="'.$this->D['name']
+                .'" value="'.$this->D['value'].'" '.$this->D['js'].'/>';
     }
 
     public function button() {
@@ -68,130 +68,152 @@ class Tags extends DRM {
     }
 
     public function select() {
-        $html = '<select name="'.$this->property['name'].'" '.$this->property['style']
-                .$this->property['class'].$this->property['id'].$this->property['js'].'>';
+        $html = '<select name="'.$this->D['name'].'" '.$this->D['style']
+                .$this->D['class'].$this->D['id'].$this->D['js'].'>';
 
-        $value = !is_array($this->property['value']) ? $this->get_value($this->property['value']) : $this->property['value'];
-        $text = !is_array($this->property['text']) ? $this->get_value($this->property['text']) : $this->property['text'];
+        $value = !is_array($this->D['value']) ? $this->get_value($this->D['value']) : $this->D['value'];
+        $text = !is_array($this->D['text']) ? $this->get_value($this->D['text']) : $this->D['text'];
 
         for($i=0;$i<count($value);$i++) {
-            $selected = !empty($this->property['selected']) && $this->property['selected']==$value[$i] ? 'selected' : '';
-            if(isset($_POST[$this->property['name']])) {
-                $selected = $_POST[$this->property['name']]==$value[$i] ? 'selected' : '';
+            $selected = !empty($this->D['selected']) && $this->D['selected']==$value[$i] ? 'selected' : '';
+            if(isset($_POST[$this->D['name']])) {
+                $selected = $_POST[$this->D['name']]==$value[$i] ? 'selected' : '';
             };
             $html .= '<option value="'.$value[$i].'" '.$selected.'> '.$text[$i].'</option>';
         }
-        return $html.'</select>'.$this->validate->data($this->property['name'])->check();
+        return $html.'</select>'.$this->validate->data($this->D['name'])->check();
     }
 
     public function lang() {
-        $this->property['text'] = $this->registry()->config['names_i18n'];
-        $this->property['value'] = $this->registry()->config['all_i18n'];
-		$this->property['name'] = empty($this->property['name']) ? 'lang' : $this->property['name'];
-        $this->property['selected'] = empty($this->property['selected']) ? $this->registry()->config['default_i18n'] : $this->property['selected'];
+        $this->D['text'] = $this->registry()->config['names_i18n'];
+        $this->D['value'] = $this->registry()->config['all_i18n'];
+		$this->D['name'] = empty($this->D['name']) ? 'lang' : $this->D['name'];
+        $this->D['selected'] = empty($this->D['selected']) ? $this->registry()->config['default_i18n'] : $this->D['selected'];
         return $this->select();
     }
 
     public function permissions() {
-        unset($this->property['value']);
+        unset($this->D['value']);
         foreach($this->registry()->user_status as $key => $val) {
-            $this->property['value'][] = $val;
-            $this->property['text'][] = $key;
+            $this->D['value'][] = $val;
+            $this->D['text'][] = $key;
         }
 		
-        $this->property['selected'] = empty($this->property['selected']) ? User::login()->permissions() : $this->property['selected'];
+        $this->D['selected'] = empty($this->D['selected']) ? User::login()->permissions() : $this->D['selected'];
         return $this->select();
     }
 
     public function radio() {
         $html = '';
-        $value = $this->get_value($this->property['value']);
-        $text = $this->get_value($this->property['text']);
+        $value = $this->get_value($this->D['value']);
+        $text = $this->get_value($this->D['text']);
 
         for($i=0;$i<count($value);$i++) {
-            if(isset($this->property['checked']) && !empty($this->property['checked'])) {
-                if(isset($_POST[$this->property['name']])) {
-                    $checked = $value[$i]==$_POST[$this->property['name']] ? 'checked' : '';
+            if(isset($this->D['checked']) && !empty($this->D['checked'])) {
+                if(isset($_POST[$this->D['name']])) {
+                    $checked = $value[$i]==$_POST[$this->D['name']] ? 'checked' : '';
                 } else {
-                    $checked = $value[$i]==$this->property['checked'] ? 'checked' : '';
+                    $checked = $value[$i]==$this->D['checked'] ? 'checked' : '';
                 };
             };
-            $html .= '<input type="radio" name="'.$this->property['name'].'" value="'.$value[$i].'" id="radio_'
-                    .$this->property['name'].'_'.$i.'" '.$this->property['required'].' '.$this->property['class']
+            $html .= '<input type="radio" name="'.$this->D['name'].'" value="'.$value[$i].'" id="radio_'
+                    .$this->D['name'].'_'.$i.'" '.$this->D['required'].' '.$this->D['class']
                     .(!isset($checked) ? '' : $checked).' />
-                    <label for="radio_'.$this->property['name'].'_'.$i.'">&nbsp;'.$text[$i].'</label>';
+                    <label for="radio_'.$this->D['name'].'_'.$i.'">&nbsp;'.$text[$i].'</label>';
         }
         return '<div class="radio_wrapper">'.$html.'</div>'
-               .$this->validate->data($this->property['name'])->check();
+               .$this->validate->data($this->D['name'])->check();
     }
 
     public function checkbox() {
         $html = '';
-        $value = $this->get_value($this->property['value']);
-        $text = $this->get_value($this->property['text']);
+        $value = $this->get_value($this->D['value']);
+        $text = $this->get_value($this->D['text']);
 
-        $this->property['checked'] = explode('+', $this->property['checked']);
+        $this->D['checked'] = explode('+', $this->D['checked']);
         for($i=0;$i<count($value);$i++) {
-            if(isset($_POST[$this->property['name'].'_'.$i])) {
-                $checked = $value[$i]==$_POST[$this->property['name'].'_'.$i] ? 'checked' : '';
+            if(isset($_POST[$this->D['name'].'_'.$i])) {
+                $checked = $value[$i]==$_POST[$this->D['name'].'_'.$i] ? 'checked' : '';
             } else {
-                if(count($this->property['checked'])==1 && !empty($this->property['checked'][0])) {
-                    $checked = $value[$i]==$this->property['checked'][0] ? 'checked' : '';
-                } elseif(count($this->property['checked'])>1) {
-                    for($j=0;$j<count($this->property['checked']);$j++) {
-                        if($value[$i]==$this->property['checked'][$j]) {
+                if(count($this->D['checked'])==1 && !empty($this->D['checked'][0])) {
+                    $checked = $value[$i]==$this->D['checked'][0] ? 'checked' : '';
+                } elseif(count($this->D['checked'])>1) {
+                    for($j=0;$j<count($this->D['checked']);$j++) {
+                        if($value[$i]==$this->D['checked'][$j]) {
                             $checked = 'checked';
                         };
                     }
                 };
             };
-            $html .= '<input type="checkbox" name="'.$this->property['name'].'_'.$i.'" value="'.$value[$i].'" '
-                    .$this->property['class'].' id="checkbox_'.$this->property['name'].'_'.$i.'" '
+            $html .= '<input type="checkbox" name="'.$this->D['name'].'_'.$i.'" value="'.$value[$i].'" '
+                    .$this->D['class'].' id="checkbox_'.$this->D['name'].'_'.$i.'" '
                     .(!isset($checked) ? '' : $checked).' />
-                    <label for="checkbox_'.$this->property['name'].'_'.$i.'"> '.$text[$i].'</label>';
+                    <label for="checkbox_'.$this->D['name'].'_'.$i.'"> '.$text[$i].'</label>';
         }
         return '<div class="checkbox_wrapper">'.$html.'</div>'
-               .$this->validate->data($this->property['name'])->check();
+               .$this->validate->data($this->D['name'])->check();
     }
 	
 	public function datepicker() {
-		$this->property['id'] = 'id="datepicker-'.$this->property['name'].'"';
+		$this->D['id'] = 'id="datepicker-'.$this->D['name'].'"';
 		return $this->text();
 	}
 	
 	public function window() {
-		$button = $this->property['type']=='button'
-					? '<button id="window-'.$this->property['name'].'">'.$this->property['value'].'</button>'
-					: '<a href="#" id="window-'.$this->property['name'].'">'.$this->property['value'].'</a>';
+		$button = $this->D['type']=='button'
+					? '<button id="window-'.$this->D['name'].'">'.$this->D['value'].'</button>'
+					: '<a href="#" id="window-'.$this->D['name'].'">'.$this->D['value'].'</a>';
 				
-		return $button.'<div id="window-'.$this->property['name'].'" title="'.$this->property['title']
-                      .'" style="display: none;">'.$this->property['text'].'</div>';
+		return $button.'<div id="window-'.$this->D['name'].'" title="'.$this->D['title']
+                      .'" style="display: none;">'.$this->D['text'].'</div>';
 	}
 
     public function fancybox() {
         $html = '';
-        if($this->property['type']=='gallery') {
-            $value = $this->get_value($this->property['file']);
+        if($this->D['type']=='gallery') {
+            $value = $this->get_value($this->D['file']);
             for($i=0;$i<count($value);$i++) {
-                $max = $this->property['max']>0 ? ($i>$this->property['max']-1 ? 'style="display: none;"' : '') : '';
+                $max = $this->D['max']>0 ? ($i>$this->D['max']-1 ? 'style="display: none;"' : '') : '';
                 if(!empty($value[$i])) {
-                    $html .= '<a href="'.$this->property['path'].$value[$i].'" rel="gallery-'.$this->property['name'].'" '.$max.'>
-                                <img src="'.$this->property['thumb_path'].$value[$i].'" alt="'.$value[$i].'" />
+                    $html .= '<a href="'.$this->D['path'].$value[$i].'" rel="gallery-'.$this->D['name'].'" '.$max.'>
+                                <img src="'.$this->D['thumb_path'].$value[$i].'" alt="'.$value[$i].'" />
                               </a>';
                 };
             }
-            return empty($html) ? '' : '<div id="fancybox-'.$this->property['name'].'">'.$html.'</div>';
+            return empty($html) ? '' : '<div id="fancybox-'.$this->D['name'].'">'.$html.'</div>';
         } else {
-            if(!empty($this->property['type'])) {
-                return '<a href="'.$this->property['file'].'" class="fancybox-'.$this->property['type'].'">'.$this->property['title'].'</a>';
+            if(!empty($this->D['type'])) {
+                return '<a href="'.$this->D['file'].'" class="fancybox-'.$this->D['type'].'">'.$this->D['title'].'</a>';
             };
         };
     }
 
     public function kcaptcha() {
-        $this->property['style'] = 'style="width: 103px;" ';
+        $this->D['style'] = 'style="width: 103px;" ';
         return '<img src="/'.$this->registry()->config['library_path'].'/kcaptcha/kcaptcha.php?'.session_name().'='.session_id().date('i:s').'" />'
                 .'<br />'.$this->text();
+    }
+
+    public function message() {
+        if(!empty($this->D['text']) && $this->D['enabled']=='true') {
+            switch ($this->D['type']) {
+                case 'success':
+                    $html = '<div class="'.$this->registry()->config['success_class'].'" '.$this->D['style'].'>'.$this->D['text'].'</div>';
+                break;
+                case 'warning':
+                    $html = '<div class="'.$this->registry()->config['warning_class'].'" '.$this->D['style'].'>'.$this->D['text'].'</div>';
+                break;
+                case 'error':
+                    $html = '<div class="'.$this->registry()->config['error_class'].'" '.$this->D['style'].'>'.$this->D['text'].'</div>';
+                break;
+                case 'input':
+                    $html = '<span '.$this->D['id'].' class="'.$this->registry()->config['error_class'].'">i<span class="tooltip">'.$this->D['text'].'</span></span>';
+                break;
+                default:
+                    $html = '<div '.$this->D['id'].' '.$this->D['class'].' '.$this->D['style'].'>'.$this->D['text'].'</div>';
+            }
+            return $html;
+        };
     }
 
     public function return_input($type, $array) {
@@ -205,6 +227,9 @@ class Tags extends DRM {
             switch($data[0]) {
                 case 'config':
                     return $this->registry()->get($data[0], $data[1]);
+                break;
+                case 'session':
+                    return isset($_SESSION[$data[1]]) ? $_SESSION[$data[1]] : '';
                 break;
                 case 'i18n':
                     return $this->i18n->$data[1];
@@ -221,6 +246,9 @@ class Tags extends DRM {
                     case 'config':
                         $array[$key] = $this->registry()->get($value[0], $value[1]);
                     break;
+                    case 'session':
+                        $array[$key] = isset($_SESSION[$value[1]]) ? $_SESSION[$value[1]] : '';
+                    break;
                     case 'i18n':
                         $array[$key] = $this->i18n->$value[1];
                     break;
@@ -234,30 +262,31 @@ class Tags extends DRM {
     }
 
     public function properties($array) {
-        $this->property = array('name'       =>  !isset($array['name']) ? '' : $array['name'],
-                                'value'      =>  !isset($array['value']) ? '' : $array['value'],
-                                'validate'   =>  !isset($array['validate']) ? 'text' : $array['validate'],
-                                'style'      =>  !isset($array['style']) ? '' : $this->style($array['style']),
-                                'id'         =>  !isset($array['id']) ? '' : $this->id($array['id']),
-                                'cid'        =>  !isset($array['id']) ? '' : $array['id'],
-                                'title'      =>  !isset($array['title']) ? '' : $array['title'],
-                                'file'       =>  !isset($array['file']) ? '' : $array['file'],
-                                'path'       =>  !isset($array['path']) ? '' : $array['path'],
-                                'thumb_path' =>  !isset($array['thumb_path']) ? '' : $array['thumb_path'],
-                                'class'      =>  !isset($array['class']) ? '' : $this->_class_($array['class']),
-                                'size'       =>  !isset($array['size']) ? $this->registry()->config['input_size'] : $array['size'],
-                                'min'        =>  !isset($array['min']) ? 0 : $array['min'],
-                                'max'        =>  !isset($array['max']) ? $this->registry()->config['input_max_chars'] : $array['max'],
-                                'required'   =>  !isset($array['required']) ? 'required' : '',
-                                'placeholder'=>  !isset($array['placeholder']) ? '' : 'placeholder="'.$array['placeholder'].'" ',
-                                'rows'       =>  !isset($array['rows'])  ? $this->registry()->config['textarea_rows'] : $array['rows'],
-                                'cols'       =>  !isset($array['cols'])  ? $this->registry()->config['textarea_cols'] : $array['cols'],
-                                'is_null'    =>  !isset($array['is_null']) && !isset($array['required']) ?  'true' : 'false',
-                                'selected'   =>  !isset($array['selected']) ? '' : $array['selected'],
-                                'checked'    =>  !isset($array['checked']) ? '' : $array['checked'],
-                                'text'       =>  !isset($array['text']) ? '' : $array['text'],
-                                'js'         =>  !isset($array['js']) ? '' : $this->script($array['js']),
-                                'type'       =>	 !isset($array['type']) ? 'Basic' : $array['type']);
+        $this->D = array('name'       =>  !isset($array['name']) ? '' : $array['name'],
+                         'value'      =>  !isset($array['value']) ? '' : $array['value'],
+                         'validate'   =>  !isset($array['validate']) ? 'text' : $array['validate'],
+                         'style'      =>  !isset($array['style']) ? '' : $this->style($array['style']),
+                         'id'         =>  !isset($array['id']) ? '' : $this->id($array['id']),
+                         'cid'        =>  !isset($array['id']) ? '' : $array['id'],
+                         'title'      =>  !isset($array['title']) ? '' : $array['title'],
+                         'file'       =>  !isset($array['file']) ? '' : $array['file'],
+                         'path'       =>  !isset($array['path']) ? '' : $array['path'],
+                         'thumb_path' =>  !isset($array['thumb_path']) ? '' : $array['thumb_path'],
+                         'class'      =>  !isset($array['class']) ? '' : $this->_class_($array['class']),
+                         'size'       =>  !isset($array['size']) ? $this->registry()->config['input_size'] : $array['size'],
+                         'min'        =>  !isset($array['min']) ? 0 : $array['min'],
+                         'max'        =>  !isset($array['max']) ? $this->registry()->config['input_max_chars'] : $array['max'],
+                         'required'   =>  !isset($array['required']) ? 'required' : '',
+                         'placeholder'=>  !isset($array['placeholder']) ? '' : 'placeholder="'.$array['placeholder'].'" ',
+                         'rows'       =>  !isset($array['rows'])  ? $this->registry()->config['textarea_rows'] : $array['rows'],
+                         'cols'       =>  !isset($array['cols'])  ? $this->registry()->config['textarea_cols'] : $array['cols'],
+                         'is_null'    =>  !isset($array['is_null']) && !isset($array['required']) ?  'true' : 'false',
+                         'selected'   =>  !isset($array['selected']) ? '' : $array['selected'],
+                         'enabled'    =>  !isset($array['enabled']) || empty($array['enabled']) ? 'true' : $array['enabled'],
+                         'checked'    =>  !isset($array['checked']) ? '' : $array['checked'],
+                         'text'       =>  !isset($array['text']) ? '' : $array['text'],
+                         'js'         =>  !isset($array['js']) ? '' : $this->script($array['js']),
+                         'type'       =>  !isset($array['type']) ? 'Basic' : $array['type']);
     }
 
     private function style($data='') {

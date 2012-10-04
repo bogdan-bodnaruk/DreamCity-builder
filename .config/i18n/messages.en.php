@@ -136,4 +136,6 @@ $i18n = array('admin_panel'     =>  'Admin Panel',
 
               // DRM admin panel messages
               'db_not_connected'=>  'DB not connected! Web site on developer mode!',
+              'wrong_login'     =>  'No such user!',
+              'wrong_pass'      =>  'Login or password doesn\'t match!',
     );
