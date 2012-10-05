@@ -1,5 +1,5 @@
 <?php
-class Template extends DRM { 
+class Template extends DRM {
     private $html;
     private $tags;
     private $i18n;
@@ -16,9 +16,9 @@ class Template extends DRM {
 
     public function load($file = '&nbsp;') {
         if(preg_match("/[\w]+\.tpl/", $file)) {
-            $file = preg_match("/[\/]{1,}/", $file)
-                    ? file_get_contents($file)
-                    : file_get_contents($this->registry()->PATH.'/views/'.$file);
+            $file = preg_match("/[.tpl]{4}$/", $file)
+                    ? file_get_contents($this->registry()->PATH.'/views/'.$file)
+                    : file_get_contents($file);
         };
         $this->html = strtr($file, array_flip($this->null));
         $this->render();
@@ -42,7 +42,12 @@ class Template extends DRM {
     public function main($value = '') {
         $value = empty($value) ? $this->registry()->config['main_content_value'] : $value;
         parent::$values[$value] = $this->html;
-        $this->load('./'.$this->registry()->config['app_path'].'/views/'.$this->registry()->config['main_template']);
+        //Todo: check it for no errors
+        $main = $this->registry()->main_page;
+        $main = !empty($main)
+                ? $this->registry()->main_page
+                : $this->registry()->config['main_template'];
+        $this->load($main);
         $this->ajax();
     }
 

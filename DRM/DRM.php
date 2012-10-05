@@ -31,6 +31,7 @@ class DRM {
     public function i18n() {
         return new i18n();
     }
+
     public function template() {
         return new Template();
     }

@@ -16,9 +16,9 @@ class Controller_login extends Controller {
                 if($this->template()->validate('login')==$this->registry()->config['admin_login']
                     &&
                     md5($this->template()->validate('password'))==$this->registry()->config['admin_pass']) {
-
+                    $_SESSION['status'] = 'admin';
                     $_SESSION['login'] = $this->template()->validate('login');
-                    Go::to('adminpanel');
+                    Go::to('install');
                 } elseif($this->template()->validate('login')!==$this->registry()->config['admin_login']) {
                     $this->val['login_error'] = 'true';
                 } elseif(md5($this->template()->validate('password'))!==$this->registry()->config['admin_pass']) {
