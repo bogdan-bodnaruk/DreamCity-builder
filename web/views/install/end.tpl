@@ -1,10 +1,7 @@
-<div style="width: 300px;margin: 50px auto;text-align: right;">
-    <div class="h2_title" style="color: #006400;">You successfully configured this web site!</div>
-
-    <p>
-        <a class="button" href="install/end" style="float: left;">Refresh</a>
-        <form method="post" action="install/end">
-            ##submit->[name=submit;value=End]##
-        </form>
+<div style="width: 450px;margin: 50px auto;text-align: right;">
+    <div class="h2_title" style="color: #006400;">Congratulations! You successfully configured this web site!</div>
+    {data}
+    <p style="text-align: center;margin: 40px 0;">
+       {button}
     </p>
 </div>

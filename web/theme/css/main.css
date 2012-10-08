@@ -180,3 +180,9 @@ div#main div#login_wrapper p, div#main div#reminder p {
     font-size: 16px;
     font-weight: bold;
 }
+
+.end_text {
+    text-align: left;
+    font-size: 14px;
+    margin: 15px 0;
+}
