@@ -45,7 +45,7 @@ $config = array(/* main settings */
                 /* db settings */
                 'db_host'           =>  'localhost',
                 'db_user'           =>  'root',
-                'db_password'       =>  'root',
+                'db_password'       =>  'root2',
                 'db_table'          =>  'engine1',
                 'db_encoding'       =>  'utf8',
                 
