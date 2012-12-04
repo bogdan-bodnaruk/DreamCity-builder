@@ -120,7 +120,7 @@ class DB extends DRM {
         return $this;
     }
     
-    public function andwhere($where = '') {
+    public function andWhere($where = '') {
         if(!empty($where)) {
             $this->query .= ' AND '.$where;
         };

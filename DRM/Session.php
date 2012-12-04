@@ -29,7 +29,7 @@ class Session extends DRM {
                  
             return $data['status'];
         } else {
-            header('Location: '.$this->registry()->config['base_href']);
+            Go::to('logout');
         };
     }
     

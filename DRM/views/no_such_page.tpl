@@ -1,1 +1,1 @@
-<h2>Sorry but no such page to edit. :(</h2>
+<h2>{i18n::no_page}</h2>

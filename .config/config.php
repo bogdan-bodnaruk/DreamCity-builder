@@ -5,10 +5,11 @@ $config = array(/* main settings */
                 'main_page'         =>  'index',
                 'encoding'          =>  'UTF-8',
                 'app_path'          =>  'web',
+                'files_path'        =>  'web/uploads',
                 'description'       =>  '{DRM} - make development easiest',
                 'keyword'           =>  '{DRM} - make development easiest',
-                'generator'         =>  '{DRM}.v.0.8.2',
-                'generator_version' =>  'v.0.8.2',
+                'generator'         =>  '{DRM}.v.0.9.0',
+                'generator_version' =>  'v.0.9.0',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',
                 'base_href'         =>  'http://engine.drm/',
@@ -31,6 +32,8 @@ $config = array(/* main settings */
                 'admin_login'       =>  'admin',
                 'admin_pass'        =>  '21232f297a57a5a743894a0e4a801fc3',
 
+                'zip_password'      =>  '123',
+
                 /* default values for html */
                 'input_size'        =>  25,
                 'input_max_chars'   =>  1000,
@@ -48,9 +51,10 @@ $config = array(/* main settings */
                 'db_password'       =>  'root',
                 'db_table'          =>  'engine2',
                 'db_encoding'       =>  'utf8',
+                'DB-connected'      =>  false,
                 
                 /*paginator */
-                'on_page'           =>  5,
+                'on_page'           =>  10,
                 'paginator_class'   =>  'class="paginator"',
                 'active_link'       =>  'class="active_link"',
                 'paginator_link'    =>  'class="link"'
@@ -65,3 +69,5 @@ if($config['env'] == 'production') {
 };
 
 $config['current_locale'] = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $config['default_i18n'];
+
+$config['theme_img'] = $config['app_path'].'/theme/images/';

@@ -12,7 +12,7 @@
             ##fancybox->[file={file::data};max=2;name=test1;path={path};thumb_path={thumb_path};type=gallery]##
         </td>
         <td>
-            <span class="code">&nbsp;Code: &#35;#fancybox->[file={file::data};max=2;name=test1;path=&#123;path&#125;;thumb_path=&#123;thumb_path&#125;;type=gallery]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#fancybox->[file={ file::data};max=2;name=test1;path=&#123;path&#125;;thumb_path=&#123;thumb_path&#125;;type=gallery]#&#35;</span>
         </td>
     </tr>
     <tr>

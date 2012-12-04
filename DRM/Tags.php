@@ -155,7 +155,7 @@ class Tags extends DRM {
     }
 	
 	public function datepicker() {
-		$this->D['id'] = 'id="datepicker-'.$this->D['name'].'"';
+		$this->D['id'] = 'id="datepicker-'.$this->D['name'].'" readonly="readonly"';
 		return $this->text();
 	}
 	
@@ -192,6 +192,28 @@ class Tags extends DRM {
         $this->D['style'] = 'style="width: 103px;" ';
         return '<img src="/'.$this->registry()->config['library_path'].'/kcaptcha/kcaptcha.php?'.session_name().'='.session_id().date('i:s').'" />'
                 .'<br />'.$this->text();
+    }
+
+    public function test() {
+        if(empty($this->D['elseif'])) {
+            if(eval('return '.$this->D['if'].';')) {
+                return $this->D['then'];
+            } else {
+                return $this->D['else'];
+            };
+        } else {
+            if(eval('return '.$this->D['if'].';')) {
+                return $this->D['then'];
+            } elseif(eval('return '.$this->D['elseif'].';')) {
+                return $this->D['else_then'];
+            } else {
+                return $this->D['else'];
+            };
+        };
+    }
+
+    public function include_tpl() {
+        return $this->template()->load($this->D['file'])->data();
     }
 
     public function message() {
@@ -282,10 +304,15 @@ class Tags extends DRM {
                          'cols'       =>  !isset($array['cols'])  ? $this->registry()->config['textarea_cols'] : $array['cols'],
                          'is_null'    =>  !isset($array['is_null']) && !isset($array['required']) ?  'true' : 'false',
                          'selected'   =>  !isset($array['selected']) ? '' : $array['selected'],
-                         'enabled'    =>  !isset($array['enabled']) || empty($array['enabled']) ? 'true' : $array['enabled'],
+                         'enabled'    =>  !isset($array['enabled']) || empty($array['enabled']) ? 'false' : $array['enabled'],
                          'checked'    =>  !isset($array['checked']) ? '' : $array['checked'],
                          'text'       =>  !isset($array['text']) ? '' : $array['text'],
                          'js'         =>  !isset($array['js']) ? '' : $this->script($array['js']),
+                         'if'         =>  !isset($array['if']) ? '' : $array['if'],
+                         'elseif'     =>  !isset($array['elseif']) ? '' : $array['elseif'],
+                         'then'       =>  !isset($array['then']) ? '' : $array['then'],
+                         'else_then'  =>  !isset($array['else_then']) ? '' : $array['else_then'],
+                         'else'       =>  !isset($array['else']) ? '' : $array['else'],
                          'type'       =>  !isset($array['type']) ? 'Basic' : $array['type']);
     }
 
@@ -298,7 +325,11 @@ class Tags extends DRM {
     }
 
     private function _class_($data='') {
-        return !empty($data) ? 'class = "'.$data.'" ' : '';
+		if(preg_match("/^[class]{5}/", $data)) {
+			return 'class = "'. strtr($data, array('class = "' =>'', '"'=>'')).'" ';
+		} else {
+			return !empty($data) ? 'class = "'.$data.'" ' : ''; 
+		};
     }
 
     private function script($data='') {

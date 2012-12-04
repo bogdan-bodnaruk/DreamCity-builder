@@ -11,7 +11,6 @@ class DRM {
         self::registry()->user_status = $user_status;
         if(self::db()->connect()) {
             self::db()->connect();
-            self::registry()->config += array('DB-connected' => true);
             self::registry()->config = array_merge($config, self::db()->table('config')->select()->where('`id`=1')->limit(1)->fetch());
             new Session();
         } else {

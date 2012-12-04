@@ -12,12 +12,7 @@ abstract class Controller extends DRM {
     }
     
     function val($type) {
-        for($i=2; $i<count($this->registry()->values)+2; $i++) {
-            if(preg_match('/'.$type.'\=[0-9a-zA-Z]+/', $this->registry()->values[$i])) {
-                list($text, $this->val[$type]) = explode('=', $this->registry()->values[$i]);
-                return $this->val[$type];
-            };
-        }
+        $this->val[$type] = Helpers::getValue($type);
     }
     
     private function lang() {

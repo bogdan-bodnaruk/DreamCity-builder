@@ -1,23 +1,20 @@
-<p class="h2_title">{i18n::user_login}</p>
-<form action="login/enter" method="post">
-    <table cellpadding="0" cellspacing="0" border="0" class="data_table">
-        <tr>
-            <td>{i18n::login}</td>
-            <td>
-                <p>##text->[name=login^valide=login]##</p>
-            </td>
-        </tr>
-        <tr>
-            <td>{i18n::password}</td>
-            <td>
-                <p>##password->[name=password]##</p>
-                {user_error}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">
-                <div>##submit->[value=enter]##</div>
-            </td>
-        </tr>
-    </table>
-</form>
+<div id="login_wrapper">
+    ##message->[text={i18n::db_not_connected};class=db_not_connected;enabled=${db-message-enable}]##
+	<div id="logo">
+	    <a href="{config::base_href}">{i18n::site_name}</a>
+	</div>
+	<form method="post" action="login">
+	    <p>
+            {i18n::login}: ##text->[name=login;validate=login;min=4;max=70;]##
+            ##message->[type=input;id=login;text={i18n::wrong_login};enabled=${login_error}]##
+        </p>
+	    <p>
+            {i18n::password}: ##password->[name=password;min=4;max=70;]##
+            ##message->[type=input;id=password;text={i18n::wrong_pass};enabled=${pass_error}]##
+        </p>
+	    <p>
+			##submit->[name=submit;value=login]## 
+			{i18n::or} <a href="recover">{i18n::forgot_pass}</a>
+	    </p>
+	</form>
+</div>

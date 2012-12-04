@@ -3,6 +3,7 @@ class Paginator extends DRM {
     static private $tpl;
     private $table;
     private $where;
+    private $andWhere;
     private $order;
     private $onpage;
     private $data;
@@ -40,37 +41,45 @@ class Paginator extends DRM {
         $this->where = $where;
         return $this;
     }
+
+    public function andWhere($where) {
+        $this->andWhere = $where;
+        return $this;
+    }
     
     public function order($by = '', $sort = '') {
         $this->order = $by;
         $this->sort = $sort;
         return $this;
     }
-    
-    public function load() {
-        $page = 0;
-        $link = '';
-        for($i = 2; $i<count($this->registry()->values)+2; $i++) {
-            if(isset($this->registry()->values[$i])) {
-                if(preg_match('/page\=[0-9]{1,5}/', $this->registry()->values[$i])) {
-                    list($text, $page) = explode('=', $this->registry()->values[$i]);
-                    $page = $page-1;
-                } elseif($this->registry()->values[$i]=='&ajax=true' || $this->registry()->values[$i]=='&ajax') {
-                    
-                } else {
-                    $link .= $this->registry()->values[$i];
-                }
+
+    function val($name) {
+        for($i=0; $i<count($this->registry()->values); $i++) {
+            if(preg_match('/^'.$name.'\=[0-9]{1,5}/', $this->registry()->values[$i])) {
+                list($text, $value) = explode('=', $this->registry()->values[$i]);
+                return $value;
             };
         }
-        $this->link = $this->registry()->controller.$link;
-        $this->onpage = $this->registry()->config['on_page'];
+    }
+
+    public function load() {
+        if($this->val('onpage')!='') {
+            setcookie('onpage',$this->val('onpage'),time()+14400);
+            Go::back();
+        } elseif(!isset($_COOKIE['onpage'])) {
+			setcookie('onpage',$this->registry()->config['on_page'],time()+14400);
+            Go::back();
+		};
+        $this->onpage = (int)$_COOKIE['onpage'];
+
         $array = $this->db()
-                 ->table($this->table)
-                 ->select()
-                 ->where($this->where)
-                 ->order($this->order, $this->sort)
-                 ->limit($page*$this->onpage, $this->onpage)
-                 ->query();
+                      ->table($this->table)
+                      ->select()
+                      ->where($this->where)
+                      ->andWhere($this->andWhere)
+                      ->order($this->order, $this->sort)
+                      ->limit($this->val('page') * $this->onpage, $this->onpage)
+                      ->query();
         while($data = mysql_fetch_array($array)) {
             if(isset($data['protect']) && preg_match('/[0-9]+/', $data['protect'])) {
                 foreach($this->registry()->user_status as $key=>$val) {
@@ -79,62 +88,44 @@ class Paginator extends DRM {
                     };
                 }
             };
-            parent::$values['paginator'] = $data;
+            parent::$values['paginator'] = array_merge($data, array('page'=>$this->val('page')));
             $this->data .= $this->template()->load(self::$tpl)->data();
         }
-        parent::$values['paginator_buttons'] = $this->count($page);
+        parent::$values['paginator_buttons'] = $this->count();
         return !empty($this->data) ? $this->data : '';
     }
     
-    public function count($page) {
-        $count = $this->db()
-                      ->table($this->table)
-                      ->select()
-                      ->where($this->where)
-                      ->num();
+    public function count() {
+        $html = '';
+        $page = $this->val('page');
+        $this->link = $this->registry()->controller.implode('/', $this->registry()->values);
+        $this->link = strtr($this->link, array('/page='.$this->val('page') => ''));
+        $count = $this->db()->table($this->table)->select()->where($this->where)->num();
+
         if(intval($count/$this->onpage)>0) {
-            $str = $page>=5
-                        ? '<a '.$this->registry()->config['paginator_link'].' href="'.$this->link.'">&nbsp;1&nbsp;</a> <a href='
-                            .$this->link.'/page='.($page-4).' '.$this->registry()->config['paginator_link'].'>&nbsp;...&nbsp;</a> '
-                        : '';
-                        
-            switch($page) {
-                case(0):
-                    $start = $page - 0;
-                    $end = $page + 8;
-                break;
-                case(1):
-                    $start = $page - 1;
-                    $end = $page + 7;
-                break;
-                case(2):
-                    $start = $page - 2;
-                    $end = $page + 6;
-                break;
-                case(3):
-                    $start = $page - 3;
-                    $end = $page + 5;
-                break;
-                default:
-                    $start = $page - 4;
-                    $end = $page + 4;
-                break;
+            if($page>=5) {
+                $html = '<a '.$this->registry()->config['paginator_link'].' href="'.$this->link.'">&nbsp;1&nbsp;</a> <a href='
+                        .$this->link.'/page='.($page-5).' '.$this->registry()->config['paginator_link'].'>&nbsp;...&nbsp;</a> ';
+            };
+
+            $start = ($page <= 4 ? 0 : $page - 4);
+            $end = ($page <= 4 ? 8 : $page + 4);
+            $end = ($end * $this->onpage)  > $count ? $count/$this->onpage : $end;
+            for ($i=$start; $i<$end; $i++) {
+                if(($i==$page) && $end!==1) {
+                    $html .= '<span '.$this->registry()->config['active_link'].'>&nbsp;'.($i+1).'&nbsp;</span>&nbsp;';
+                } elseif($end!==1) {
+                    $html .= '<a '.$this->registry()->config['paginator_link'].' href='
+                                .$this->link.'/page='.($i).'>&nbsp;'.($i+1).'&nbsp;</a>&nbsp;';
+                };
             }
-            $end = $end*$this->onpage>$count ? $count/$this->onpage : $end;
-            $start = $start<0 ? 0 : $start;
-    
-            for ($i=$start;$i<$end;$i++) {
-                $str .= $i==$page
-                        ? '<span '.$this->registry()->config['active_link'].'>&nbsp;'.($i+1).'&nbsp;</span>&nbsp;'
-                        : '<a '.$this->registry()->config['paginator_link'].' href='.$this->link.'/page='.($i+1).'>&nbsp;'.($i+1).'&nbsp;</a>&nbsp;';
-            }
-            
-            $str .= intval($count/$this->onpage)+1>=8 && (intval($count/$this->onpage))-5>=$page
-                    ? ' <a '.$this->registry()->config['paginator_link'].' href='.$this->link.'/page='.($page+5).'>&nbsp;...&nbsp;</a> <a href='
-                        .$this->link.'page='.(intval($count/$this->onpage))
-                        .' '.$this->registry()->config['paginator_link'].'>&nbsp;'.(intval($count/$this->onpage)).'&nbsp;</a>'
-                    : '';
-            return '<div '.$this->registry()->config['paginator_class'].'>'.$str.'</div>';
+
+            if(intval($count/$this->onpage)>=8 && (intval($count/$this->onpage))-5>=$page) {
+                $html .= '<a '.$this->registry()->config['paginator_link'].' href="'.$this->link.'/page='.($page+5)
+                         .'">&nbsp;...&nbsp;</a> <a href="'.$this->link.'/page='.((intval($count/$this->onpage))-1)
+                         .'" '.$this->registry()->config['paginator_link'].'>&nbsp;'.(intval($count/$this->onpage)).'&nbsp;</a>';
+            };
+            return '<div '.$this->registry()->config['paginator_class'].'>'.$html.'</div>';
         };
     }
 }

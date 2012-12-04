@@ -96,7 +96,7 @@ class Router extends DRM {
             $this->registry()->controller = $this->path[0].'/'.$this->path[1].'/';
         };
         unset($this->path[0], $this->path[1]);
-        $this->registry()->values = $this->path;
+        $this->registry()->values = array_reverse($this->path);
 
         $controller->$action();
     }

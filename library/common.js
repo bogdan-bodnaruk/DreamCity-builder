@@ -9,7 +9,7 @@ $(document).ready(function(){
         {
             load: [library + '/chosen/chosen.css', library + '/chosen/chosen.min.js'],
             complete: function() {
-                $('select').chosen();
+                $('select').chosen({disable_search_threshold: 10});
             }
         },
         {
@@ -29,9 +29,11 @@ $(document).ready(function(){
                         delete CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]
                     };
                     CKEDITOR.replace(
-                $("textarea[id^='cked-']")[i].id,
-                            {toolbar : $("textarea[id^='cked-']")[i].classList[0]}
-            );
+                        $("textarea[id^='cked-']")[i].id,
+                                {
+                                    toolbar : $("textarea[id^='cked-']")[i].classList[0]
+                                }
+                    );
                 }
             }
         },
@@ -39,7 +41,7 @@ $(document).ready(function(){
             test: $("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]"),
             yep: [library + '/jquery-ui/jquery-ui-1.8.23.custom.min.js',library + '/jquery-ui/jquery-ui-1.8.23.custom.css'],
             callback: function() {
-                $("input[type='text'][id^=datepicker-]").datepicker();
+                $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
 
                 $("div[id^=window-]").dialog({
                     autoOpen: false,
@@ -51,6 +53,27 @@ $(document).ready(function(){
                 });
                 $("button[id^=window-]").on('click',function() {
                     $("div[id^=" + this.id + "]").dialog("open");
+                    return false;
+                });
+            }
+        },
+        {
+            test: $('.confirm').length > 0,
+            yep: [library + '/confirm/confirm.js', library + '/confirm/confirm.css'],
+            callback: function() {
+                $('.confirm').live('click', function(){
+                    $.confirm({
+                        'buttons': {
+                            'Yes': {
+                                'href'  : $(this).children("label.confirm-text").text(),
+                                'class' : $(this).hasClass('submit') ? 'click-submit' : ''
+                            },
+                            'No': {
+                                'href'	: '#',
+                                'class' : 'confirm-no'
+                            }
+                        }
+                    });
                     return false;
                 });
             }
@@ -101,57 +124,6 @@ $(document).ready(function(){
             }
         },
         {
-            test: $.browser.msie && $.browser.version==8.0,
-            yep: [css + '/ie8.css', library + '/PIE.js'],
-            callback: function() {
-                if (window.PIE) {
-                    $('div.radio_wrapper > input[type="radio"]:first-child + label').css('border-radius', '5px 0 0 5px');
-                    $('div.radio_wrapper > input[type="radio"] + label:last-child').css('border-radius', '0 5px 5px 0');
-                    $('div.checkbox_wrapper > input[type="checkbox"]:first-child +label').css('border-radius', '5px 0 0 5px');
-                    $('div.checkbox_wrapper > input[type="checkbox"] + label:last-child').css('border-radius', '0 5px 5px 0');
-                    $(document).ready(function(){
-                        $('*').each(function() {
-                            PIE.attach(this);
-                        });
-                    });
-                }
-
-                $('label[for^=radio_]').on('click', function() {
-                    var idRadio = $(this).attr('for');
-                    var nameRadio = $('input[id='+ idRadio +']').attr('name');
-                    $('label[for^=radio_'+nameRadio+']').removeClass('radioСhecked');
-                    $('input[id=' + idRadio +']').attr('checked', 'checked');
-                    $(this).addClass('radioСhecked');
-                });
-
-                $('label[for^=checkbox_]').on('click', function() {
-                    $('input[id=' + $(this).attr('for') +']').attr('checked', 'checked');
-                    $(this).addClass('checkboxСhecked');
-                    $('body').click();
-                });
-
-                $('label[class^=checkboxСhecked]').live('click', function(){
-                    $('input[id=' + $(this).attr('for') +']').removeAttr('checked');
-                    $(this).removeClass('checkboxСhecked');
-                    $('body').click();
-                });
-
-                var checkedCheckbox = $('body').find('input[type=checkbox]:checked');
-                if(checkedCheckbox.length >= 0) {
-                    for(var i=0; i<checkedCheckbox.length; i++) {
-                        $('label[for=checkbox_'+ $(checkedCheckbox[i]).attr('name') +']').addClass('checkboxСhecked');
-                    }
-                };
-
-                var checkedRadio = $('body').find('input[type=radio]:checked');
-                if(checkedRadio.length >= 0) {
-                    for(var j=0; j<checkedRadio.length; j++) {
-                        $('label[for='+ $(checkedRadio[j]).attr('id') +']').addClass('radioСhecked');
-                    }
-                };
-            }
-        },
-        {
             test: $.browser.msie && $.browser.version==9.0,
             yep: [css + '/ie9.css', library + '/PIE.js'],
             callback: function() {
@@ -163,8 +135,56 @@ $(document).ready(function(){
             }
         },
         {
-            test: $.browser.msie && $.browser.version<8,
+            test: $('.qtip-tooltip').length > 0,
+            yep: [library + '/qTip2/jquery.qtip.min.js', library + '/qTip2/jquery.qtip.min.css'],
+            callback: function() {
+                $(document).ready(function(){
+                    $('a.qtip-tooltip[title]').qtip({
+                        position: {
+                            my: 'bottom center',
+                            at: 'top center'
+                        },
+                        style: {
+                            classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
+                        }
+                    });
+                });
+            }
+        },
+        {
+            test: $('.wrapper #file').length > 0,
+            yep: [library + '/jquery.form.js'],
+            callback: function() {
+                $('.wrapper #file').live('change', function(){
+                    $('#content').addClass('loading');
+                    $('.files_wrapper, #content p.h2_title').remove();
+                    $('input[name=files]').val($.map($(this).get(0).files, function(file) {
+                        return ' ' + file.name;
+                    }));
+                    if($(this).val().length > 0) {
+                        $('.multi').ajaxSubmit({
+                            target:'.multi',
+                            success : function() {
+                                $(document).ready(function() {
+                                    $('#content').removeClass('loading');
+                                    $('div.upload .drm-success').delay(5000).slideUp(600);
+                                    $('div.upload .drm-error').delay(5000).slideUp(600);
+                                    $('input[name=files]').val('');
+                                });
+                            }
+                        });
+                    };
+                    return false;
+                });
+            }
+        },
+        {
+            test: $.browser.msie && $.browser.version<9,
             yep: library + '/ie_blocker/warning.js'
         }
     ]);
+});
+
+$(document).ready(function(){
+   $('.detach').remove();
 });

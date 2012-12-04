@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function( config )
     config.removePlugins = "resize";
     
     config.skin = 'BootstrapCK-Skin';
-    config.filebrowserImageUploadUrl = "upload/ckeditor/";
+    config.filebrowserImageUploadUrl = 'http://' + window.location.hostname + '/upload_files/cked/';
 	config.smiley_path = '/' + library_path + '/ckeditor/plugins/smiley/images/';
     
     config.toolbar_admin =
