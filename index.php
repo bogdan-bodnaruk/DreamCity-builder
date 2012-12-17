@@ -28,6 +28,7 @@ define('PATH', realpath(dirname(__FILE__)).'/');
 include_once(PATH.'.config/config.php');
 define('SYS_PATH', PATH.$config['system_path']);
 define('APP_PATH', PATH.$config['app_path']);
+define('CMS_PATH', PATH.$config['cms_path']);
 
 date_default_timezone_set($config['time_zone']);
 

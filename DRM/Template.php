@@ -15,13 +15,13 @@ class Template extends DRM {
 
     public function load($file = '&nbsp;') {
         if(preg_match("/[.tpl]{4}$/", $file)) {
-            if(is_file($this->registry()->config['app_path'].'/views/'.$file))  {
-                $this->html = file_get_contents($this->registry()->config['app_path'].'/views/'.$file);
-            } elseif(is_file($this->registry()->config['system_path'].'/views/'.$file)) {
-                $this->html = file_get_contents($this->registry()->config['system_path'].'/views/'.$file);
+            if(is_file(APP_PATH.'/views/'.$file))  {
+                $this->html = file_get_contents(APP_PATH.'/views/'.$file);
+            } elseif(is_file(CMS_PATH.'/views/'.$file)) {
+                $this->html = file_get_contents(CMS_PATH.'/views/'.$file);
             } else {
                 $this->html = file_get_contents($file);
-            }
+            };
         };
         $this->render();
         return $this;

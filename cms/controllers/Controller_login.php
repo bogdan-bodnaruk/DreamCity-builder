@@ -50,19 +50,15 @@ class Controller_login extends Controller {
                                           'hash'        =>  md5($_SESSION['code_user'].$_SERVER['REMOTE_ADDR'].$_SESSION['login'])
                             ));
                     Logger::RA($_SESSION['login'])->type('login')->save();
-                    Go::to('dashboard/all');
+                    Go::main();
                 };
-                $this->template()->load('login.tpl')->show();
             };
         };
-        if(isset($_SESSION['login'])) {
-            Go::reload('dashboard');
+        if($this->registry()->config['enable']==1) {
+            $this->registry()->main_page = 'block.tpl';
+            $this->template()->load()->show();
         } else {
-            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-                Go::reload();
-            } else {
-				 $this->template()->load('login.tpl')->main();
-            };
+            $this->template()->load('login.tpl')->main();
         };
 	}
 }

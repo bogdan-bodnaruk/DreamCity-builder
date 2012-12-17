@@ -604,3 +604,26 @@ div.upload .drm-error {
 .detach {
     display: none;
 }
+
+body#blocked {
+    background-image: url("../images/background.png");
+}
+
+body#blocked div.gears {
+    height: 350px;
+    margin: 0px auto 0;
+    padding-top: 100px;
+    background-image: url("../images/nodata.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+body#blocked #login_wrapper {
+    width: 300px;
+    text-align: right;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 24px #999;
+    margin: 0 auto;
+}

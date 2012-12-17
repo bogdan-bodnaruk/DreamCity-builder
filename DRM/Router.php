@@ -57,32 +57,32 @@ class Router extends DRM {
         set_include_path(PATH);
 
         $this->parse_url();
-         if (!isset($this->path[0]) || $this->path[0] == $this->registry()->config['main_page']) {
-               $this->path = explode('/', $this->registry()->config['main_page']);
-         };
+        if (!isset($this->path[0]) || $this->path[0] == $this->registry()->config['main_page']) {
+            $this->path = explode('/', $this->registry()->config['main_page']);
+        };
         if(isset($this->registry()->routes[$this->path[0]])) {
             $this->path = $this->registry()->routes[$this->path[0]];
             $this->parse_url();
         };
         $this->registry()->config['enable'] == 1 && $_SESSION['status']!=='admin'
-            ? $this->path[0] = 'block'
+            ? $this->path[0] = 'login'
             : '';
 
         $PATH = '/controllers/Controller_'.$this->path[0].'.php';
-        if(is_file(APP_PATH.$PATH) || is_file(SYS_PATH.$PATH)) {
+        if(is_file(APP_PATH.$PATH) || is_file(CMS_PATH.$PATH)) {
             $class = 'Controller_'.$this->path[0];
             if(is_file(APP_PATH.$PATH)) {
                 $PATH = APP_PATH.$PATH;
                 $this->registry()->PATH = APP_PATH;
             } else {
-                $PATH = SYS_PATH.$PATH;
-                $this->registry()->PATH = SYS_PATH;
+                $PATH = CMS_PATH.$PATH;
+                $this->registry()->PATH = CMS_PATH;
             };
             
             include_once($PATH);
         } else {
             $class = 'request';
-            include_once(SYS_PATH.'/controllers/request.php');
+            include_once(CMS_PATH.'/controllers/request.php');
             Logger::error('Class ['.$this->path[0].'] not isset');  
         };
 

@@ -4,7 +4,7 @@
             ##fancybox->[file=$[1.jpg,2.jpg];name=test;path=/{config::library_path}/fancybox/demo/;thumb_path=/{config::library_path}/fancybox/demo/thumb/;type=gallery]##
         </td>
         <td>
-            <span class="code">&nbsp;Code: &#35;#fancybox->[file=$[1.jpg,2.jpg];name=test;path=/&#123;config::library_path&#125;/fancybox/demo/;thumb_path=/&#123;config::library_path&#125;/fancybox/demo/thumb/;type=gallery]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#fancybox->[file=$[1.jpg,2.jpg];name=test; path=/&#123;config::library_path&#125;/fancybox/demo/;thumb_path=/&#123;config::library_path&#125;/fancybox/demo/thumb/;type=gallery]#&#35;</span>
         </td>
     </tr>
     <tr>

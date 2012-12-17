@@ -18,8 +18,8 @@ class DB extends DRM {
     public function connect() {
 		try {
 			$connect = @mysql_connect($this->registry()->config['db_host'],
-									 $this->registry()->config['db_user'],
-									 $this->registry()->config['db_password']);
+									  $this->registry()->config['db_user'],
+									  $this->registry()->config['db_password']);
             if(!$connect) {
                 throw new Exception('DB is not connected');
             } else {
@@ -113,10 +113,8 @@ class DB extends DRM {
         return mysql_num_rows($this->query());
     }
     
-    public function where($where = '') {
-        if(!empty($where)) {
-            $this->query .= ' WHERE '.$where;
-        };
+    public function where($where = '1 = 1') {
+        $this->query .= ' WHERE '.$where;
         return $this;
     }
     
