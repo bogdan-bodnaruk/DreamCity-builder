@@ -1,5 +1,5 @@
 var DRM = {};
-    DRM.environment = 'test';
+    DRM.environment = 'production';
     DRM.libraryPath = 'library';
     DRM.libraryPathProduction = 'library/min/?f=library';
     DRM.library = (DRM.environment == 'production' ? DRM.libraryPathProduction : DRM.libraryPath);
@@ -44,14 +44,12 @@ var DRM = {};
 
     DRM.loadMainCss = function() {
         yepnope({
-            load: [DRM.css+'/boilerplate.css',
-                   DRM.css+'/main.css',
-                   DRM.css+'/green.css',
-                   '/.config/i18n/messages.'+ DRM.locale + '.js',
+            load: ['/.config/i18n/messages.'+ DRM.locale + '.js',
                    DRM.library + '/DRM/drmJQuery/drmJQuery.js',
                    DRM.library + '/DRM/drmJQuery/drmJQuery.css'
             ],
             complete: function() {
+                DRM.loadCSS(['main','boilerplate','green']);
                 $('html').show();
             }
         });
@@ -249,6 +247,21 @@ var DRM = {};
         $('a[href=#]').live('click', function(){
             return false;
         });
+    }
+
+    DRM.loadCSS = function(css) {
+        if(DRM.environment == 'production') {
+            var files = '';
+            for(var i=0;i<css.length;i++) {
+               files += css[i]+';';
+            }
+            yepnope.injectCss("min/css/?f="+files);
+
+        } else {
+            for(var i=0;i<css.length;i++) {
+                yepnope.injectCss("min/css/?f="+css[i]);
+            }
+        }
     }
 
     DRM.init = function() {
