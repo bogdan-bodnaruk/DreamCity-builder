@@ -3,9 +3,7 @@ var DRM = {};
     DRM.libraryPath = 'library';
     DRM.libraryPathProduction = 'library/min/?f=library';
     DRM.library = (DRM.environment == 'production' ? DRM.libraryPathProduction : DRM.libraryPath);
-    DRM.cssPath = 'web/theme/css';
-    DRM.cssPathProduction = 'library/min/?f=web/theme/css';
-    DRM.css = (DRM.environment == 'production' ? DRM.cssPathProduction : DRM.cssPath);
+    DRM.css = [];
     DRM.locale = 'en';
 
     DRM.JQueryInited = false;
@@ -43,13 +41,12 @@ var DRM = {};
     !DRM.YepNopeInited ? YepNopeLoader() : '';
 
     DRM.loadMainCss = function() {
+        DRM.css.push('boilerplate','green','main');
         yepnope({
             load: ['/.config/i18n/messages.'+ DRM.locale + '.js',
                    DRM.library + '/DRM/drmJQuery/drmJQuery.js',
-                   DRM.library + '/DRM/drmJQuery/drmJQuery.css'
             ],
             complete: function() {
-                DRM.loadCSS(['main','boilerplate','green']);
                 $('html').show();
             }
         });
@@ -57,9 +54,9 @@ var DRM = {};
 
     DRM.chosen = function() {
         if($('select').length) {
+            DRM.css.push('chosen');
             yepnope({
-                load: [DRM.library + '/chosen/chosen.css',
-                       DRM.library + '/chosen/chosen.min.js'],
+                load: [DRM.library + '/chosen/chosen.min.js'],
                 complete: function() {
                     $('select').chosen({disable_search_threshold: 10});
                 }
@@ -69,29 +66,28 @@ var DRM = {};
 
     DRM.mozilla = function() {
         if($.browser.mozilla) {
-            yepnope({
-                load: DRM.css + '/mozilla_reset.css'
-            });
+            DRM.css.push('mozilla_reset');
         }
     }
 
     DRM.qtip2 = function() {
-        yepnope({
-            test: $('.qtip-tooltip').length > 0,
-            yep: [DRM.library + '/qTip2/jquery.qtip.min.js',
-                  DRM.library + '/qTip2/jquery.qtip.min.css'],
-            callback: function() {
-                $('a.qtip-tooltip[title]').qtip({
-                    position: {
-                        my: 'bottom center',
-                        at: 'top center'
-                    },
-                    style: {
-                        classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
-                    }
-                });
-            }
-        });
+        if($('.qtip-tooltip').length > 0) {
+            DRM.css.push('qtip');
+            yepnope({
+                load: [DRM.library + '/qTip2/jquery.qtip.min.js'],
+                callback: function() {
+                    $('a.qtip-tooltip[title]').qtip({
+                        position: {
+                            my: 'bottom center',
+                            at: 'top center'
+                        },
+                        style: {
+                            classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
+                        }
+                    });
+                }
+            });
+        }
     }
 
     DRM.confirm = function() {
@@ -134,76 +130,79 @@ var DRM = {};
     }
 
     DRM.fancybox = function() {
-        yepnope({
-            test: $("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]"),
-                yep: [DRM.library + '/fancybox/jquery.fancybox.js', DRM.library + '/fancybox/jquery.fancybox.css'],
+        if($("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]")) {
+            DRM.css.push('fancybox');
+            yepnope({
+                load: [DRM.library + '/fancybox/jquery.fancybox.js'],
                 callback: function() {
-                $("div[id^=fancybox-] a").fancybox({
-                    nextEffect: 'elastic',
-                    prevEffect: 'elastic',
-                    openEffect	: 'elastic',
-                    closeEffect	: 'elastic'
-                });
-                $("a.fancybox-video").on('click',function() {
-                    $.fancybox({
-                        'padding' : 0,
-                        'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
-                        'type' : 'swf',
-                        'swf' : {
-                            'wmode': 'transparent',
-                            'allowfullscreen': 'true'
-                        }
+                    $("div[id^=fancybox-] a").fancybox({
+                        nextEffect: 'elastic',
+                        prevEffect: 'elastic',
+                        openEffect	: 'elastic',
+                        closeEffect	: 'elastic'
                     });
-                    return false;
-                });
-                $("a.fancybox-map, a.fancybox-iframe").on('click',function() {
-                    $.fancybox({
-                        'href' : this.href,
-                        'type' : 'iframe'
+                    $("a.fancybox-video").on('click',function() {
+                        $.fancybox({
+                            'padding' : 0,
+                            'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+                            'type' : 'swf',
+                            'swf' : {
+                                'wmode': 'transparent',
+                                'allowfullscreen': 'true'
+                            }
+                        });
+                        return false;
                     });
-                    return false;
-                });
-                $("a.fancybox-ajax").on('click',function() {
-                    $.fancybox({
-                        'href' : this.href,
-                        'type' : 'ajax'
+                    $("a.fancybox-map, a.fancybox-iframe").on('click',function() {
+                        $.fancybox({
+                            'href' : this.href,
+                            'type' : 'iframe'
+                        });
+                        return false;
                     });
-                    return false;
-                });
-            }
-        });
+                    $("a.fancybox-ajax").on('click',function() {
+                        $.fancybox({
+                            'href' : this.href,
+                            'type' : 'ajax'
+                        });
+                        return false;
+                    });
+                }
+            });
+
+        }
     }
 
     DRM.jQueryUI = function() {
-        yepnope({
-            test: $("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]"),
-                yep: [DRM.library + '/jquery-ui/jquery-ui-1.8.23.custom.min.js',DRM.library + '/jquery-ui/jquery-ui-1.8.23.custom.css'],
+        if($("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]")) {
+            DRM.css.push('jqueryui');
+            yepnope({
+                load: [DRM.library + '/jquery-ui/jquery-ui-1.8.23.custom.min.js'],
                 callback: function() {
-                $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
+                    $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
 
-                $("div[id^=window-]").dialog({
-                    autoOpen: false,
-                    modal: true
-                });
-                $("a[id^=window-]").on('click',function() {
-                    $("div[id^=" + this.id + "]").dialog("open");
-                    return false;
-                });
-                $("button[id^=window-]").on('click',function() {
-                    $("div[id^=" + this.id + "]").dialog("open");
-                    return false;
-                });
-            }
-        });
+                    $("div[id^=window-]").dialog({
+                        autoOpen: false,
+                        modal: true
+                    });
+                    $("a[id^=window-]").on('click',function() {
+                        $("div[id^=" + this.id + "]").dialog("open");
+                        return false;
+                    });
+                    $("button[id^=window-]").on('click',function() {
+                        $("div[id^=" + this.id + "]").dialog("open");
+                        return false;
+                    });
+                }
+            });
+        }
     }
 
     // Need testing
     DRM.ie = function() {
         if($.browser.msie) {
             yepnope({
-                load: ['ie9!' + DRM.css + '/ie9.css',
-                       'ie8!' + DRM.css + '/ie8.css',
-                       'preload!'+DRM.libraryPath + '/DRM/PIE.js',
+                load: ['preload!'+DRM.libraryPath + '/DRM/PIE.js',
                         DRM.library + '/DRM/classList.js'],
                 complete: function() {
                     if($.browser.version<8) {
@@ -218,6 +217,12 @@ var DRM = {};
                     }
                 }
             });
+            if($.browser.version==8.0) {
+                DRM.css.push('ie8');
+            }
+            if($.browser.version==9.0) {
+                DRM.css.push('ie9');
+            }
         }
     }
 
@@ -249,35 +254,37 @@ var DRM = {};
         });
     }
 
-    DRM.loadCSS = function(css) {
+    DRM.loadCSS = function() {
         if(DRM.environment == 'production') {
             var files = '';
-            for(var i=0;i<css.length;i++) {
-               files += css[i]+';';
+            for(var i=0;i<DRM.css.length;i++) {
+               files += DRM.css[i]+';';
             }
             yepnope.injectCss("min/css/?f="+files);
 
         } else {
-            for(var i=0;i<css.length;i++) {
-                yepnope.injectCss("min/css/?f="+css[i]);
+            for(var i=0;i<DRM.css.length;i++) {
+                yepnope.injectCss("min/css/?f="+DRM.css[i]);
             }
         }
     }
 
     DRM.init = function() {
+        DRM.loadMainCss();
         DRM.chosen();
-        DRM.mozilla();
         DRM.ckeditor();
         DRM.qtip2();
         DRM.confirm();
         DRM.fancybox();
         DRM.jQueryUI();
         DRM.h5validate();
+        DRM.mozilla();
         DRM.ie();
+
         DRM.run();
     }
 
     window.onload = function() {
-        DRM.loadMainCss();
         DRM.init();
+        DRM.loadCSS();
     };

@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-image: url("../images/background.png");
+    background-image: url("{path}/background.png");
     background-repeat: repeat;
 }
 
@@ -116,10 +116,6 @@ div#main #content {
 
 .template {
     padding: 10px;
-}
-
-.data_table {
-    margin: 10px;
 }
 
 .data_table td:first-child {

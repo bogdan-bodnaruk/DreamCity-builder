@@ -23,6 +23,12 @@
             <span class="code">Code: &#35;#button->[name=button3;value=button;id=test_id;class=test_class;style=font-size:10px;]#&#35;</span>
         </td>
     </tr>
+    <tr>
+        <td>##submit->[name=submit4;value=delete;class=red;]##</td>
+        <td>
+            <span class="code">Code: &#35;#submit->[name=submit4;value=delete;class=red;]#&#35;</span>
+        </td>
+    </tr>
 </table>
 
 <div style="padding: 10px;">

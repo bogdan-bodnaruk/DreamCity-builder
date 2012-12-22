@@ -22,22 +22,13 @@ button, input[type="submit"], input[type="button"], a.button {
     padding: 10px 20px;
     text-decoration: none;
     background: linear-gradient(top,#74e036 0%,#5eaf28);
+	-pie-background: linear-gradient(#74e036, #5eaf28);
     background: -moz-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -webkit-linear-gradient(top,#74e036 0%,#5eaf28);
-    background: -o-linear-gradient(top,#74e036 0%,#5eaf28);
-	-pie-background: linear-gradient(#74e036, #5eaf28);
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
     border: 1px solid #70a232;
-    box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -moz-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -webkit-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -o-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -ms-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+    box-shadow:0px 1px 1px #444, inset 0px 0px 1px #FFFFFF;
     text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -moz-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -webkit-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -o-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -ms-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
 }
 
 button, input[type="submit"] span, input[type="button"] span, a.button span {
@@ -52,8 +43,6 @@ button:hover, input[type="submit"]:hover, input[type="button"]:hover, a.button:h
     background: linear-gradient(bottom,#74e036 0%,#5eaf28);
     background: -moz-linear-gradient(bottom,#74e036 0%,#5eaf28);
     background: -webkit-linear-gradient(bottom,#74e036 0%,#5eaf28);
-    background: -o-linear-gradient(bottom,#74e036 0%,#5eaf28);
-    background: -ms-linear-gradient(bottom,#74e036 0%,#5eaf28);
 	-pie-background: linear-gradient(#5eaf28, #74e036);
 }
 
@@ -61,17 +50,12 @@ button:active, input[type="submit"]:active, input[type="button"]:active, a.butto
     position: relative;
     top: 2px;
     box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0 2px 4px rgba(0, 0, 0, 0.20);
-    -moz-box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0 2px 4px rgba(0, 0, 0, 0.20);
-    -webkit-box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0 2px 4px rgba(0, 0, 0, 0.20);
-    -o-box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0 2px 4px rgba(0, 0, 0, 0.20);
-    -ms-box-shadow:0px 0px 1px rgba(000,000,000,0.5), inset 0 2px 4px rgba(0, 0, 0, 0.20);
 }
 
 button.red, input[type="submit"].red, input[type="button"].red, a.button.red {
     background: linear-gradient(top,#DD4035 0%,#AF2829);
     background: -moz-linear-gradient(top,#DD4035 0%,#AF2829);
     background: -webkit-linear-gradient(top,#DD4035 0%,#AF2829);
-    background: -o-linear-gradient(top,#DD4035 0%,#AF2829);
     -pie-background: linear-gradient(#DD4035, #AF2829);
     border: 1px solid #DD4035;
 }
@@ -80,15 +64,12 @@ button.red:hover, input[type="submit"].red:hover, input[type="button"].red:hover
     background: linear-gradient(top,#AF2829 0%,#DD4035);
     background: -moz-linear-gradient(top,#AF2829 0%,#DD4035);
     background: -webkit-linear-gradient(top,#AF2829 0%,#DD4035);
-    background: -o-linear-gradient(top,#AF2829 0%,#DD4035);
     -pie-background: linear-gradient(#AF2829, #DD4035);
-    border: 1px solid #DD4035;
 }
 
 /* Checkbox style */
 div.checkbox_wrapper > input[type="checkbox"]:first-child + label {
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
+    border-radius: 5px 0 0 5px;
 }
 
 div.checkbox_wrapper > input[type="checkbox"] + label {
@@ -96,24 +77,17 @@ div.checkbox_wrapper > input[type="checkbox"] + label {
     background: linear-gradient(top,#74e036 0%,#5eaf28);
     background: -moz-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -webkit-linear-gradient(top,#74e036 0%,#5eaf28);
-    background: -o-linear-gradient(top,#74e036 0%,#5eaf28);
-    background: -ms-linear-gradient(top,#74e036 0%,#5eaf28);
 	-pie-background: linear-gradient(#74e036, #5eaf28);
     color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
     border: 1px solid #70a232;
     text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -moz-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -webkit-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -o-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -ms-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     margin-left: -4px;
 }
 
 div.checkbox_wrapper > input[type="checkbox"] + label:last-child {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
+    border-radius: 0 5px 5px 0;
 }
 
 input[type="checkbox"] {
@@ -129,10 +103,6 @@ div.checkbox_wrapper > input[type="checkbox"]:checked + label {
     background: -ms-linear-gradient(bottom,#74e036 0%,#5eaf28);
 	-pie-background: linear-gradient(#5eaf28, #74e036);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -ms-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
 }
 
 /* Radio button style */
@@ -150,22 +120,16 @@ div.radio_wrapper > input[type="radio"] + label {
     font-size: 13px;
     border: 1px solid #70a232;
     text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -moz-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -webkit-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -o-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
-    -ms-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     margin-left: -4px;
 }
 
 div.radio_wrapper > input[type="radio"]:first-child + label {
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
+    border-radius: 5px 0 0 5px;
     margin-left: 0;
 }
 
 div.radio_wrapper > input[type="radio"] + label:last-child {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
+    border-radius: 0 5px 5px 0;
 }
 
 input[type="radio"] {
@@ -181,41 +145,29 @@ div.radio_wrapper > input[type="radio"]:checked + label {
     background: -ms-linear-gradient(bottom,#74e036 0%,#5eaf28);
 	-pie-background: linear-gradient(#5eaf28, #74e036);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
-    -ms-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset;
 }
 
 /* textarea style */
 textarea, textarea:invalid {
     border: 1px solid #CCCCCC;
     box-shadow: 0 0 3px #CCCCCC;
-    -moz-box-shadow: 0 0 3px #CCCCCC;
-    -webkit-box-shadow: 0 0 3px #CCCCCC;
-    -o-box-shadow: 0 0 3px #CCCCCC;
-    -ms-box-shadow: 0 0 3px #CCCCCC;
     padding: 5px;
     background-color: #FFFFFF;
     color: #999999;
     outline: none;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
 }
 
 textarea:focus {
     border: 1px solid rgba(73, 220, 22, 0.7);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
     background-color: #F9FCEF;
 }
 
 /*input text, password style */
 input[type="text"], input[type="password"], input[type="file"] {
     border: 1px solid #CCCCCC;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
     padding: 5px 8px;
     font-size: 12px;
     color: #999999;
@@ -226,10 +178,6 @@ input[type="text"], input[type="password"], input[type="file"] {
 input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus {
     border: 1px solid rgba(73, 220, 22, 0.7);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
-    -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(45, 174, 1, 0.7);
     background-color: #F9FCEF;
 }
 
@@ -245,10 +193,6 @@ select {
 
 .chzn-container-single .chzn-search input[type="text"]:focus {
     box-shadow: 0 0 5px #E8EDD5;
-    -moz-box-shadow: 0 0 5px #E8EDD5;
-    -webkit-box-shadow: 0 0 5px #E8EDD5;
-    -o-box-shadow: 0 0 5px #E8EDD5;
-    -ms-box-shadow: 0 0 5px #E8EDD5;
 }
 
 /* errors styling */
@@ -273,7 +217,7 @@ select {
 
 .drm-error {
     background-color: #EE4200;
-    border-radius: 16px 16px 16px 16px;
+    border-radius: 16px;
     color: white;
     margin-left: -20px;
     padding: 2px 8px;
@@ -284,10 +228,6 @@ select {
     top: 2px;
     font-weight: bolder;
     box-shadow:  inset 0 0 1px #747474;
-    -moz-box-shadow:  inset 0 0 1px #747474;
-    -webkit-box-shadow:  inset 0 0 1px #747474;
-    -o-box-shadow:  inset 0 0 1px #747474;
-    -ms-box-shadow:  inset 0 0 1px #747474;
     cursor: help;
 }
 
@@ -397,9 +337,6 @@ select {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    -moz-binding: url("ellipsis.xml#ellipsis");
-    -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
     margin: 0;
     padding: 0;
 }
@@ -476,7 +413,7 @@ select {
     overflow: hidden;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(../images/loading.gif);
+    background-image: url({path}/loading.gif);
 }
 
 #content.loading .upload {
@@ -540,10 +477,6 @@ div.upload .drm-error {
     border: 1px solid yellow;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0 0 10px #999999;
-    -moz-box-shadow: 0 0 10px #999999;
-    -webkit-box-shadow: 0 0 10px #999999;
-    -o-box-shadow: 0 0 10px #999999;
-    -ms-box-shadow: 0 0 10px #999999;
     position: absolute;
     top: -40px;
     min-width: 150px;
@@ -579,7 +512,7 @@ div.upload .drm-error {
     width: 100%;
     text-align: center;
     padding-top: 100px;
-    background-image: url('../images/nodata.png');
+    background-image: url('{path}/nodata.png');
     background-repeat: no-repeat;
     background-position: center center;
     height: 400px;
@@ -606,14 +539,14 @@ div.upload .drm-error {
 }
 
 body#blocked {
-    background-image: url("../images/background.png");
+    background-image: url("{path}/background.png");
 }
 
 body#blocked div.gears {
     height: 350px;
     margin: 0px auto 0;
     padding-top: 100px;
-    background-image: url("../images/nodata.png");
+    background-image: url("{path}/nodata.png");
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -626,4 +559,54 @@ body#blocked #login_wrapper {
     border-radius: 5px;
     box-shadow: 0 0 24px #999;
     margin: 0 auto;
+}
+
+
+/* Confirm */
+#DRM-confirm {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: -moz-linear-gradient(rgba(11, 11, 11, 0.1), rgba(11, 11, 11, 0.6)) repeat-x rgba(11, 11, 11, 0.2);
+    background: -webkit-linear-gradient(rgba(11, 11, 11, 0.1), rgba(11, 11, 11, 0.6)) repeat-x rgba(11, 11, 11, 0.2);
+    z-index: 100000;
+}
+
+#DRM-confirm #confirmBox {
+    background: url('{path}/confirm_body_bg.jpg') repeat-x left bottom #e5e5e5;
+    width: 460px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -130px 0 0 -230px;
+    border: 1px solid rgba(33, 33, 33, 0.6);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.6) inset;
+}
+
+#DRM-confirm #confirmBox h1,
+#DRM-confirm #confirmBox p {
+    font: 26px/1 'Cuprum', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    background: url('{path}/confirm_header_bg.jpg') repeat-x left bottom #f5f5f5;
+    padding: 18px 25px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+    color: #666;
+}
+
+#DRM-confirm #confirmBox h1 {
+    letter-spacing: 0.3px;
+    color: #888;
+}
+
+#DRM-confirm #confirmBox p {
+    background: none;
+    font-size: 16px;
+    line-height: 1.4;
+    padding-top: 35px;
+}
+
+#DRM-confirm #confirmButtons {
+    padding: 15px 0 25px;
+    text-align: center;
 }

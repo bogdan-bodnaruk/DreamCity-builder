@@ -8,7 +8,7 @@
         <td> - Config test value</td>
     </tr>
     <tr>
-        <td>&#123;value&#125; = {value}</td>
+        <td>&#123;value&#125; = <a href="#" class="qtip-tooltip" title="Qtip2 test">d</a> {value}</td>
         <td> - Value</td>
     </tr>
     <tr>
