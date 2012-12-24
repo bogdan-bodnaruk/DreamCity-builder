@@ -1,6 +1,8 @@
 <?php
 class Controller_min extends Controller {
     private $css = '';
+    private $temp = '';
+
     private $colors = array(
         '#000000' =>  '#000',
         '#111111' =>  '#111',
@@ -21,6 +23,10 @@ class Controller_min extends Controller {
         '#FF0000' =>  '#F00'
     );
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     public function index() {
 
     }
@@ -28,6 +34,8 @@ class Controller_min extends Controller {
     public function css() {
         include_once(PATH.'.config/dependencies.php');
         $this->val('f');
+        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.temp';
+
         $files = explode(';',$this->val['f']);
         for($i=0;$i<count($files);$i++) {
             if(!empty($files[$i])) {
@@ -65,6 +73,8 @@ class Controller_min extends Controller {
             header("Pragma: public");
             header("ETag: ".md5($this->val['f']));
             echo gzencode($this->css, 9, FORCE_GZIP);
+
+            file_put_contents($this->temp.'/'.md5($this->val['f']).'.css', $this->css);
         } else {
             header("Content-type: text/css", true);
             header("Cache-Control: no-store, no-cache, must-revalidate");
