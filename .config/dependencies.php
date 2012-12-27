@@ -23,4 +23,5 @@ $D_js = array(
     'qtip'          =>  $this->registry()->config['library_path'].'/qTip2/jquery.qtip.min.js',
     'drm'           =>  $this->registry()->config['library_path'].'/DRM/drm.js',
     'yepnope'       =>  $this->registry()->config['library_path'].'/DRM/yepnope.js',
+    'jquery'        =>  $this->registry()->config['library_path'].'/DRM/jquery-1.8.3.min.js',
 );

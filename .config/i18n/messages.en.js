@@ -11,7 +11,7 @@ message.minChar = 'Please enter at least ';
 message.maxChar = 'Please enter no more than ';
 message.characters = ' characters.';
 message.required = 'This field is required';
-message.ie_out_of_date = 'Did you know that your Internet Explorer is out of date?'
+message.ie_out_of_date = 'Did you know that your Internet Explorer is out of date?';
 message.ie_recomendations = 'To get better browsing experience and enhanced security, try one of the free, modern ' +
                             'web browsers or upgrade to the newest version of Internet Explorer.';
 message.ie_other_browsers = 'Some popular web browsers - just click on the icon to get to the download page!';

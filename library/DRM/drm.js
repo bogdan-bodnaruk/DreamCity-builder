@@ -1,31 +1,23 @@
 var DRM = {};
     DRM.environment = '{env}';
-    DRM.libraryPath = '{library}';
-   /* DRM.library = 'library'; DRM.libraryPathProduction = 'library/min/?f=library';*/
-    /*DRM.library = (DRM.environment == 'production' ? DRM.libraryPathProduction : DRM.libraryPath); */
+    DRM.library = '{library}';
     DRM.css = [];
     DRM.locale = '{locale}';
-
-    DRM.JQueryInited = false;
-    DRM.JQueryVersion = '1.8.3';
-    DRM.JQueryLoad = 'local'; /* cdn, local */
-    DRM.JQueryCDN = '<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/'+DRM.JQueryVersion+'/jquery.min.js"></script>';
-    DRM.JQueryLocal = '<script type="text/javascript" src="'+DRM.libraryPath+'/DRM/jquery-'+DRM.JQueryVersion +'.min.js"></script>';
-
     DRM.ajax = true;
     DRM.fullAjax = true;
 
+    DRM.JQueryInited = false;
     var JQueryLoader = function() {
         if (typeof(jQuery) == 'undefined') {
             if (!DRM.JQueryInited) {
                 DRM.JQueryInited = true;
-                document.write(DRM.JQueryLoad == 'cdn' ? DRM.JQueryCDN : DRM.JQueryLocal);
+                document.write('<script type="text/javascript" src="min/js/f=jquery/c=false/e=2678400"></script>');   //don't compress and cache 31day (86400 x 31)
             }
             setTimeout('JQueryLoader()', 50);
         }
     };
 
-    DRM.JQueryLoad ? JQueryLoader() : '';
+    JQueryLoader();
 
 
     DRM.YepNopeInited = false;
@@ -33,7 +25,7 @@ var DRM = {};
         if (typeof(yepnope) == 'undefined') {
             if (!DRM.YepNopeInited) {
                 DRM.YepNopeInited = true;
-                document.write('<script type="text/javascript" src="min/js/?f=yepnope"></script>');
+                document.write('<script type="text/javascript" src="min/js/f=yepnope/c=false/e=2678400"></script>');   //don't compress and cache 31day (86400 x 31)
             }
             setTimeout('YepNopeLoader()', 50);
         }
@@ -43,10 +35,10 @@ var DRM = {};
     DRM.loadMainCss = function() {
         DRM.css.push('boilerplate','green','main');
         yepnope({
-            load: ['/.config/i18n/messages.'+ DRM.locale + '.js',
-                   DRM.library + '/DRM/drmJQuery/drmJQuery.js',
+            load: ['/min/js/f='+ DRM.locale,
+                   '/min/js/f=drmjquery',
             ],
-            complete: function() {
+            callback: function() {
                 $('html').show();
             }
         });
@@ -56,7 +48,7 @@ var DRM = {};
         if($('select').length) {
             DRM.css.push('chosen');
             yepnope({
-                load: [DRM.library + '/chosen/chosen.min.js'],
+                load: ['/min/js/f=chosen/e=604800'],     // Cache 7day (86400 x 7)
                 complete: function() {
                     $('select').chosen({disable_search_threshold: 10});
                 }
@@ -74,7 +66,7 @@ var DRM = {};
         if($('.qtip-tooltip').length > 0) {
             DRM.css.push('qtip');
             yepnope({
-                load: [DRM.library + '/qTip2/jquery.qtip.min.js'],
+                load: ['/min/js/f=qtip/e=604800'], // Cache 7day (86400 x 7)
                 callback: function() {
                     $('a.qtip-tooltip[title]').qtip({
                         position: {
@@ -133,7 +125,7 @@ var DRM = {};
         if($("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]")) {
             DRM.css.push('fancybox');
             yepnope({
-                load: [DRM.library + '/fancybox/jquery.fancybox.js'],
+                load: ['/min/js/f=fancybox/e=604800'],      // Cache 7day (86400 x 7)
                 callback: function() {
                     $("div[id^=fancybox-] a").fancybox({
                         nextEffect: 'elastic',
@@ -177,7 +169,7 @@ var DRM = {};
         if($("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]")) {
             DRM.css.push('jqueryui');
             yepnope({
-                load: [DRM.library + '/jquery-ui/jquery-ui-1.8.23.custom.min.js'],
+                load: ['/min/js/f=jqueryui/e=2678400'],        // Cache 31day (86400 x 31)
                 callback: function() {
                     $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
 
@@ -202,8 +194,8 @@ var DRM = {};
     DRM.ie = function() {
         if($.browser.msie) {
             yepnope({
-                load: ['preload!'+DRM.libraryPath + '/DRM/PIE.js',
-                        DRM.library + '/DRM/classList.js'],
+                load: ['preload!min/js/f=pie/c=false/e=2678400',   //don't compress and cache 31day (86400 x 31)
+                        'min/js/f=classlist'],
                 complete: function() {
                     if($.browser.version<8) {
                         DRM.ieLocker();
@@ -260,11 +252,11 @@ var DRM = {};
             for(var i=0;i<DRM.css.length;i++) {
                files += DRM.css[i]+';';
             }
-            yepnope.injectCss("min/css/?f="+files);
+            yepnope.injectCss("min/css/f="+files);
 
         } else {
             for(var i=0;i<DRM.css.length;i++) {
-                yepnope.injectCss("min/css/?f="+DRM.css[i]);
+                yepnope.injectCss("min/css/f="+DRM.css[i]);
             }
         }
     };
@@ -287,5 +279,4 @@ var DRM = {};
     window.onload = function() {
         DRM.init();
         DRM.loadCSS();
-        $('html').show();
     };

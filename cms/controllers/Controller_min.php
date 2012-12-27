@@ -48,6 +48,7 @@ class Controller_min extends Controller {
             header("Content-type: text/css", true);
             header("Cache-Control: must-revalidate, max-age=1200");
             header("Pragma: public");
+            header('Vary: Accept-Encoding');
             header("ETag: ".md5($this->val['f']));
             $this->css = file_get_contents($this->temp.'/'.md5($this->val['f']).'.css');
             echo gzencode($this->css, 9, FORCE_GZIP);
@@ -61,24 +62,13 @@ class Controller_min extends Controller {
             }
             if($this->registry()->config['env']=='production') {
                 $this->css = strtr($this->css, $this->colors);
-                $this->css = preg_replace("/[\/*]{2}(.)+[*\/]{2}/sU", '', $this->css);
-                $this->css = strtr($this->css,
-                    array(';;'      =>  ';',
-                        "\r"      =>  '',
-                        "\n"      =>  '',
-                        "\t"      =>  '',
-                        ": "      =>  ':',
-                        ' ;'      =>  ';',
-                        '  '      =>  '',
-                        ' {'      =>  '{',
-                        ', '      =>  ',',
-                        ' 0px'    =>  ' 0',
-                        ':0px'    =>  ':0',
-                        ' /'      =>  '',
-                        '/**/'    =>  '',
-                    )
-                );
-
+				$this->css = preg_replace("/\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]/s", '$1', $this->css);
+				$this->css = strtr($this->css,
+					array(':0px'	=> ':0',
+						  ',0px'	=> ',0',
+						  ' 0px'	=> ' 0',
+					)
+				);
                 $this->css = strtr($this->css,
                     array('{path}'   =>  $this->registry()->config['base_href'].$this->registry()->config['app_path'].'/theme/images',
                         '{library}'=>  $this->registry()->config['base_href'].$this->registry()->config['library_path'])
@@ -87,6 +77,7 @@ class Controller_min extends Controller {
                 header("Content-Encoding: gzip");
                 header("Content-type: text/css", true);
                 header("Pragma: public");
+                header('Vary: Accept-Encoding');
                 header("ETag: ".md5($this->val['f']));
                 echo gzencode($this->css, 9, FORCE_GZIP);
 
@@ -95,6 +86,7 @@ class Controller_min extends Controller {
                 header("Content-type: text/css", true);
                 header("Cache-Control: no-store, no-cache, must-revalidate");
                 header("Pragma: no-cache");
+                header('Vary: Accept-Encoding');
 
                 $this->css = strtr($this->css,
                     array('{path}'   =>  $this->registry()->config['base_href'].$this->registry()->config['app_path'].'/theme/images',
@@ -108,6 +100,8 @@ class Controller_min extends Controller {
     public function js() {
         include_once(PATH.'.config/dependencies.php');
         $this->val('f');
+        $this->val('e');
+        $this->val('c');
 
         $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.temp';
         $bundle = true;
@@ -123,8 +117,13 @@ class Controller_min extends Controller {
         if(is_file($this->temp.'/'.md5($this->val['f']).'.js') && $this->registry()->config['env']=='production' && $bundle) {
             header("Content-Encoding: gzip");
             header("Content-type: application/x-javascript");
-            //header("Cache-Control: must-revalidate, max-age=1200");
+            if($this->val['e']!=="") {
+                header("Cache-Control: must-revalidate, max-age=".$this->val['e']);
+            } else {
+                header("Cache-Control: must-revalidate, max-age=1200");
+            };
             header("Pragma: public");
+            header('Vary: Accept-Encoding');
             header("ETag: ".md5($this->val['f']));
             $this->js = file_get_contents($this->temp.'/'.md5($this->val['f']).'.js');
             echo gzencode($this->js, 9, FORCE_GZIP);
@@ -137,69 +136,81 @@ class Controller_min extends Controller {
                 };
             }
             if($this->registry()->config['env']=='production') {
-                $this->js = strtr($this->js, $this->colors);
+                if($this->val['c']!=='false') {
+                    $this->js = strtr($this->js, $this->colors);
+                    $this->js = strtr($this->js,
+                        array('{env}'    =>  $this->registry()->config['env'],
+                              '{locale}' =>  $this->lang,
+                              '{library}'=>  $this->registry()->config['library_path'])
+                    );
 
-                $this->js = strtr($this->js,
-                    array('{env}'    =>  $this->registry()->config['env'],
-                        '{locale}' =>  $this->lang,
-                        '{library}'=>  $this->registry()->config['base_href'].$this->registry()->config['library_path'])
-                );
+                    $this->js = preg_replace('/[ \t]*(?:\/\*(?:.(?!(?<=\*)\/))*\*\/|\/\/[^\n\r]*\n?\r?)/s', '', $this->js);
+                    $this->js = preg_replace('/(\n)|(\r)|(\t)/s', '', $this->js);
 
-                //$this->js = preg_replace("/[\/*]{2}(.*?)[*\/]{2}/U", '', $this->js);
-
-                //$this->js = preg_replace('/(\\/\\/.*?\\n)/x', '', $this->js);
-                $this->js = preg_replace('/(?s:\\/\\*.*?\\*\\/)/x', '', $this->js);
-
-                $this->js = strtr($this->js,
-                    array(';;'      =>  ';',
-                          "\r"      =>  '',
-                          "\n"      =>  '',
-                          "\t"      =>  '',
-                          ": "      =>  ':',
-                          ' ;'      =>  ';',
-                          '  '      =>  '',
-                          ' {'      =>  '{',
-                          ' }'      =>  '}',
-                          ' ('      =>  '(',
-                          ' )'      =>  ')',
-                          '; '      =>  ';',
-                          ', '      =>  ',',
-                          ' 0px'    =>  ' 0',
-                          ':0px'    =>  ':0',
-                          '/**/'    =>  '',
-                          ' = '     =>  '=',
-                          ' ='      =>  '=',
-                          '= '      =>  '=',
-                          ' > '     =>  '>',
-                          ' < '     =>  '<',
-                          ' ? '     =>  '?',
-                          ' ?'      =>  '?',
-                          '? '      =>  '?',
-                          ' : '     =>  ':',
-                          ' :'      =>  ':',
-                          ': '      =>  ':',
-                          ' + '     =>  '+',
-                          ' +'      =>  '+',
-                          '+ '      =>  '+',
-                          ' || '    =>  '||',
-                          ' ||'     =>  '||',
-                          '|| '     =>  '||',
-                          ' && '    =>  '&&',
-                          ' &&'     =>  '&&',
-                          '&& '     =>  '&&',
-                    )
-                );
+                    $this->js = strtr($this->js,
+                        array(';;'      =>  ';',
+                            ": "      =>  ':',
+                            ' ;'      =>  ';',
+                            '; '      =>  ';',
+                            '  '      =>  '',
+                            ' {'      =>  '{',
+                            ' }'      =>  '}',
+                            ' { '     =>  '{',
+                            ' } '     =>  '}',
+                            '{ '      =>  '{',
+                            '} '      =>  '}',
+                            ' ('      =>  '(',
+                            ' )'      =>  ')',
+                            '( '      =>  '(',
+                            ') '      =>  ')',
+                            ' ) '     =>  ')',
+                            ' ( '     =>  '(',
+                            ' ['      =>  '[',
+                            ' ]'      =>  ']',
+                            '[ '      =>  '[',
+                            '] '      =>  ']',
+                            ' [ '     =>  '[',
+                            ' ] '     =>  ']',
+                            '; '      =>  ';',
+                            ', '      =>  ',',
+                            ' 0px'    =>  ' 0',
+                            ':0px'    =>  ':0',
+                            ' = '     =>  '=',
+                            ' ='      =>  '=',
+                            '= '      =>  '=',
+                            ' > '     =>  '>',
+                            ' < '     =>  '<',
+                            ' ? '     =>  '?',
+                            ' ?'      =>  '?',
+                            '? '      =>  '?',
+                            ' : '     =>  ':',
+                            ' :'      =>  ':',
+                            ': '      =>  ':',
+                            ' + '     =>  '+',
+                            ' +'      =>  '+',
+                            '+ '      =>  '+',
+                            ' || '    =>  '||',
+                            ' ||'     =>  '||',
+                            '|| '     =>  '||',
+                            ' && '    =>  '&&',
+                            ' &&'     =>  '&&',
+                            '&& '     =>  '&&',
+                        )
+                    );
+                };
 
                 header("Content-Encoding: gzip");
                 header("Content-type: application/x-javascript");
                 header("Pragma: public");
+                header('Vary: Accept-Encoding');
                 header("ETag: ".md5($this->val['f']));
                 echo gzencode($this->js, 9, FORCE_GZIP);
 
-                //file_put_contents($this->temp.'/'.md5($this->val['f']).'.js', $this->js);
+                file_put_contents($this->temp.'/'.md5($this->val['f']).'.js', $this->js);
             } else {
                 header("Content-type: application/x-javascript");
                 header("Cache-Control: no-store, no-cache, must-revalidate");
+                header('Vary: Accept-Encoding');
                 header("Pragma: no-cache");
 
                 $this->js = strtr($this->js,
