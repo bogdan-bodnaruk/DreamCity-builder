@@ -5,8 +5,6 @@
 // Alex Sexton - @SlexAxton - AlexSexton[at]gmail.com
 // Ralph Holzmann - @ralphholzmann - ralphholzmann[at]gmail.com
 //
-// http://yepnopejs.com/
-// https://github.com/SlexAxton/yepnope.js/
 //
 // Tri-license - WTFPL | MIT | BSD
 //
@@ -23,7 +21,6 @@ var docElement            = doc.documentElement,
     started               = 0,
     noop                  = function () {},
     // Before you get mad about browser sniffs, please read:
-    // https://github.com/Modernizr/Modernizr/wiki/Undetectables
     // If you have a better solution, we are actively looking to solve the problem
     isGecko               = ( "MozAppearance" in docElement.style ),
     isGeckoLTE18          = isGecko && !! doc.createRange().compareNode,

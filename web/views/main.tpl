@@ -7,6 +7,7 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
+    <script src="min/js/?f=drm" type="text/javascript"></script>
 </head>
 <body>
     <div id="main">
@@ -39,6 +40,5 @@
         </div>
         <div id="footer">{config::copyright}</div>
     </div>
-    <script src="{config::library}/DRM/drm.js" type="text/javascript"></script>
 </body>
 </html>

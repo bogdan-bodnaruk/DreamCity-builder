@@ -1,14 +1,14 @@
 var DRM = {};
-    DRM.environment = 'production';
-    DRM.libraryPath = 'library';
-    DRM.libraryPathProduction = 'library/min/?f=library';
-    DRM.library = (DRM.environment == 'production' ? DRM.libraryPathProduction : DRM.libraryPath);
+    DRM.environment = '{env}';
+    DRM.libraryPath = '{library}';
+   /* DRM.library = 'library'; DRM.libraryPathProduction = 'library/min/?f=library';*/
+    /*DRM.library = (DRM.environment == 'production' ? DRM.libraryPathProduction : DRM.libraryPath); */
     DRM.css = [];
-    DRM.locale = 'en';
+    DRM.locale = '{locale}';
 
     DRM.JQueryInited = false;
     DRM.JQueryVersion = '1.8.3';
-    DRM.JQueryLoad = 'local'; // cdn, local
+    DRM.JQueryLoad = 'local'; /* cdn, local */
     DRM.JQueryCDN = '<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/'+DRM.JQueryVersion+'/jquery.min.js"></script>';
     DRM.JQueryLocal = '<script type="text/javascript" src="'+DRM.libraryPath+'/DRM/jquery-'+DRM.JQueryVersion +'.min.js"></script>';
 
@@ -33,7 +33,7 @@ var DRM = {};
         if (typeof(yepnope) == 'undefined') {
             if (!DRM.YepNopeInited) {
                 DRM.YepNopeInited = true;
-                document.write('<script type="text/javascript" src="'+DRM.library+'/DRM/yepnope.js"></script>');
+                document.write('<script type="text/javascript" src="min/js/?f=yepnope"></script>');
             }
             setTimeout('YepNopeLoader()', 50);
         }
@@ -50,7 +50,7 @@ var DRM = {};
                 $('html').show();
             }
         });
-    }
+    };
 
     DRM.chosen = function() {
         if($('select').length) {
@@ -62,13 +62,13 @@ var DRM = {};
                 }
             });
         }
-    }
+    };
 
     DRM.mozilla = function() {
         if($.browser.mozilla) {
             DRM.css.push('mozilla_reset');
         }
-    }
+    };
 
     DRM.qtip2 = function() {
         if($('.qtip-tooltip').length > 0) {
@@ -88,7 +88,7 @@ var DRM = {};
                 }
             });
         }
-    }
+    };
 
     DRM.confirm = function() {
         if($('.confirm').length > 0) {
@@ -108,7 +108,7 @@ var DRM = {};
                 return false;
             });
         }
-    }
+    };
 
     DRM.ckeditor = function() {
         yepnope({
@@ -127,7 +127,7 @@ var DRM = {};
                 }
             }
         });
-    }
+    };
 
     DRM.fancybox = function() {
         if($("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]")) {
@@ -171,7 +171,7 @@ var DRM = {};
             });
 
         }
-    }
+    };
 
     DRM.jQueryUI = function() {
         if($("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]")) {
@@ -196,9 +196,9 @@ var DRM = {};
                 }
             });
         }
-    }
+    };
 
-    // Need testing
+    /*Need testing*/
     DRM.ie = function() {
         if($.browser.msie) {
             yepnope({
@@ -224,7 +224,7 @@ var DRM = {};
                 DRM.css.push('ie9');
             }
         }
-    }
+    };
 
     DRM.h5validate = function() {
         yepnope({
@@ -234,7 +234,7 @@ var DRM = {};
                 $('form').h5Validate();
             }
         });
-    }
+    };
 
     DRM.run = function() {
         $('.detach').remove();
@@ -252,7 +252,7 @@ var DRM = {};
         $('a[href=#]').live('click', function(){
             return false;
         });
-    }
+    };
 
     DRM.loadCSS = function() {
         if(DRM.environment == 'production') {
@@ -267,7 +267,7 @@ var DRM = {};
                 yepnope.injectCss("min/css/?f="+DRM.css[i]);
             }
         }
-    }
+    };
 
     DRM.init = function() {
         DRM.loadMainCss();
@@ -282,9 +282,10 @@ var DRM = {};
         DRM.ie();
 
         DRM.run();
-    }
+    };
 
     window.onload = function() {
         DRM.init();
         DRM.loadCSS();
+        $('html').show();
     };

@@ -1,6 +1,8 @@
 <?php
+//error_reporting(0);
 class Controller_min extends Controller {
     private $css = '';
+    private $js = '';
     private $temp = '';
 
     private $colors = array(
@@ -33,7 +35,7 @@ class Controller_min extends Controller {
         $bundle = true;
         $filesDate = explode(';',$this->val['f']);
         for($i=0;$i<count($filesDate);$i++) {
-            if(!empty($filesDate[$i])) {
+            if(!empty($filesDate[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.css')) {
                 if(filemtime($this->temp.'/'.md5($this->val['f']).'.css') < filemtime(PATH.$D_css[$filesDate[$i]])) {
                     $bundle = false;
                 };
@@ -99,6 +101,112 @@ class Controller_min extends Controller {
                           '{library}'=>  $this->registry()->config['base_href'].$this->registry()->config['library_path'])
                 );
                 echo $this->css;
+            };
+        }
+    }
+
+    public function js() {
+        include_once(PATH.'.config/dependencies.php');
+        $this->val('f');
+
+        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.temp';
+        $bundle = true;
+        $filesDate = explode(';',$this->val['f']);
+        for($i=0;$i<count($filesDate);$i++) {
+            if(!empty($filesDate[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.js')) {
+                if(filemtime($this->temp.'/'.md5($this->val['f']).'.js') < filemtime(PATH.$D_js[$filesDate[$i]])) {
+                    $bundle = false;
+                };
+            };
+        }
+
+        if(is_file($this->temp.'/'.md5($this->val['f']).'.js') && $this->registry()->config['env']=='production' && $bundle) {
+            header("Content-Encoding: gzip");
+            header("Content-type: application/x-javascript");
+            //header("Cache-Control: must-revalidate, max-age=1200");
+            header("Pragma: public");
+            header("ETag: ".md5($this->val['f']));
+            $this->js = file_get_contents($this->temp.'/'.md5($this->val['f']).'.js');
+            echo gzencode($this->js, 9, FORCE_GZIP);
+            exit();
+        } else {
+            $files = explode(';',$this->val['f']);
+            for($i=0;$i<count($files);$i++) {
+                if(!empty($files[$i])) {
+                    $this->js .= file_get_contents(PATH.$D_js[$files[$i]]);
+                };
+            }
+            if($this->registry()->config['env']=='production') {
+                $this->js = strtr($this->js, $this->colors);
+
+                $this->js = strtr($this->js,
+                    array('{env}'    =>  $this->registry()->config['env'],
+                        '{locale}' =>  $this->lang,
+                        '{library}'=>  $this->registry()->config['base_href'].$this->registry()->config['library_path'])
+                );
+
+                //$this->js = preg_replace("/[\/*]{2}(.*?)[*\/]{2}/U", '', $this->js);
+
+                //$this->js = preg_replace('/(\\/\\/.*?\\n)/x', '', $this->js);
+                $this->js = preg_replace('/(?s:\\/\\*.*?\\*\\/)/x', '', $this->js);
+
+                $this->js = strtr($this->js,
+                    array(';;'      =>  ';',
+                          "\r"      =>  '',
+                          "\n"      =>  '',
+                          "\t"      =>  '',
+                          ": "      =>  ':',
+                          ' ;'      =>  ';',
+                          '  '      =>  '',
+                          ' {'      =>  '{',
+                          ' }'      =>  '}',
+                          ' ('      =>  '(',
+                          ' )'      =>  ')',
+                          '; '      =>  ';',
+                          ', '      =>  ',',
+                          ' 0px'    =>  ' 0',
+                          ':0px'    =>  ':0',
+                          '/**/'    =>  '',
+                          ' = '     =>  '=',
+                          ' ='      =>  '=',
+                          '= '      =>  '=',
+                          ' > '     =>  '>',
+                          ' < '     =>  '<',
+                          ' ? '     =>  '?',
+                          ' ?'      =>  '?',
+                          '? '      =>  '?',
+                          ' : '     =>  ':',
+                          ' :'      =>  ':',
+                          ': '      =>  ':',
+                          ' + '     =>  '+',
+                          ' +'      =>  '+',
+                          '+ '      =>  '+',
+                          ' || '    =>  '||',
+                          ' ||'     =>  '||',
+                          '|| '     =>  '||',
+                          ' && '    =>  '&&',
+                          ' &&'     =>  '&&',
+                          '&& '     =>  '&&',
+                    )
+                );
+
+                header("Content-Encoding: gzip");
+                header("Content-type: application/x-javascript");
+                header("Pragma: public");
+                header("ETag: ".md5($this->val['f']));
+                echo gzencode($this->js, 9, FORCE_GZIP);
+
+                //file_put_contents($this->temp.'/'.md5($this->val['f']).'.js', $this->js);
+            } else {
+                header("Content-type: application/x-javascript");
+                header("Cache-Control: no-store, no-cache, must-revalidate");
+                header("Pragma: no-cache");
+
+                $this->js = strtr($this->js,
+                    array('{path}'   =>  $this->registry()->config['base_href'].$this->registry()->config['app_path'].'/theme/images',
+                          '{library}'=>  $this->registry()->config['base_href'].$this->registry()->config['library_path'])
+                );
+                echo $this->js;
             };
         }
     }
