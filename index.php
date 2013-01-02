@@ -1,10 +1,7 @@
 <?php
 /*
- *  v.0.5
- *  
- *  This is a 5'th version of DreamCity. But this version will be in two editions:
- *      1) DreamCity framework (or builder)
- *      2) DreamCity CMS based on DreamCity framework
+ *  Website: http://babak.if.ua
+ *  GIT: https://github.com/babak49/DreamCity-builder
  *
  *  Project is just for fun, but probably it can be a good start up for busines.
  *  Versions will be graduating for 0.5(start dev) to 1.0 (release)
@@ -14,8 +11,11 @@
  *  2012.02.03 - start project (v.0.5);
  *  2012.03.11 - first up version. v.0.6
  *  2012.03.31 - Up version. v.0.7
- *  2012.04.07 - Up version v.0.7.5
- *  2012.09.16 - Up version v.0.8.0
+ *  2012.04.07 - v.0.7.5
+ *  2012.09.16 - v.0.8.0 (commit b41248df62dba6257d1144db4d6fdfbc45f684a9)
+ *  2012.10.02 - v.0.8.2 (commit 16deb33feea6550a0bcc174404931c3786e4f8a6)
+ *  2012.12.03 - v.0.9.0 (commit 833662b0377d93feacf5926b6044117ae45ae617)
+ *  2012.12.16 - v.0.9.4 (commit 18be9ecce3001ba2bef5ae5ab25c33b472dbc0ff)
  *
  *  @author Bogdan Bodnaruk <babak.47031@gmail.com>
  *  @copyright 2012 Bogdan Bodnaruk
