@@ -1,5 +1,6 @@
 <?php
 //error_reporting(0);
+error_reporting(E_ALL);
 class Controller_min extends Controller {
     private $css = '';
     private $js = '';
@@ -25,28 +26,20 @@ class Controller_min extends Controller {
         '#FF0000' =>  '#F00'
     );
 
+    public function __construct() {
+        parent::__construct();
+        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.temp';
+    }
+
     public function index() {}
 
     public function css() {
-        include_once(PATH.'.config/dependencies.php');
         $this->val('f');
 
-        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.temp';
-        $bundle = true;
-        $filesDate = explode(';',$this->val['f']);
-        for($i=0;$i<count($filesDate);$i++) {
-            if(!empty($filesDate[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.css')) {
-                if(filemtime($this->temp.'/'.md5($this->val['f']).'.css') < filemtime(PATH.$D_css[$filesDate[$i]])) {
-                    $bundle = false;
-                };
-            };
-        }
-
-
-        if(is_file($this->temp.'/'.md5($this->val['f']).'.css') && $this->registry()->config['env']=='production' && $bundle) {
+        if(is_file($this->temp.'/'.md5($this->val['f']).'.css') && $this->registry()->config['env']=='production' && $this->bundleIsValid('css')) {
             header("Content-Encoding: gzip");
             header("Content-type: text/css", true);
-            header("Cache-Control: must-revalidate, max-age=1200");
+            $this->cache();
             header("Pragma: public");
             header('Vary: Accept-Encoding');
             header("ETag: ".md5($this->val['f']));
@@ -54,10 +47,11 @@ class Controller_min extends Controller {
             echo gzencode($this->css, 9, FORCE_GZIP);
             exit();
         } else {
+            include_once(PATH.'.config/dependencies.php');
             $files = explode(';',$this->val['f']);
             for($i=0;$i<count($files);$i++) {
                 if(!empty($files[$i])) {
-                    $this->css .= file_get_contents(PATH.$D_css[$files[$i]]);
+                    $this->css .= file_get_contents(PATH.$_css[$files[$i]]);
                 };
             }
             if($this->registry()->config['env']=='production') {
@@ -81,7 +75,7 @@ class Controller_min extends Controller {
                 header("ETag: ".md5($this->val['f']));
                 echo gzencode($this->css, 9, FORCE_GZIP);
 
-                file_put_contents($this->temp.'/'.md5($this->val['f']).'.css', $this->css);
+                $this->createBundle('css');
             } else {
                 header("Content-type: text/css", true);
                 header("Cache-Control: no-store, no-cache, must-revalidate");
@@ -98,30 +92,13 @@ class Controller_min extends Controller {
     }
 
     public function js() {
-        include_once(PATH.'.config/dependencies.php');
         $this->val('f');
-        $this->val('e');
         $this->val('c');
 
-        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.temp';
-        $bundle = true;
-        $filesDate = explode(';',$this->val['f']);
-        for($i=0;$i<count($filesDate);$i++) {
-            if(!empty($filesDate[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.js')) {
-                if(filemtime($this->temp.'/'.md5($this->val['f']).'.js') < filemtime(PATH.$D_js[$filesDate[$i]])) {
-                    $bundle = false;
-                };
-            };
-        }
-
-        if(is_file($this->temp.'/'.md5($this->val['f']).'.js') && $this->registry()->config['env']=='production' && $bundle) {
+        if(is_file($this->temp.'/'.md5($this->val['f']).'.js') && $this->registry()->config['env']=='production' && $this->bundleIsValid('js')) {
             header("Content-Encoding: gzip");
             header("Content-type: application/x-javascript");
-            if($this->val['e']!=="") {
-                header("Cache-Control: must-revalidate, max-age=".$this->val['e']);
-            } else {
-                header("Cache-Control: must-revalidate, max-age=1200");
-            };
+            $this->cache();
             header("Pragma: public");
             header('Vary: Accept-Encoding');
             header("ETag: ".md5($this->val['f']));
@@ -129,10 +106,15 @@ class Controller_min extends Controller {
             echo gzencode($this->js, 9, FORCE_GZIP);
             exit();
         } else {
+            include_once(PATH.'.config/dependencies.php');
+
             $files = explode(';',$this->val['f']);
             for($i=0;$i<count($files);$i++) {
                 if(!empty($files[$i])) {
-                    $this->js .= file_get_contents(PATH.$D_js[$files[$i]]);
+                    $this->js .= file_get_contents(PATH.$_js[$files[$i]]);
+                    if(count($files)>1 && $this->registry()->config['env']=='production') {
+                        $this->js = $this->js.'${break}';
+                    }
                 };
             }
             if($this->registry()->config['env']=='production') {
@@ -172,6 +154,8 @@ class Controller_min extends Controller {
                             ' [ '     =>  '[',
                             ' ] '     =>  ']',
                             '; '      =>  ';',
+                            ' ;'      =>  ';',
+                            ' ; '     =>  ';',
                             ', '      =>  ',',
                             ' 0px'    =>  ' 0',
                             ':0px'    =>  ':0',
@@ -195,6 +179,7 @@ class Controller_min extends Controller {
                             ' && '    =>  '&&',
                             ' &&'     =>  '&&',
                             '&& '     =>  '&&',
+                            '${break}'=>  "\n\r"
                         )
                     );
                 };
@@ -206,7 +191,7 @@ class Controller_min extends Controller {
                 header("ETag: ".md5($this->val['f']));
                 echo gzencode($this->js, 9, FORCE_GZIP);
 
-                file_put_contents($this->temp.'/'.md5($this->val['f']).'.js', $this->js);
+                $this->createBundle('js');
             } else {
                 header("Content-type: application/x-javascript");
                 header("Cache-Control: no-store, no-cache, must-revalidate");
@@ -220,5 +205,51 @@ class Controller_min extends Controller {
                 echo $this->js;
             };
         }
+    }
+
+    public function clearBundleFolder() {
+        //User::login()->permissions() == 99 ? '' : Go::main();
+        exec("rm -r ".$this->temp);
+        //Go::back();
+    }
+
+    private function createBundle($type = '') {
+        if($this->registry()->config['min_write_bundles']) {
+            if($type == 'js') {
+                file_put_contents($this->temp.'/'.md5($this->val['f']).'.js', $this->js);
+            } elseif ($type == 'css') {
+                file_put_contents($this->temp.'/'.md5($this->val['f']).'.css', $this->css);
+            };
+        };
+    }
+
+    private function bundleIsValid($type = '') {
+        include_once(PATH.'.config/dependencies.php');
+
+        $bundle = true;
+        $filesDate = explode(';',$this->val['f']);
+        for($i=0;$i<count($filesDate);$i++) {
+            if(!empty($filesDate[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.'.$type)) {
+                if($type == 'js') {
+                    if(filemtime($this->temp.'/'.md5($this->val['f']).'.'.$type) < filemtime(PATH.$_js[$filesDate[$i]])) {
+                        $bundle = false;
+                    };
+                };
+                if($type == 'css') {
+                    if(filemtime($this->temp.'/'.md5($this->val['f']).'.'.$type) < filemtime(PATH.$_css[$filesDate[$i]])) {
+                        $bundle = false;
+                    };
+                };
+            };
+        }
+        return $bundle;
+    }
+
+    private function cache() {
+        if($this->registry()->config['min_use_cache']) {
+            $this->val('e');
+            $cache =  $this->val['e']!=="" ? $this->val['e'] : '1200';
+            header("Cache-Control: must-revalidate, max-age=".$cache);
+        };
     }
 }

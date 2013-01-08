@@ -2,9 +2,10 @@ var DRM = {};
     DRM.environment = '{env}';
     DRM.library = '{library}';
     DRM.css = [];
+    DRM.js = [];
     DRM.locale = '{locale}';
-    DRM.ajax = true;
-    DRM.fullAjax = true;
+    /*DRM.ajax = true;  doesn't work yet
+    DRM.fullAjax = true;*/
 
     DRM.JQueryInited = false;
     var JQueryLoader = function() {
@@ -34,21 +35,14 @@ var DRM = {};
 
     DRM.loadMainCss = function() {
         DRM.css.push('boilerplate','green','main');
-        yepnope({
-            load: ['/min/js/f='+ DRM.locale,
-                   '/min/js/f=drmjquery',
-            ],
-            callback: function() {
-                $('html').show();
-            }
-        });
+        DRM.js.push(DRM.locale,'drmjquery');
     };
 
     DRM.chosen = function() {
         if($('select').length) {
             DRM.css.push('chosen');
             yepnope({
-                load: ['/min/js/f=chosen/e=604800'],     // Cache 7day (86400 x 7)
+                load: ['/min/js/f=chosen/e=604800'], // Cache 7day (86400 x 7)
                 complete: function() {
                     $('select').chosen({disable_search_threshold: 10});
                 }
@@ -65,8 +59,10 @@ var DRM = {};
     DRM.qtip2 = function() {
         if($('.qtip-tooltip').length > 0) {
             DRM.css.push('qtip');
+            DRM.js.push('qtip');
             yepnope({
-                load: ['/min/js/f=qtip/e=604800'], // Cache 7day (86400 x 7)
+                //load: ['/min/js/f=qtip/e=604800'],
+                // Cache 7day (86400 x 7)
                 callback: function() {
                     $('a.qtip-tooltip[title]').qtip({
                         position: {
@@ -124,8 +120,10 @@ var DRM = {};
     DRM.fancybox = function() {
         if($("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]")) {
             DRM.css.push('fancybox');
+            DRM.js.push('fancybox');
             yepnope({
-                load: ['/min/js/f=fancybox/e=604800'],      // Cache 7day (86400 x 7)
+                //load: ['/min/js/f=fancybox/e=604800'],
+                // Cache 7day (86400 x 7)
                 callback: function() {
                     $("div[id^=fancybox-] a").fancybox({
                         nextEffect: 'elastic',
@@ -168,8 +166,10 @@ var DRM = {};
     DRM.jQueryUI = function() {
         if($("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]")) {
             DRM.css.push('jqueryui');
+            DRM.js.push('jqueryui');
             yepnope({
-                load: ['/min/js/f=jqueryui/e=2678400'],        // Cache 31day (86400 x 31)
+                //load: ['/min/js/f=jqueryui/e=2678400'],
+                // Cache 31day (86400 x 31)
                 callback: function() {
                     $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
 
@@ -261,8 +261,24 @@ var DRM = {};
         }
     };
 
+    DRM.loadJS = function() {
+        if(DRM.environment == 'production') {
+            var files = '';
+            for(var i=0;i<DRM.js.length;i++) {
+               files += DRM.js[i]+';';
+            }
+            yepnope.injectJs("min/js/f="+files);
+
+        } else {
+            for(var i=0;i<DRM.js.length;i++) {
+                yepnope.injectJs("min/js/f="+DRM.js[i]);
+            }
+        }
+    };
+
     DRM.init = function() {
         DRM.loadMainCss();
+        DRM.loadJS();
         DRM.chosen();
         DRM.ckeditor();
         DRM.qtip2();
@@ -279,4 +295,5 @@ var DRM = {};
     window.onload = function() {
         DRM.init();
         DRM.loadCSS();
+        $('html').show();
     };

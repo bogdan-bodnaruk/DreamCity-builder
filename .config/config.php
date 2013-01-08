@@ -58,16 +58,12 @@ $config = array(/* main settings */
                 'on_page'           =>  10,
                 'paginator_class'   =>  'class="paginator"',
                 'active_link'       =>  'class="active_link"',
-                'paginator_link'    =>  'class="link"'
-        );
+                'paginator_link'    =>  'class="link"',
 
-if($config['env'] == 'production') {
-    $config['library'] = '/'.$config['library_path'].'/min/?f='.$config['library_path'];
-    $config['css'] = '/'.$config['library_path'].'/min/?f='.$config['client_css'];
-} else {
-    $config['library'] = $config['library_path'];
-    $config['css'] =  $config['client_css'];
-};
+                /*features*/
+                'min_write_bundles' =>  false,
+                'min_use_cache'     =>  false,
+        );
 
 $config['current_locale'] = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $config['default_i18n'];
 

@@ -1,5 +1,5 @@
 <?php
-$D_css = array(
+$_css = array(
     'main'          =>  $this->registry()->config['client_css'].'/main.css',
     'boilerplate'   =>  $this->registry()->config['client_css'].'/boilerplate.css',
     'green'         =>  $this->registry()->config['client_css'].'/green.css',
@@ -12,7 +12,7 @@ $D_css = array(
     'jqueryui'      =>  $this->registry()->config['library_path'].'/jquery-ui/jquery-ui-1.8.23.custom.css',
 );
 
-$D_js = array(
+$_js = array(
     'en'            =>  '.config/i18n/messages.en.js',
     'drmjquery'     =>  $this->registry()->config['library_path'].'/DRM/drmJQuery/drmJQuery.js',
     'chosen'        =>  $this->registry()->config['library_path'].'/chosen/chosen.min.js',

@@ -2,6 +2,7 @@
 class Go extends DRM {
     static public function main() {
         self::refresh(parent::registry()->config['base_href'].parent::registry()->config['main_page']);
+        exit();
     }
     
     static public function back() {

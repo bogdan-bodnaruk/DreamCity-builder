@@ -21,6 +21,7 @@ DRM.confirm.method = function(params) {
     });
 };
 
+/*
 DRM.ieLocker = function() {
     var path = DRM.libraryPath+'/DRM/drmJQuery/images/';
     var div = document.createElement("div");
@@ -54,4 +55,4 @@ DRM.ieLocker = function() {
 
     $('body').css({'background-image':'url('+path+'opacity80.png)','overflow':'hidden','z-index':'2147483647'});
     $('body').html($(div).html(markup+'</div></div>'));
-}
+}*/
