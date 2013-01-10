@@ -4,6 +4,7 @@ var DRM = {};
     DRM.css = [];
     DRM.js = [];
     DRM.locale = '{locale}';
+    DRM.callbacks = {};
     /*DRM.ajax = true;  doesn't work yet
     DRM.fullAjax = true;*/
 
@@ -57,11 +58,12 @@ var DRM = {};
     };
 
     DRM.qtip2 = function() {
-        //if($('.qtip-tooltip').length > 0) {
+        if($('.qtip-tooltip').length > 0) {
             DRM.css.push('qtip2');
             DRM.js.push('qtip2');
 
-            DRM.qtip2.callback = function() {
+            DRM.callbacks =
+                function() {
                 $('a.qtip-tooltip[title]').qtip({
                     position: {
                         my: 'bottom center',
@@ -72,7 +74,7 @@ var DRM = {};
                     }
                 });
             };
-        //}
+        }
     };
 
     DRM.confirm = function() {
@@ -288,16 +290,11 @@ var DRM = {};
         DRM.run();
     };
 
-    DRM.jsInit = function() {
-        for(var i=0;i<DRM.js.length;i++) {
-            //eval('DRM.'+DRM.js[2]+'.callback()');
-            eval('DRM.qtip2.callback()');
-        }
-    };
-
     window.onload = function() {
         DRM.load();
-        DRM.jsInit();
         DRM.loadCSS();
         $('html').show();
+        $(window).load(function(){
+            DRM.callbacks();
+        });
     };
