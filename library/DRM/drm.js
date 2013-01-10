@@ -57,25 +57,22 @@ var DRM = {};
     };
 
     DRM.qtip2 = function() {
-        if($('.qtip-tooltip').length > 0) {
-            DRM.css.push('qtip');
-            DRM.js.push('qtip');
-            yepnope({
-                //load: ['/min/js/f=qtip/e=604800'],
-                // Cache 7day (86400 x 7)
-                callback: function() {
-                    $('a.qtip-tooltip[title]').qtip({
-                        position: {
-                            my: 'bottom center',
-                            at: 'top center'
-                        },
-                        style: {
-                            classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
-                        }
-                    });
-                }
-            });
-        }
+        //if($('.qtip-tooltip').length > 0) {
+            DRM.css.push('qtip2');
+            DRM.js.push('qtip2');
+
+            DRM.qtip2.callback = function() {
+                $('a.qtip-tooltip[title]').qtip({
+                    position: {
+                        my: 'bottom center',
+                        at: 'top center'
+                    },
+                    style: {
+                        classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
+                    }
+                });
+            };
+        //}
     };
 
     DRM.confirm = function() {
@@ -268,7 +265,6 @@ var DRM = {};
                files += DRM.js[i]+';';
             }
             yepnope.injectJs("min/js/f="+files);
-
         } else {
             for(var i=0;i<DRM.js.length;i++) {
                 yepnope.injectJs("min/js/f="+DRM.js[i]);
@@ -276,24 +272,32 @@ var DRM = {};
         }
     };
 
-    DRM.init = function() {
+    DRM.load = function() {
         DRM.loadMainCss();
-        DRM.loadJS();
+        DRM.qtip2();
         DRM.chosen();
         DRM.ckeditor();
-        DRM.qtip2();
         DRM.confirm();
         DRM.fancybox();
         DRM.jQueryUI();
         DRM.h5validate();
         DRM.mozilla();
         DRM.ie();
+        DRM.loadJS();
 
         DRM.run();
     };
 
+    DRM.jsInit = function() {
+        for(var i=0;i<DRM.js.length;i++) {
+            //eval('DRM.'+DRM.js[2]+'.callback()');
+            eval('DRM.qtip2.callback()');
+        }
+    };
+
     window.onload = function() {
-        DRM.init();
+        DRM.load();
+        DRM.jsInit();
         DRM.loadCSS();
         $('html').show();
     };
