@@ -4,34 +4,21 @@ var DRM = {};
     DRM.css = [];
     DRM.js = [];
     DRM.locale = '{locale}';
+    DRM.callbacks = {};
     /*DRM.ajax = true;  doesn't work yet
     DRM.fullAjax = true;*/
 
-    DRM.JQueryInited = false;
-    var JQueryLoader = function() {
+    DRM.JSInited = false;
+    var JSLoader = function() {
         if (typeof(jQuery) == 'undefined') {
-            if (!DRM.JQueryInited) {
-                DRM.JQueryInited = true;
-                document.write('<script type="text/javascript" src="min/js/f=jquery/c=false/e=2678400"></script>');   //don't compress and cache 31day (86400 x 31)
+            if (!DRM.JSInited) {
+                DRM.JSInited = true;
+                document.write('<script type="text/javascript" src="min/js/c=false/f=yepnope;jquery"></script>');   //don't compress and cache 31day (86400 x 31)
             }
-            setTimeout('JQueryLoader()', 50);
+            setTimeout('JSLoader()', 50);
         }
     };
-
-    JQueryLoader();
-
-
-    DRM.YepNopeInited = false;
-    var YepNopeLoader = function() {
-        if (typeof(yepnope) == 'undefined') {
-            if (!DRM.YepNopeInited) {
-                DRM.YepNopeInited = true;
-                document.write('<script type="text/javascript" src="min/js/f=yepnope/c=false/e=2678400"></script>');   //don't compress and cache 31day (86400 x 31)
-            }
-            setTimeout('YepNopeLoader()', 50);
-        }
-    };
-    !DRM.YepNopeInited ? YepNopeLoader() : '';
+    JSLoader();
 
     DRM.loadMainCss = function() {
         DRM.css.push('boilerplate','green','main');
@@ -41,12 +28,10 @@ var DRM = {};
     DRM.chosen = function() {
         if($('select').length) {
             DRM.css.push('chosen');
-            yepnope({
-                load: ['/min/js/f=chosen/e=604800'], // Cache 7day (86400 x 7)
-                complete: function() {
-                    $('select').chosen({disable_search_threshold: 10});
-                }
-            });
+            DRM.js.push('chosen');
+            DRM.callbacks.chosen = function() {
+                $("select").chosen({disable_search_threshold: 10});
+            };
         }
     };
 
@@ -58,23 +43,20 @@ var DRM = {};
 
     DRM.qtip2 = function() {
         if($('.qtip-tooltip').length > 0) {
-            DRM.css.push('qtip');
-            DRM.js.push('qtip');
-            yepnope({
-                //load: ['/min/js/f=qtip/e=604800'],
-                // Cache 7day (86400 x 7)
-                callback: function() {
-                    $('a.qtip-tooltip[title]').qtip({
-                        position: {
-                            my: 'bottom center',
-                            at: 'top center'
-                        },
-                        style: {
-                            classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
-                        }
-                    });
-                }
-            });
+            DRM.css.push('qtip2');
+            DRM.js.push('qtip2');
+
+            DRM.callbacks.qtip = function() {
+                $('a.qtip-tooltip[title]').qtip({
+                    position: {
+                        my: 'bottom center',
+                        at: 'top center'
+                    },
+                    style: {
+                        classes: 'ui-tooltip-shadow ui-tooltip-bootstrap'
+                    }
+                });
+            };
         }
     };
 
@@ -121,45 +103,41 @@ var DRM = {};
         if($("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]")) {
             DRM.css.push('fancybox');
             DRM.js.push('fancybox');
-            yepnope({
-                //load: ['/min/js/f=fancybox/e=604800'],
-                // Cache 7day (86400 x 7)
-                callback: function() {
-                    $("div[id^=fancybox-] a").fancybox({
-                        nextEffect: 'elastic',
-                        prevEffect: 'elastic',
-                        openEffect	: 'elastic',
-                        closeEffect	: 'elastic'
-                    });
-                    $("a.fancybox-video").on('click',function() {
-                        $.fancybox({
-                            'padding' : 0,
-                            'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
-                            'type' : 'swf',
-                            'swf' : {
-                                'wmode': 'transparent',
-                                'allowfullscreen': 'true'
-                            }
-                        });
-                        return false;
-                    });
-                    $("a.fancybox-map, a.fancybox-iframe").on('click',function() {
-                        $.fancybox({
-                            'href' : this.href,
-                            'type' : 'iframe'
-                        });
-                        return false;
-                    });
-                    $("a.fancybox-ajax").on('click',function() {
-                        $.fancybox({
-                            'href' : this.href,
-                            'type' : 'ajax'
-                        });
-                        return false;
-                    });
-                }
-            });
 
+            DRM.callbacks.fancybox = function() {
+                $("div[id^=fancybox-]>a").fancybox({
+                    nextEffect: 'elastic',
+                    prevEffect: 'elastic',
+                    openEffect	: 'elastic',
+                    closeEffect	: 'elastic'
+                });
+                $("a.fancybox-video").on('click',function() {
+                    $.fancybox({
+                        'padding' : 0,
+                        'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+                        'type' : 'swf',
+                        'swf' : {
+                            'wmode': 'transparent',
+                            'allowfullscreen': 'true'
+                        }
+                    });
+                    return false;
+                });
+                $("a.fancybox-map, a.fancybox-iframe").on('click',function() {
+                    $.fancybox({
+                        'href' : this.href,
+                        'type' : 'iframe'
+                    });
+                    return false;
+                });
+                $("a.fancybox-ajax").on('click',function() {
+                    $.fancybox({
+                        'href' : this.href,
+                        'type' : 'ajax'
+                    });
+                    return false;
+                });
+            };
         }
     };
 
@@ -167,26 +145,23 @@ var DRM = {};
         if($("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]")) {
             DRM.css.push('jqueryui');
             DRM.js.push('jqueryui');
-            yepnope({
-                //load: ['/min/js/f=jqueryui/e=2678400'],
-                // Cache 31day (86400 x 31)
-                callback: function() {
-                    $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
 
-                    $("div[id^=window-]").dialog({
-                        autoOpen: false,
-                        modal: true
-                    });
-                    $("a[id^=window-]").on('click',function() {
-                        $("div[id^=" + this.id + "]").dialog("open");
-                        return false;
-                    });
-                    $("button[id^=window-]").on('click',function() {
-                        $("div[id^=" + this.id + "]").dialog("open");
-                        return false;
-                    });
-                }
-            });
+            DRM.callbacks.jqueryui = function() {
+                $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
+
+                $("div[id^=window-]").dialog({
+                    autoOpen: false,
+                    modal: true
+                });
+                $("a[id^=window-]").on('click',function() {
+                    $("div[id^=" + this.id + "]").dialog("open");
+                    return false;
+                });
+                $("button[id^=window-]").on('click',function() {
+                    $("div[id^=" + this.id + "]").dialog("open");
+                    return false;
+                });
+            }
         }
     };
 
@@ -219,13 +194,12 @@ var DRM = {};
     };
 
     DRM.h5validate = function() {
-        yepnope({
-            test: $('form').length > 0,
-                yep: DRM.library + '/jquery.h5validate.js',
-                callback: function() {
+        if($('form').length>0) {
+            DRM.js.push('h5');
+            DRM.callbacks.h5 = function() {
                 $('form').h5Validate();
             }
-        });
+        }
     };
 
     DRM.run = function() {
@@ -252,7 +226,7 @@ var DRM = {};
             for(var i=0;i<DRM.css.length;i++) {
                files += DRM.css[i]+';';
             }
-            yepnope.injectCss("min/css/f="+files);
+            yepnope.injectCss("min/css/{hash_css}f="+files);
 
         } else {
             for(var i=0;i<DRM.css.length;i++) {
@@ -267,33 +241,42 @@ var DRM = {};
             for(var i=0;i<DRM.js.length;i++) {
                files += DRM.js[i]+';';
             }
-            yepnope.injectJs("min/js/f="+files);
-
+            yepnope.injectJs("min/js/{hash_js}f="+files,
+                function(){
+                    if(DRM.callbacks && typeof(DRM.callbacks)=="object") {
+                        for (var i in DRM.callbacks) {
+                            DRM.callbacks[i]();
+                        }
+                    }
+                }
+            );
         } else {
             for(var i=0;i<DRM.js.length;i++) {
-                yepnope.injectJs("min/js/f="+DRM.js[i]);
+                yepnope.injectJs("min/js/f="+DRM.js[i],
+                    function(){
+                        if(DRM.callbacks && typeof(DRM.callbacks)=="object") {
+                            for (var i in DRM.callbacks) {
+                                DRM.callbacks[i]();
+                            }
+                        }
+                    }
+                );
             }
         }
     };
 
-    DRM.init = function() {
+    window.onload = function() {
         DRM.loadMainCss();
-        DRM.loadJS();
-        DRM.chosen();
-        DRM.ckeditor();
         DRM.qtip2();
+        DRM.ckeditor();
         DRM.confirm();
         DRM.fancybox();
         DRM.jQueryUI();
         DRM.h5validate();
         DRM.mozilla();
+        DRM.chosen();
         DRM.ie();
-
-        DRM.run();
-    };
-
-    window.onload = function() {
-        DRM.init();
         DRM.loadCSS();
-        $('html').show();
+        DRM.loadJS();
+        DRM.run();
     };
