@@ -61,7 +61,7 @@ $config = array(/* main settings */
                 'paginator_link'    =>  'class="link"',
 
                 /*features*/
-                'min_write_bundles' =>  false,
+                'min_write_bundles' =>  true,
                 'min_use_cache'     =>  true,
         );
 

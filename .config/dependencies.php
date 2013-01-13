@@ -16,7 +16,6 @@ $_js = array(
     'en'            =>  '.config/i18n/messages.en.js',
     'drmjquery'     =>  $this->registry()->config['library_path'].'/DRM/drmJQuery/drmJQuery.js',
     'chosen'        =>  $this->registry()->config['library_path'].'/chosen/chosen.min.js',
-    'js'            =>  $this->registry()->config['library_path'].'/qTip2/jquery.qtip.min.js',
     'fancybox'      =>  $this->registry()->config['library_path'].'/fancybox/jquery.fancybox.js',
     'jqueryui'      =>  $this->registry()->config['library_path'].'/jquery-ui/jquery-ui-1.8.23.custom.min.js',
     'jquery'        =>  $this->registry()->config['library_path'].'/DRM/jquery-1.8.3.min.js',

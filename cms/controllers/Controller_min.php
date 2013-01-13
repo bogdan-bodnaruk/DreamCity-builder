@@ -1,5 +1,6 @@
 <?php
-error_reporting(0);
+error_reporting(E_ALL);
+//error_reporting(0);
 class Controller_min extends Controller {
     private $css = '';
     private $js = '';
@@ -32,10 +33,10 @@ class Controller_min extends Controller {
         include_once(PATH.'.config/dependencies.php');
         $this->_js = $_js;
         $this->_css = $_css;
-        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/.bundle';
+        $this->temp = PATH.$this->registry()->config['app_path'].'/theme/bundle';
         $this->v = array('{path}'   =>  $this->registry()->config['base_href'].$this->registry()->config['app_path'].'/theme/images',
                          '{library}'=>  $this->registry()->config['base_href'].$this->registry()->config['library_path'],
-                         '${break}' =>  "\n\r",
+                         '${break}' =>  "\n",
                          ':0px'	    => ':0',
                          ',0px'	    => ',0',
                          ' 0px'	    => ' 0',
@@ -62,8 +63,8 @@ class Controller_min extends Controller {
                 $this->css = strtr($this->css, $this->colors);
 				$this->css = preg_replace("/\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]/s", '$1', $this->css);
             };
-            $this->env() ? $this->createBundle('css') : '';
             $this->css = strtr($this->css, $this->v);
+            $this->createBundle('css');
         };
         $this->cache();
         echo gzencode($this->css, 9, FORCE_GZIP);
@@ -72,7 +73,7 @@ class Controller_min extends Controller {
     public function js() {
         $this->val('f');
 
-        if(is_file($this->temp.'/'.md5($this->val['f']).'.js') && $this->bundleIsValid('_js') && $this->val['e']!=='0') {
+        if(is_file($this->temp.'/'.md5($this->val['f']).'.js') && $this->bundleIsValid('_js')) {
             $this->js = file_get_contents($this->temp.'/'.md5($this->val['f']).'.js');
         } else {
             $files = explode(';',$this->val['f']);
@@ -104,9 +105,9 @@ class Controller_min extends Controller {
                     $this->js = preg_replace('/(\s)+'.$regex.'/s', '$2', $this->js);
                     $this->js = preg_replace('/'.$regex.'(\s)+/s', '$1', $this->js);
                 };
-                $this->createBundle('js');
             };
             $this->js = strtr($this->js, $this->v);
+            $this->createBundle('js');
         };
         $this->cache();
         echo gzencode($this->js, 9, FORCE_GZIP);
@@ -117,9 +118,11 @@ class Controller_min extends Controller {
     }
 
     private function createBundle($type = '') {
-        if($this->registry()->config['min_write_bundles']) {
-            $this->clearBundleFolder();
-            file_put_contents($this->temp.'/'.md5($this->val['f']).'.'.$type, $this->$$type);
+        if($this->registry()->config['min_write_bundles'] && $this->env()) {
+            $this->val('e');
+            if($this->val['e']!=='0') {
+                file_put_contents($this->temp.'/'.md5($this->val['f']).'.'.$type, $type == 'js' ? $this->js : $this->css);
+            };
         };
     }
 
