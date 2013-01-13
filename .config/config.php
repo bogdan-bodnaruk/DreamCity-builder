@@ -9,8 +9,8 @@ $config = array(/* main settings */
                 'files_path'        =>  'web/uploads',
                 'description'       =>  '{DRM} - make development easiest',
                 'keyword'           =>  '{DRM} - make development easiest',
-                'generator'         =>  '{DRM}.v.0.9.4',
-                'generator_version' =>  'v.0.9.4',
+                'generator'         =>  '{DRM}.v.0.9.5',
+                'generator_version' =>  'v.0.9.5',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',
                 'base_href'         =>  'http://engine.drm/',
@@ -22,7 +22,7 @@ $config = array(/* main settings */
                 'title'             =>  '{DRM} - make development easiest',
                 'comment'           =>  'true',
                 'ajax'              =>  false,
-                'env'               =>  'production', //if production whan all css and js will be minimized production
+                'env'               =>  'production', //if production than all css and js will be minimized production
                 'client_css'        =>  'web/theme/css',
                 'enable'            =>  0, // 0 - site enabled, 1 site disabled
                 'log_error_to_file' =>  false,
@@ -62,7 +62,7 @@ $config = array(/* main settings */
 
                 /*features*/
                 'min_write_bundles' =>  false,
-                'min_use_cache'     =>  false,
+                'min_use_cache'     =>  true,
         );
 
 $config['current_locale'] = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $config['default_i18n'];

@@ -58,3 +58,4 @@
         </tr>
     </table>
 </div>
+<a href="#" class="qtip-tooltip" title="Qtip2 test">qtip test</a>

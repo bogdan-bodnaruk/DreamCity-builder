@@ -53,15 +53,15 @@
 // The prefix to use for dynamically-created class names.
                 classPrefix: '',
 
-                errorClass: warning_class, // No prefix for these.
-                validClass: valid_class, // "
-                activeClass: active_class, // Prefix will get prepended.
+                errorClass: 'drm-warning', // No prefix for these.
+                validClass: 'valid_class', // "
+                activeClass: 'active_class', // Prefix will get prepended.
                 requiredClass: 'required',
                 requiredAttribute: 'required',
                 patternAttribute: 'pattern',
 
 // Attribute which stores the ID of the error container element (without the hash).
-                errorAttribute: error_class,
+                errorAttribute: 'error_class',
 
 // Events API
                 customEvents: {
@@ -466,9 +466,9 @@
     };
 
     $.fn.h5Validate = function h5Validate(options) {
-        var	action,
-            args,
-            settings;
+        var	action;
+        var	args;
+        var	settings;
 
         if (typeof options === 'string' && typeof methods[options] === 'function') {
 // Whoah, hold on there! First we need to get the instance:
@@ -496,7 +496,7 @@ $('input[type=text], input[type=password]').live('click', function(){
     $(name).remove();
 });
 
-$('span.' + error_class).live('mouseover', function(){
+$('span.error_class').live('mouseover', function(){
     var name = $(this).attr('id');
     var error = '';
     var get_charset = Number($('input[name='+ name +']').val().length);
@@ -568,7 +568,7 @@ $('span.' + error_class).live('mouseover', function(){
 	}*/
 });
 
-$('span.' + error_class).live('mouseout', function(){
+$('span.error_class').live('mouseout', function(){
 	$('.tooltip').hide();
     $('.tooltip').detach();
 });
