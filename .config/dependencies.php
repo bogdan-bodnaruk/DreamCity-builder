@@ -24,4 +24,5 @@ $_js = array(
     'drm'           =>  $this->registry()->config['library_path'].'/DRM/drm.js',
     'yepnope'       =>  $this->registry()->config['library_path'].'/DRM/yepnope.js',
     'jquery'        =>  $this->registry()->config['library_path'].'/DRM/jquery-1.8.3.min.js',
+    'h5'            =>  $this->registry()->config['library_path'].'/jquery.h5validate.js',
 );
