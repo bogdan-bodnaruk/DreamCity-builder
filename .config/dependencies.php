@@ -14,7 +14,6 @@ $_css = array(
 
 $_js = array(
     'en'            =>  '.config/i18n/messages.en.js',
-    'drmjquery'     =>  $this->registry()->config['library_path'].'/DRM/drmJQuery/drmJQuery.js',
     'chosen'        =>  $this->registry()->config['library_path'].'/chosen/chosen.min.js',
     'fancybox'      =>  $this->registry()->config['library_path'].'/fancybox/jquery.fancybox.js',
     'jqueryui'      =>  $this->registry()->config['library_path'].'/jquery-ui/jquery-ui-1.8.23.custom.min.js',
