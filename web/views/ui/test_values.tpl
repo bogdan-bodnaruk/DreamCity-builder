@@ -16,7 +16,7 @@
         <td> - Array</td>
     </tr>
     <tr>
-        <td>&#36[first, &#123;value&#125;, &#123;config::app_path&#125;, &#123;i18n::test&#125;]</td>
+        <td>&#36;[first, &#123;value&#125;, &#123;config::app_path&#125;, &#123;i18n::test&#125;]</td>
         <td> - Array</td>
     </tr>
 </table>

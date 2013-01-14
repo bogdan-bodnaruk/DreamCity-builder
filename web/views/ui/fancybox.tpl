@@ -17,10 +17,10 @@
     </tr>
     <tr>
         <td>
-            ##fancybox->[title=test video;file=http://www.youtube.com/watch?v=y5Q6bmas64U&feature=g-all-lik;type=video]##
+            ##fancybox->[title=test video;file=http://www.youtube.com/watch?v=y5Q6bmas64U&amp;feature=g-all-lik;type=video]##
         </td>
         <td>
-            <span class="code">&nbsp;Code: &#35;#fancybox->[title=test video;file=http://www.youtube.com/watch?v=y5Q6bmas64U&feature=g-all-lik;type=video]#&#35;</span>
+            <span class="code">&nbsp;Code: &#35;#fancybox->[title=test video;file=http://www.youtube.com/watch?v=y5Q6bmas64U&amp;feature=g-all-lik;type=video]#&#35;</span>
         </td>
     </tr>
     <tr>

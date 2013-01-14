@@ -21,7 +21,7 @@ class Tags extends DRM {
 
         $input = '<input '.$this->D['style'].$class
                 .(!empty($this->D['min']) ? ' data-min="'.$this->D['min'].'" ' : '')
-                .$this->D['id'].'type="'.$type.'" name="'.$this->D['name']
+                .$this->D['id'].' type="'.$type.'" name="'.$this->D['name']
                 .'" value="'.$value.'" size="'.$this->D['size']
                 .'" maxlength="'.$this->D['max'].'" '.$this->D['js']
                 .$this->D['placeholder'].$this->D['required'].' />'
@@ -155,7 +155,7 @@ class Tags extends DRM {
     }
 	
 	public function datepicker() {
-		$this->D['id'] = 'id="datepicker-'.$this->D['name'].'" readonly="readonly"';
+		$this->D['id'] = 'id="datepicker-'.$this->D['name'].'" readonly="readonly" ';
 		return $this->text();
 	}
 	
@@ -190,7 +190,7 @@ class Tags extends DRM {
 
     public function kcaptcha() {
         $this->D['style'] = 'style="width: 103px;" ';
-        return '<img src="/'.$this->registry()->config['library_path'].'/kcaptcha/kcaptcha.php?'.session_name().'='.session_id().date('i:s').'" />'
+        return '<img src="/'.$this->registry()->config['library_path'].'/kcaptcha/kcaptcha.php?'.session_name().'='.session_id().date('i:s').'" alt="kaptcha" />'
                 .'<br />'.$this->text();
     }
 

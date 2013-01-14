@@ -18,9 +18,9 @@
         </td>
     </tr>
     <tr>
-        <td>##button->[name=button3;value=button;id=test_id;class=test_class;style=font-size:10px;]##</td>
+        <td>##button->[name=button3;value=button;id=test_id2;class=test_class;style=font-size:10px;]##</td>
         <td>
-            <span class="code">Code: &#35;#button->[name=button3;value=button;id=test_id;class=test_class;style=font-size:10px;]#&#35;</span>
+            <span class="code">Code: &#35;#button->[name=button3;value=button;id=test_id2;class=test_class;style=font-size:10px;]#&#35;</span>
         </td>
     </tr>
     <tr>
