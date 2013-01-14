@@ -329,4 +329,5 @@ var DRM = {};
         DRM.loadCSS();
         DRM.loadJS();
         DRM.run();
+        $('html').show();
     };

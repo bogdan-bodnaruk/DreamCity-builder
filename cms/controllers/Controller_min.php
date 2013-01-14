@@ -89,7 +89,12 @@ class Controller_min extends Controller {
                 };
             };
         }
-        return !$this->env() ? false : $bundle;
+        if(!$this->env()) {
+            $this->clearBundleFolder();
+            return false;
+        } else {
+            return $bundle;
+        };
     }
 
     private function env() {

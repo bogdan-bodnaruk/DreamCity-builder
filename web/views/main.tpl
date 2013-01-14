@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="display: none;">
 <head>
     <meta charset="{config::encoding}" />
     <base href="{config::base_href}" />
