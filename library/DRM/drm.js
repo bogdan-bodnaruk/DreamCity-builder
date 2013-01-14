@@ -13,7 +13,7 @@ var DRM = {};
         if (typeof(jQuery) == 'undefined') {
             if (!DRM.JSInited) {
                 DRM.JSInited = true;
-                document.write('<script type="text/javascript" src="min/js/c=false/f=yepnope;jquery"></script>');   //don't compress and cache 31day (86400 x 31)
+                document.write('<script type="text/javascript" src="min/type=js/c=false/f=yepnope;jquery"></script>');   //don't compress and cache 31day (86400 x 31)
             }
             setTimeout('JSLoader()', 50);
         }
@@ -169,8 +169,8 @@ var DRM = {};
     DRM.ie = function() {
         if($.browser.msie) {
             yepnope({
-                load: ['preload!min/js/f=pie/c=false/e=2678400',   //don't compress and cache 31day (86400 x 31)
-                        'min/js/f=classlist'],
+                load: ['preload!min/type=js/f=pie/c=false/e=2678400',   //don't compress and cache 31day (86400 x 31)
+                        'min/type=js/f=classlist'],
                 complete: function() {
                     if($.browser.version<8) {
                         DRM.ieLocker();
@@ -284,11 +284,11 @@ var DRM = {};
             for(var i=0;i<DRM.css.length;i++) {
                files += DRM.css[i]+';';
             }
-            yepnope.injectCss("min/css/{hash_css}f="+files);
+            yepnope.injectCss("min/type=css/{hash_css}f="+files);
 
         } else {
             for(var i=0;i<DRM.css.length;i++) {
-                yepnope.injectCss("min/css/f="+DRM.css[i]);
+                yepnope.injectCss("min/type=css/f="+DRM.css[i]);
             }
         }
     };
@@ -299,7 +299,7 @@ var DRM = {};
             for(var i=0;i<DRM.js.length;i++) {
                files += DRM.js[i]+';';
             }
-            yepnope.injectJs("min/js/{hash_js}f="+files,
+            yepnope.injectJs("min/type=js/{hash_js}f="+files,
                 function(){
                     if(DRM.callbacks && typeof(DRM.callbacks)=="object") {
                         for (var i in DRM.callbacks) {
@@ -310,7 +310,7 @@ var DRM = {};
             );
         } else {
             for(var i=0;i<DRM.js.length;i++) {
-                yepnope.injectJs("min/js/f="+DRM.js[i],
+                yepnope.injectJs("min/type=js/f="+DRM.js[i],
                     function(){
                         if(DRM.callbacks && typeof(DRM.callbacks)=="object") {
                             for (var i in DRM.callbacks) {

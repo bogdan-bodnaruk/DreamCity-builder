@@ -7,7 +7,7 @@
     <meta name="Description" content="{config::description}" />
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
-    <script src="min/js/f=drm/e=0" type="text/javascript"></script>
+    <script src="min/type=js/f=drm/e=0" type="text/javascript"></script>
 </head>
 <body>
     <div id="main">
