@@ -8,26 +8,6 @@ class Controller_min extends Controller {
     private $hash_css = 0;
     private $hash_js = 0;
 
-    private $colors = array(
-        '#000000' =>  '#000',
-        '#111111' =>  '#111',
-        '#222222' =>  '#222',
-        '#333333' =>  '#333',
-        '#444444' =>  '#444',
-        '#555555' =>  '#555',
-        '#666666' =>  '#666',
-        '#777777' =>  '#777',
-        '#888888' =>  '#888',
-        '#999999' =>  '#999',
-        '#AAAAAA' =>  '#AAA',
-        '#BBBBBB' =>  '#BBB',
-        '#CCCCCC' =>  '#CCC',
-        '#DDDDDD' =>  '#DDD',
-        '#EEEEEE' =>  '#EEE',
-        '#FFFFFF' =>  '#FFF',
-        '#FF0000' =>  '#F00'
-    );
-
     public function __construct() {
         parent::__construct();
         include_once(PATH.'.config/dependencies.php');
@@ -90,6 +70,7 @@ class Controller_min extends Controller {
                 $this->val('c');
                 if($this->val['c']!=='false') {
                     $this->hash();
+                    $this->colors();
                     $this->js = strtr($this->js, $this->colors);
                     $this->js = strtr($this->js,
                         array('{env}'       =>  $this->registry()->config['env'],
@@ -173,5 +154,19 @@ class Controller_min extends Controller {
             $this->hash_js += filemtime(PATH.$this->_js[$key]);
         }
         $this->hash_js = $this->registry()->config['min_use_cache'] ? $this->hash_js.'/' : '';
+    }
+    
+    private function colors() {
+        $hex = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f');
+
+        for($i=0;$i<count($hex);$i++) {
+            for($j=0;$j<count($hex);$j++) {
+                for($h=0;$h<count($hex);$h++) {
+                    $color_long = $hex[$i].$hex[$i].$hex[$j].$hex[$j].$hex[$h].$hex[$h];
+                    $color_short = $hex[$i].$hex[$j].$hex[$h];
+                    $this->colors['#'.$color_long] = '#'.$color_short;
+                }
+            }
+        }
     }
 }
