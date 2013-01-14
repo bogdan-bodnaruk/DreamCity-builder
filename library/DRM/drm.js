@@ -169,18 +169,10 @@ var DRM = {};
     DRM.ie = function() {
         if($.browser.msie) {
             yepnope({
-                load: ['preload!min/type=js/f=pie/c=false/e=2678400',   //don't compress and cache 31day (86400 x 31)
-                        'min/type=js/f=classlist'],
+                load: ['min/type=js/f=classlist'],
                 complete: function() {
                     if($.browser.version<8) {
                         DRM.ieLocker();
-                    }
-                },
-                callback: function() {
-                    if (window.PIE) {
-                        $('*').each(function() {
-                            PIE.attach(this);
-                        });
                     }
                 }
             });
