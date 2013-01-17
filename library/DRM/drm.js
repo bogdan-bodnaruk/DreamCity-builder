@@ -185,7 +185,7 @@ var DRM = {};
         }
     };
 
-    DRM.h5validate = function() {
+    /*DRM.h5validate = function() {
         if($('form').length>0) {
             DRM.js.push('h5');
             DRM.callbacks.h5 = function() {
@@ -193,7 +193,7 @@ var DRM = {};
             }
         }
     };
-
+*/
     DRM.run = function() {
         $('.detach').remove();
 
@@ -322,7 +322,7 @@ var DRM = {};
         DRM.confirm();
         DRM.fancybox();
         DRM.jQueryUI();
-        DRM.h5validate();
+        //DRM.h5validate();
         DRM.mozilla();
         DRM.chosen();
         DRM.ie();

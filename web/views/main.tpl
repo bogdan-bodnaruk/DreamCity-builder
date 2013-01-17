@@ -8,6 +8,7 @@
     <meta name="keywords" content="{config::keyword}" />
     <meta name="generator" content="{config::generator}" />
     <script src="min/type=js/f=drm/e=0" type="text/javascript"></script>
+    <script src="library/DRM/validator.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="main">
@@ -44,11 +45,6 @@
                 <a href="http://jigsaw.w3.org/css-validator/check/referer">
                     <img style="border:0;width:88px;height:31px"
                          src="http://jigsaw.w3.org/css-validator/images/vcss"
-                         alt="Valid CSS!" />
-                </a>
-                <a href="http://jigsaw.w3.org/css-validator/check/referer">
-                    <img style="border:0;width:88px;height:31px"
-                         src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
                          alt="Valid CSS!" />
                 </a>
             </p>

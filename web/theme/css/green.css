@@ -217,7 +217,7 @@ select {
     background-color: #FFD4C3;
 }
 
-.drm-error {
+.-input-error {
     background-color: #EE4200;
     border-radius: 16px;
     color: white;
