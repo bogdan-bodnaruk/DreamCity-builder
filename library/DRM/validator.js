@@ -26,24 +26,51 @@
             classes: {
                 error: '-input-error',
                 valid: '-valid',
-                active: '-active',
-                required: 'required',
+                active: '-active'
             }
         };
         var data = $.extend(settings, options);
+        var error = 0;    
+
+        $('.'+data.classes.error).live('mouseleave', function() {
+            $(this).next('tooltip').removeClass('show');
+        });
+        $('.'+data.classes.error).live('mouseover', function() {
+            $(this).next('tooltip').addClass('show');
+        });
+
+
+        var addMessage = function(el, icon, message) {
+            if(!el.next().hasClass(data.classes.error)) {
+                var coords = el.position();
+                var top = coords.top-el.height()-25 +'px';
+                var left = coords.left+el.width()-7 +'px';
+
+                el.after('<span class="tooltip show" style="top: '+top+';left: '+left+'">'+message+'<div class="arrow-down"></div></span>');
+                el.after(icon);
+                error++;
+            };
+        };    
 
         var doValidation = function(event) {
             selector.live(event, function() {
-                var _class = ($.trim($(this).attr('class'))).split(' ');
+                var el = $(this);
+                var _class = el.attr('class').split(' ');
+                var icon = '<span class="'+data.classes.error+'">i</span>';
+
                 for(var i=0;i<_class.length;i++) {
-                    if(data.regex[_class[i]]) {
-                        if(data.regex[_class[i]].test($(this).val())) {
-                            $(this).next().remove('span.'+data.classes.error);
-                        } else {
-                            if(!$(this).next().hasClass(data.classes.error)) {
-                                $(this).after('<span class="'+data.classes.error+'">i</span>');
-                            };
-                        };
+                    if((el.val().length>0 || event=='focusout') && data.regex[_class[i]]) {
+                        addMessage(el, icon, 'test');
+                    };
+                    if(el.val().length > el.attr('maxlength')) {
+                        addMessage(el, icon, 'test123');
+                    };
+                    if(el.val().length < el.data('min')) {
+                        addMessage(el, icon, 'test321');
+                    };
+
+                    if(error===0) {
+                        el.next().remove('span.'+data.classes.error);
                     };
                 }
             });

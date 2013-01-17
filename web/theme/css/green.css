@@ -475,16 +475,29 @@ div.upload .drm-error {
 
 /* HELPERS */
 .tooltip {
-    background-color: yellow;
-    border: 1px solid yellow;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 10px #999999;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
     position: absolute;
-    top: -40px;
-    min-width: 150px;
-    width: 150px\8/;
-    padding: 5px;
+    text-align: left;
+    padding: 5px 10px;
     color: #333;
+    display: none;
+}
+
+.tooltip.show {
+    display: block;
+}
+
+.tooltip .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid #61B52A;
+    position: absolute;
+    bottom: -11px;
+    left: 4px;
 }
 
 .db_not_connected {
