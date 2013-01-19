@@ -221,16 +221,21 @@ select {
     background-color: #EE4200;
     border-radius: 16px;
     color: white;
-    margin-left: -20px;
-    padding: 2px 8px;
-    position: relative;
+    padding: 0 2px;
     text-align: center;
     width: 15px;
-    left: -4px;
-    top: 2px;
     font-weight: bolder;
     box-shadow:  inset 0 0 1px #747474;
     cursor: help;
+    position: absolute;
+}
+
+input[type="text"].-input-warning, 
+input[type="password"].-input-warning, 
+input[type="file"].-input-warning {
+    border: 1px solid #DD7B9F;
+    box-shadow: 0 0 5px #db3572;
+    color: #db3572;
 }
 
 /* Select button menu */
@@ -483,6 +488,24 @@ div.upload .drm-error {
     padding: 5px 10px;
     color: #333;
     display: none;
+}
+
+.tooltip:after {
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(62, 200, 76, 0)), color-stop(50%, #3EC84C), to(rgba(62, 200, 76, 0)));
+    background-image: -webkit-linear-gradient(left, rgba(62, 200, 76, 0), #3EC84C 50%, rgba(62, 200, 76, 0));
+    background-image: -moz-linear-gradient(left, top, rgba(62, 200, 76, 0), #3EC84C 50%, rgba(62, 200, 76, 0));
+    background-image: -o-linear-gradient(left, rgba(62, 200, 76, 0), #3EC84C 50%, rgba(62, 200, 76, 0));
+    background-image: linear-gradient(to right, rgba(62, 200, 76, 0), #3EC84C 50%, rgba(62, 200, 76, 0));
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr='#003EC84C', endColorstr='#003EC84C');
+
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    width: 95%;
+    height: 1px;
+    content: ' ';
 }
 
 .tooltip.show {
