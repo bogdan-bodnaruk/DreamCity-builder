@@ -28,7 +28,7 @@ class Controller_min extends Controller {
 		$this->val('f'); 
 		$this->val('type'); 
 
-		if(is_file($this->temp.'/'.md5($this->val['f']).'.'.$this->val['type']) && $this->bundleIsValid('_'.$this->val['type'])) {
+		if(is_file($this->temp.'/'.md5($this->val['f']).'.'.$this->val['type']) && $this->bundleIsValid()) {
 			$this->data = file_get_contents($this->temp.'/'.md5($this->val['f']).'.'.$this->val['type']);
 		} else {
 			$files = explode(';',$this->val['f']);
@@ -79,12 +79,13 @@ class Controller_min extends Controller {
         exec("rm -r ".$this->temp);
     }
 
-    private function bundleIsValid($type = '') {
+    private function bundleIsValid() {
         $bundle = true;
-        $filesDate = explode(';',$this->val['f']);
-        for($i=0;$i<count($filesDate);$i++) {
-            if(!empty($filesDate[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.'.$type)) {
-                if(filemtime($this->temp.'/'.md5($this->val['f']).'.'.$type) < filemtime(PATH.$this->$$type[$filesDate[$i]])) {
+        $files = explode(';',$this->val['f']);
+        for($i=0;$i<count($files);$i++) {
+            if(!empty($files[$i]) && is_file($this->temp.'/'.md5($this->val['f']).'.'.$this->val['type'])) {
+            	$fileName = $this->val['type']=='js' ? $this->_js[$files[$i]] : $this->_css[$files[$i]];
+                if(filemtime($this->temp.'/'.md5($this->val['f']).'.'.$this->val['type']) < filemtime(PATH.$fileName)) {
                     $bundle = false;
                 };
             };
