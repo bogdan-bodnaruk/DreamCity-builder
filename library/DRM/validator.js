@@ -64,7 +64,7 @@
                 for(var i=0;i<_class.length;i++) {
                     if(el.val().length>0 && data.regex[_class[i]]) {
                         if(!(data.regex[_class[i]].test($(this).val()))) {
-                            error += addMessage(el, DRM.message['not'+_class]+'d');
+                            error += addMessage(el, DRM.message['not'+_class]);
                         }
                     };
 
