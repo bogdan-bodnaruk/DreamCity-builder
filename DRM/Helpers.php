@@ -49,7 +49,7 @@ class Helpers extends DRM {
 
     static public function getValue($type) {
         for($i=0; $i<count(self::registry()->values); $i++) {
-            if(preg_match('/'.$type.'\=[0-9a-zA-Z\,]+/', self::registry()->values[$i])) {
+            if(preg_match('/^'.$type.'\=[0-9a-zA-Z\,]+/', self::registry()->values[$i])) {
                 list($text, $value) = explode('=', self::registry()->values[$i]);
                 return $value;
             };

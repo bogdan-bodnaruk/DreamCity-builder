@@ -1,6 +1,6 @@
 DRM.message = {
 	not_text: 'Please enter a valid text.',
-	not_number: 'Please enter only digits.',
+	not_num: 'Please enter only digits.',
 	not_phone: 'Please enter a valid phone number.',
 	not_email: 'Please enter a valid email address.',
 	not_url: 'Please enter a valid URL.',

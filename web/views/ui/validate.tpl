@@ -2,8 +2,7 @@
     <tr>
         <td style="width: 320px;">
             <form name="form1" method="POST" action="/ui/validate">
-                <div>Login: ##text->[name=test1;validate=login;min=2;max=50;]##<div>
-                ##submit->[name=submit;value=try]##
+                Login: ##text->[name=test1;validate=login;min=2;max=50;]##
             </form>
         </td>
         <td>

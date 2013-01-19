@@ -114,7 +114,7 @@ class Controller_min extends Controller {
 	private function cache() {
 		if($this->registry()->config['min_use_cache']) {
 			$this->val('e');
-			$cache = $this->val['e']!=="" ? $this->val['e'] : '1209600';
+			$cache = $this->val['e']!=="" ? (int)$this->val['e'] : 1209600;
 			header("Cache-Control: must-revalidate, max-age=".$cache);
 			header("Pragma: public");
 		} else {
