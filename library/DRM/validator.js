@@ -8,12 +8,11 @@
                 _number: /-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?/,
                 _dateYYYYmmdd: /\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}/,
                 _datemmddYYYY: /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}/,
-                _login: /[a-zA-Z0-9_]+/,
+                _login: /^[a-zA-Z0-9_]+$/,
                 _password: /[a-zA-Z0-9_-]/,
                 _text: /[\w!@$%^&*()№_+|\-\\\/,=.?'";:а-яА-ЯіІїЇєЄёЁ\s\ ]/,
                 _num: /[0-9]/,
-                _phone: /[0-9\-+]{5,18}/,
-                _alpha: /[a-zA-Z]+/
+                _phone: /[0-9\-+]{5,18}/
             },
             events: {
                 focusout: true,
@@ -25,9 +24,7 @@
             },
             classes: {
                 error: '-input-error',
-                warning: '-input-warning',
-                valid: '-valid',
-                active: '-active'
+                warning: '-input-warning'
             }
         };
         var data = $.extend(settings, options);   
@@ -43,12 +40,18 @@
                 var coords = el.position();
                 var top = coords.top-el.height();
                 var left = coords.left+el.width();
-
+                
                 el.addClass(data.classes.warning);
                 el.after('<div class="tooltip show">'+message+'<i class="arrow-down"></i></div>');
                 el.after('<i class="'+data.classes.error+'">i</i>');
                 el.next().css({'top':top+18,'left':left-5});
                 el.next().next().css({'top':top-25,'left':left-7});
+
+                $(el.parents('form')).bind('submit', function() {
+                    $('.tooltip').show();
+                    return false;
+                });
+                return 1;
             };
         };    
 
@@ -60,26 +63,27 @@
 
                 for(var i=0;i<_class.length;i++) {
                     if(el.val().length>0 && data.regex[_class[i]]) {
-                        if(!data.regex[_class[i]].test($(this).val())) {
-                            addMessage(el, 'test');
-                            error++;
+                        if(!(data.regex[_class[i]].test($(this).val()))) {
+                            error += addMessage(el, DRM.message['not'+_class]+'d');
                         }
                     };
 
                     if(el.val().length > el.attr('maxlength')) {
-                        addMessage(el, 'test123');
-                        error++;
+                        error += addMessage(el, DRM.lang('minChar', el.attr('maxlength')));
                     };
 
-                    if(el.val().length < el.data('min') && el.val().length>0) {
-                        addMessage(el, message.minChar);
-                        error++;
-                    };
+                    if(event=='focusout' || event=='submit') {
+                        if(el.val().length < el.data('min') && el.val().length>0) {
+                            error += addMessage(el, DRM.lang('minChar', el.data('min')));
+                        }
+                        if(el.attr('required')=='required' && el.val().length==0) {
+                            error += addMessage(el, DRM.message.required);
+                        }
+                    }
 
                     if(error===0) {
-                        el.next().remove('i.'+data.classes.error);
-                        el.next().remove('div.tooltip');
-                        el.removeClass(data.classes.warning);
+                        el.removeClass(data.classes.warning).siblings('i.'+data.classes.error+',div.tooltip').remove();
+                        $(el.parents('form')).unbind('submit');
                     };
                 }
 
@@ -94,7 +98,3 @@
         }    
     };  
 })(jQuery); 
-
-$(document).ready(function(){
-    $('form input[type=text], form textarea').liveValidate();
-});

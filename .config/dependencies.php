@@ -20,7 +20,7 @@ $_js = array(
     'jquery'        =>  $this->registry()->config['library_path'].'/DRM/jquery-1.8.3.min.js',
     'qtip2'         =>  $this->registry()->config['library_path'].'/qTip2/jquery.qtip.min.js',
     'drm'           =>  $this->registry()->config['library_path'].'/DRM/drm.js',
+    'helpers'       =>  $this->registry()->config['library_path'].'/DRM/drm-helpers.js',
     'yepnope'       =>  $this->registry()->config['library_path'].'/DRM/yepnope.js',
-    'jquery'        =>  $this->registry()->config['library_path'].'/DRM/jquery-1.8.3.min.js',
-    'h5'            =>  $this->registry()->config['library_path'].'/jquery.h5validate.js',
+    'validate'      =>  $this->registry()->config['library_path'].'/DRM/validator.js',
 );
