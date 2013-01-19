@@ -17,7 +17,7 @@ class Tags extends DRM {
                 ? $_POST[$this->D['name']]
                 : $this->D['value'];
         $validate_type = $this->D['validate'];
-        $class = $this->_class_($this->D['class'].' drm_'.($type=='password' ? 'password' : $validate_type));
+        $class = $this->_class_('_'.($type=='password' ? 'password' : $validate_type).' '.$this->D['class']);
 
         $input = '<input '.$this->D['style'].$class
                 .(!empty($this->D['min']) ? ' data-min="'.$this->D['min'].'" ' : '')
