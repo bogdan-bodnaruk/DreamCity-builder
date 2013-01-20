@@ -5,7 +5,7 @@
 
     config.skin = 'BootstrapCK-Skin';
     config.filebrowserImageUploadUrl = 'http://' + window.location.hostname + '/upload_files/cked/';
-	config.smiley_path = '/' + DRM.libraryPath + '/DRM/smiley/';
+	config.smiley_path = DRM.library + '/DRM/smiley/';
 
     config.toolbar_admin = [
         { name: 'document',    items : [ 'Source','Preview','Print','Templates' ] },

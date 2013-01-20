@@ -14,8 +14,3 @@ textarea {
 div#main ul#menu li .count {
 	padding-right: 0;
 }
-
-div#main ul#menu li  {
-	filter: progid:DXImageTransform.Microsoft.dropshadow(color=#CCCCCC,offX=1,offY=1);
-	padding-bottom: 0;
-}

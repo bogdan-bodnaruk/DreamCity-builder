@@ -43,6 +43,7 @@ div#main ul#menu li {
     background: -webkit-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -o-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -ms-linear-gradient(top,#74e036 0%,#5eaf28);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FF74e036, endColorstr=#FF5eaf28);
     box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
     -moz-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
     -webkit-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
@@ -72,6 +73,7 @@ div#main ul#menu li:hover {
     background: -webkit-linear-gradient(bottom,#74e036 0%,#5eaf28);
     background: -o-linear-gradient(bottom,#74e036 0%,#5eaf28);
     background: -ms-linear-gradient(bottom,#74e036 0%,#5eaf28);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FF5eaf28, endColorstr=#FF74e036);
     cursor: pointer;
 }
 
@@ -86,12 +88,13 @@ div#main #header {
     background: -webkit-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -o-linear-gradient(top,#74e036 0%,#5eaf28);
     background: -ms-linear-gradient(top,#74e036 0%,#5eaf28);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FF74e036, endColorstr=#FF5eaf28);
     border: 1px solid #70a232;
     box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
     -moz-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
     -webkit-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
     -o-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
-    -ms-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+    -ms-box-shadow:0px 2px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);    
     text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     -moz-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);
     -webkit-text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 0px 0px rgba(255,255,255,0.2);

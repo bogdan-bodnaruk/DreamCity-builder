@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-//error_reporting(0);
+error_reporting(0);
 class Controller_min extends Controller {
     private $data = '';
     private $temp = '';
@@ -21,6 +20,8 @@ class Controller_min extends Controller {
                          ' 0px'	    => ' 0',
                          ';;'       =>  ';',
                          '  '       =>  '',
+                         '{env}'    =>  $this->registry()->config['env'],
+						 '{locale}' =>  $this->lang
         );
     }
 
@@ -52,11 +53,8 @@ class Controller_min extends Controller {
 					if($this->val['c']!=='false') {
 						$this->hash();
 						$this->data = strtr($this->data,
-							array('{env}'       =>  $this->registry()->config['env'],
-								  '{locale}'    =>  $this->lang,
-								  '{hash_css}'  =>  $this->hash_css,
-								  '{hash_js}'   =>  $this->hash_js,
-								  '{library}'   =>  $this->registry()->config['library_path'])
+							array('{hash_css}'  =>  $this->hash_css,
+								  '{hash_js}'   =>  $this->hash_js)
 						);
 						$regex = '(\{|\}|\(|\)|\[|\]|=|\:|\<|\>|\?|\+|\|\||\&&)';
 

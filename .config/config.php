@@ -9,8 +9,8 @@ $config = array(/* main settings */
                 'files_path'        =>  'web/uploads',
                 'description'       =>  '{DRM} - make development easiest',
                 'keyword'           =>  '{DRM} - make development easiest',
-                'generator'         =>  '{DRM}.v.0.9.5',
-                'generator_version' =>  'v.0.9.5',
+                'generator'         =>  '{DRM}.v.0.9.6',
+                'generator_version' =>  'v.0.9.6',
                 'main_template'     =>  'main.tpl',
                 'main_content_value'=>  'content',
                 'base_href'         =>  'http://engine.drm/',
@@ -64,7 +64,4 @@ $config = array(/* main settings */
                 'min_write_bundles' =>  true,
                 'min_use_cache'     =>  true,
         );
-
-$config['current_locale'] = isset($_COOKIE['i18n']) ? $_COOKIE['i18n'] : $config['default_i18n'];
-
 $config['theme_img'] = $config['app_path'].'/theme/images/';

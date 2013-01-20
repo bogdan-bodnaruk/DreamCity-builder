@@ -85,13 +85,15 @@ var DRM = {};
             test: $("textarea").is("[id^='cked-']"),
             yep: DRM.library + '/ckeditor/ckeditor.js',
             callback: function() {
-                for(i=0;i<$("textarea[id^='cked-']").length;i++) {
-                    if (CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]) {
-                        delete CKEDITOR.instances[$("textarea[id^='cked-']")[i].id]
+                for(var i=0;i<$("textarea[id^='cked-']").length;i++) {
+                    var selector = $("textarea[id^='cked-']")[i];
+                    var id = $("textarea[id^='cked-']")[i].id;
+                    if (CKEDITOR.instances[id]) {
+                        delete CKEDITOR.instances[id];
                     };
                     CKEDITOR.replace(
-                        $("textarea[id^='cked-']")[i].id, {
-                            toolbar : $("textarea[id^='cked-']")[i].classList[0]
+                        id,{
+                            toolbar : $(selector).attr('class')
                         }
                     );
                 }
@@ -165,22 +167,14 @@ var DRM = {};
         }
     };
 
-    /*Need testing*/
     DRM.ie = function() {
         if($.browser.msie) {
-            yepnope({
-                load: ['min/type=js/f=classlist'],
-                complete: function() {
-                    if($.browser.version<8) {
-                        DRM.ieLocker();
-                    }
-                }
-            });
             if($.browser.version==8.0) {
                 DRM.css.push('ie8');
-            }
-            if($.browser.version==9.0) {
+            } else if($.browser.version==9.0) {
                 DRM.css.push('ie9');
+            } else if($.browser.version<8) {
+                DRM.ieLocker();
             }
         }
     };
