@@ -54,7 +54,8 @@ class Controller_min extends Controller {
 						$this->hash();
 						$this->data = strtr($this->data,
 							array('{hash_css}'  =>  $this->hash_css,
-								  '{hash_js}'   =>  $this->hash_js)
+								  '{hash_js}'   =>  $this->hash_js,
+								  '://'			=>	':\/\/')
 						);
 						$regex = '(\{|\}|\(|\)|\[|\]|=|\:|\<|\>|\?|\+|\|\||\&&)';
 

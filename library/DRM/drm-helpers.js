@@ -28,19 +28,19 @@ DRM.ieLocker = function() {
     var browsers = [{
         name : "Firefox",
         icon : path + "ff.png",
-        //link : "http://www.mozilla.com/firefox/"
+        link : "http://www.mozilla.com/firefox/"
     },{
         name : "Chrome",
         icon : path + "ch.png",
-        //link : "http://www.google.com/chrome/"
+        link : "http://www.google.com/chrome/"
     },{
         name : "Opera",
         icon : path + "op.png",
-        //link : "http://www.opera.com/download/"
+        link : "http://www.opera.com/download/"
     },{
         name : "Internet Explorer 8+",
         icon : path + "ie.png",
-        //link : "http://windows.microsoft.com/en-US/internet-explorer/downloads/ie"
+        link : "http://windows.microsoft.com/en-US/internet-explorer/downloads/ie"
     }];
 
     var markup = "<div style='margin: 10% 20%;'><h1 style='color:white;font-size: 18px;'>" + DRM.message.ie_out_of_date + "</h1>"

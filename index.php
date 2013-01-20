@@ -17,7 +17,7 @@
  *  2012.12.03 - v.0.9.0 (commit 833662b0377d93feacf5926b6044117ae45ae617)
  *  2012.12.16 - v.0.9.4 (commit 18be9ecce3001ba2bef5ae5ab25c33b472dbc0ff)
  *  2013.01.13 - v.0.9.5 (commit 9204dac8f992db562a607ae61d63ae1662f77bef)
- *  2013.01.20 - v.0.9.6
+ *  2013.01.20 - v.0.9.6 (commit 1bd6c3500882d40df068f9eda9201d274f4f5ba7)
  *
  *  @author Bogdan Bodnaruk <babak.47031@gmail.com>
  *  @copyright 2012 Bogdan Bodnaruk
