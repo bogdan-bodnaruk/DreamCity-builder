@@ -36,7 +36,7 @@
         });
 
         $(window).resize(function() {
-            $(data.classes.error).each(function() {
+            $('.'+data.classes.error).each(function() {
                 var input = $(this).prev().position();
                 var top = input.top-$(this).prev().height();
                 var left = input.left+$(this).prev().width();
