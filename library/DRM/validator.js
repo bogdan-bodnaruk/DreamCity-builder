@@ -35,6 +35,16 @@
             }
         });
 
+        $(window).resize(function() {
+            $(data.classes.error).each(function() {
+                var input = $(this).prev().position();
+                var top = input.top-$(this).prev().height();
+                var left = input.left+$(this).prev().width();
+                $(this).css({'top':top+18,'left':left-5});
+                $(this).next().css({'top':top-25,'left':left-7});
+            });
+        });
+
         var addMessage = function(el, message) {
             if(!el.next().hasClass(data.classes.error)) {
                 var coords = el.position();
@@ -95,6 +105,6 @@
 
         for(var events in data.events) {
             data.events[events] ? doValidation(events) : '';
-        }    
-    };  
+        }   
+    };
 })(jQuery); 
