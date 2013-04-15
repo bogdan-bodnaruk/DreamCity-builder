@@ -2,7 +2,7 @@
 $config = array(/* main settings */
         'system_path'       =>  'DRM',
         'library_path'	    =>  'library',
-        'cms_path'	    =>  'cms',
+        'cms_path'	        =>  'cms',
         'main_page'         =>  'index',
         'encoding'          =>  'UTF-8',
         'app_path'          =>  'web',
@@ -22,7 +22,7 @@ $config = array(/* main settings */
         'title'             =>  '{DRM} - make development easiest',
         'comment'           =>  'true',
         'ajax'              =>  false,
-        'env'               =>  'production', //if production than all css and js will be minimized production
+        'env'               =>  'test', //if production than all css and js will be minimized production
         'client_css'        =>  'web/theme/css',
         'enable'            =>  0, // 0 - site enabled, 1 site disabled
         'log_error_to_file' =>  false,

@@ -1,52 +1,42 @@
-var DRM = {};
-    DRM.environment = '{env}';
-    DRM.library = '{library}';
-    DRM.css = [];
-    DRM.js = [];
-    DRM.locale = '{locale}';
-    DRM.callbacks = {};
-    /*DRM.ajax = true;  doesn't work yet
-    DRM.fullAjax = true;*/
-
-    DRM.JSInited = false;
-    var JSLoader = function() {
-        if (typeof(jQuery) == 'undefined') {
-            if (!DRM.JSInited) {
-                DRM.JSInited = true;
-                document.write('<script type="text/javascript" src="min/type=js/c=false/f=yepnope;jquery"></script>');   //don't compress and cache 31day (86400 x 31)
+var DRM = {
+    js          : [],
+    css         : [],
+    locale      : '{locale}',
+    library     : '{library}',
+    callbacks   : {},
+    environment : '{env}',
+    JQueryLoad  : function() {
+        if (typeof(jQuery) === 'undefined') {
+            if (!DRM.JQueryInit) {
+                DRM.JQueryInit = true;
+                document.write('<script src="/min/type=js/c=false/f=yepnope;jquery"></script>');   //don't compress and cache 31day (86400 x 31)
             }
-            setTimeout('JSLoader()', 50);
         }
-    };
-    JSLoader();
-
-    DRM.loadMainCss = function() {
-        DRM.css.push('boilerplate','green','main');
-        DRM.js.push(DRM.locale, 'helpers');
-    };
-
-    DRM.chosen = function() {
+    },
+    loadMainCss : function() {
+        this.css.push('boilerplate','green','main');
+        this.js.push(this.locale, 'helpers');
+    },
+    chosen      : function() {
         if($('select').length) {
-            DRM.css.push('chosen');
-            DRM.js.push('chosen');
-            DRM.callbacks.chosen = function() {
-                $("select").chosen({disable_search_threshold: 10});
+            this.css.push('chosen');
+            this.js.push('chosen');
+            this.callbacks.chosen = function() {
+                $("select").chosen({
+                    disable_search_threshold: 10
+                });
             };
         }
-    };
+    },
+    mozilla     : function() {
+        $.browser.mozilla ? this.css.push('mozilla_reset') : '';
+    },
+    qtip2 : function() {
+        if($('.qtip-tooltip').length) {
+            this.css.push('qtip2');
+            this.js.push('qtip2');
 
-    DRM.mozilla = function() {
-        if($.browser.mozilla) {
-            DRM.css.push('mozilla_reset');
-        }
-    };
-
-    DRM.qtip2 = function() {
-        if($('.qtip-tooltip').length > 0) {
-            DRM.css.push('qtip2');
-            DRM.js.push('qtip2');
-
-            DRM.callbacks.qtip = function() {
+            this.callbacks.qtip = function() {
                 $('a.qtip-tooltip[title]').qtip({
                     position: {
                         my: 'bottom center',
@@ -58,11 +48,10 @@ var DRM = {};
                 });
             };
         }
-    };
-
-    DRM.confirm = function() {
-        if($('.confirm').length > 0) {
-            $('.confirm').live('click', function(){
+    },
+    confirm     : function() {
+        if($('.confirm').length) {
+            $('.confirm').on('click', function(){
                 DRM.confirm.method({
                     'buttons': {
                         'Yes': {
@@ -78,9 +67,8 @@ var DRM = {};
                 return false;
             });
         }
-    };
-
-    DRM.ckeditor = function() {
+    },
+    ckeditor    : function() {
         yepnope({
             test: $("textarea").is("[id^='cked-']"),
             yep: DRM.library + '/ckeditor/ckeditor.js',
@@ -99,14 +87,13 @@ var DRM = {};
                 }
             }
         });
-    };
-
-    DRM.fancybox = function() {
+    },
+    fancybox    : function() {
         if($("div").is("[id^=fancybox-]") || $('a').is("[class^=fancybox-]")) {
-            DRM.css.push('fancybox');
-            DRM.js.push('fancybox');
+            this.css.push('fancybox');
+            this.js.push('fancybox');
 
-            DRM.callbacks.fancybox = function() {
+            this.callbacks.fancybox = function() {
                 $("div[id^=fancybox-]>a").fancybox({
                     nextEffect: 'elastic',
                     prevEffect: 'elastic',
@@ -141,15 +128,16 @@ var DRM = {};
                 });
             };
         }
-    };
-
-    DRM.jQueryUI = function() {
+    },
+    jQueryUI    : function() {
         if($("input").is("[id^=datepicker-]") || $("div").is("[id^=window-]")) {
-            DRM.css.push('jqueryui');
-            DRM.js.push('jqueryui');
+            this.css.push('jqueryui');
+            this.js.push('jqueryui');
 
-            DRM.callbacks.jqueryui = function() {
-                $("input[type='text'][id^=datepicker-]").datepicker({yearRange:'-65:+15' });
+            this.callbacks.jqueryui = function() {
+                $("input[type='text'][id^=datepicker-]").datepicker({
+                    yearRange:'-65:+15'
+                });
 
                 $("div[id^=window-]").dialog({
                     autoOpen: false,
@@ -165,33 +153,30 @@ var DRM = {};
                 });
             }
         }
-    };
-
-    DRM.ie = function() {
+    },
+    ie: function() {
         if($.browser.msie) {
             if($.browser.version==8.0) {
-                DRM.css.push('ie8');
+                this.css.push('ie8');
             } else if($.browser.version==9.0) {
-                DRM.css.push('ie9');
+                this.css.push('ie9');
             } else if($.browser.version<8) {
-                DRM.ieLocker();
+                this.ieLocker();
             }
         }
-    };
-
-    DRM.validate = function() {
-        if($('form').length>0) {
-            DRM.js.push('validate');
-            DRM.callbacks.validate = function() {
+    },
+    validate: function() {
+        if($('form').length) {
+            this.js.push('validate');
+            this.callbacks.validate = function() {
                 $('form input[type=text], form textarea').liveValidate();
             }
         }
-    };
-
-    DRM.run = function() {
+    },
+    run: function() {
         $('.detach').remove();
 
-        $('a.selected').live('click', function(e){
+        $('a.selected').on('click', function(e){
             e.preventDefault();
         });
 
@@ -201,33 +186,30 @@ var DRM = {};
             };
         });
 
-        $('a[href=#]').live('click', function(){
+        $('a[href=#]').on('click', function(){
             return false;
-        });        
-    };
-
-    DRM.loadCSS = function() {
-        if(DRM.environment == 'production') {
+        });
+    },
+    loadCSS: function() {
+        if(this.environment == 'production') {
             var files = '';
-            for(var i=0;i<DRM.css.length;i++) {
-               files += DRM.css[i]+';';
+            for(var i=0;i<this.css.length;i++) {
+                files += this.css[i]+';';
             }
-            yepnope.injectCss("min/type=css/{hash_css}f="+files);
-
+            yepnope.injectCss("/min/type=css/{hash_css}f="+files);
         } else {
-            for(var i=0;i<DRM.css.length;i++) {
-                yepnope.injectCss("min/type=css/f="+DRM.css[i]);
+            for(var i=0;i<this.css.length;i++) {
+                yepnope.injectCss("/min/type=css/f="+this.css[i]);
             }
         }
-    };
-
-    DRM.loadJS = function() {
-        if(DRM.environment == 'production') {
+    },
+    loadJS: function() {
+        if(this.environment == 'production') {
             var files = '';
-            for(var i=0;i<DRM.js.length;i++) {
-               files += DRM.js[i]+';';
+            for(var i=0;i<this.js.length;i++) {
+                files += this.js[i]+';';
             }
-            yepnope.injectJs("min/type=js/{hash_js}f="+files,
+            yepnope.injectJs("/min/type=js/{hash_js}f="+files,
                 function(){
                     if(DRM.callbacks && typeof(DRM.callbacks)=="object") {
                         for (var i in DRM.callbacks) {
@@ -237,8 +219,8 @@ var DRM = {};
                 }
             );
         } else {
-            for(var i=0;i<DRM.js.length;i++) {
-                yepnope.injectJs("min/type=js/f="+DRM.js[i],
+            for(var i=0;i<this.js.length;i++) {
+                yepnope.injectJs("/min/type=js/f="+this.js[i],
                     function(){
                         if(DRM.callbacks && typeof(DRM.callbacks)=="object") {
                             for (var i in DRM.callbacks) {
@@ -249,21 +231,27 @@ var DRM = {};
                 );
             }
         }
-    };
+    },
+    init: function() {
+        this.loadMainCss();
+        this.qtip2();
+        this.ckeditor();
+        this.confirm();
+        this.fancybox();
+        this.jQueryUI();
+        this.validate();
+        this.mozilla();
+        this.chosen();
+        this.ie();
+        this.loadCSS();
+        this.loadJS();
+        this.run();
+    }
+};
 
-    window.onload = function() {
-        DRM.loadMainCss();
-        DRM.qtip2();
-        DRM.ckeditor();
-        DRM.confirm();
-        DRM.fancybox();
-        DRM.jQueryUI();
-        DRM.validate();
-        DRM.mozilla();
-        DRM.chosen();
-        DRM.ie();
-        DRM.loadCSS();
-        DRM.loadJS();
-        DRM.run();
-        $('html').show();
-    };
+DRM.JQueryLoad();
+
+window.onload = function() {
+    DRM.init();
+    $('html').show();
+};
