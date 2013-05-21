@@ -13,7 +13,7 @@ $_css = array(
 );
 
 $_js = array(
-    'en'            =>  '.config/i18n/messages.en.js',
+    'en'            =>  $this->registry()->config['library_path'].'/DRM/messages.en.js',
     'chosen'        =>  $this->registry()->config['library_path'].'/chosen/chosen.min.js',
     'fancybox'      =>  $this->registry()->config['library_path'].'/fancybox/jquery.fancybox.js',
     'jqueryui'      =>  $this->registry()->config['library_path'].'/jquery-ui/jquery-ui-1.8.23.custom.min.js',

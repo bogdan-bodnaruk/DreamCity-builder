@@ -55,17 +55,3 @@ DRM.ieLocker = function() {
     $('body').css({'background-image':'url('+path+'opacity80.png)','overflow':'hidden','z-index':'2147483647'});
     $('body').html($(div).html(markup+'</div></div>'));
 };
-
-DRM.lang = function(key, attr) {
-    if(typeof attr == 'array' || typeof attr == 'object') {
-        var message = DRM.message[key];
-        for(var i=0;i<attr.length;i++) {
-            message = message.replace('/'+i+'/', attr[i]);
-        }
-        return message;
-    } else if(typeof attr == 'string' || typeof attr == 'number') {
-        return DRM.message[key].replace('/0/', attr);
-    } else {
-        return DRM.message[key];
-    }
-};

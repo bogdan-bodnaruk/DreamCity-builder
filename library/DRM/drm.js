@@ -1,3 +1,80 @@
+var d = {
+    config: {
+       debug: true
+    },
+    debug: function(message, type) {
+        if(this.config.debug) {
+            console.log('[' + type.toUpperCase() + '] ' + message);
+        };
+    },
+    i18n: function(key, value) {
+        var m = this.message[key];
+
+        if(typeof (value) === 'array' || typeof (value) === 'object') {
+            for(var i=0 in value) {
+                m = m.replace('{' + i + '}', value[i]);
+            }
+        }
+
+        if(typeof (value) === 'string' || typeof (value) === 'number') {
+            m = m.replace('{0}', value);
+        }
+
+        return m;
+    },
+    explode: function() {
+
+    },
+    cookie: {
+        add: function() {
+
+        },
+        update: function() {
+
+        },
+        delete: function()  {
+
+        },
+        get: function() {
+
+        }
+    },
+    browser: function() {
+        var navigator = window.navigator.userAgent.toLowerCase();
+        var browsers = [/chrome/,/safari/,/firefox/,/opera/,/msie/];
+        for(var i in browsers) {
+            if(browsers[i].test(navigator)) {
+                return (""+browsers[i]+"").replace(/\//g, '');
+            };
+        }
+        return false;
+    },
+    isMobile: function() {
+
+    },
+    widgets: {
+        _i18n: function() {
+            var findAll = document.querySelectorAll('i18n');
+            for( var i in findAll ) {
+                if(typeof (findAll[i]) === "object") {
+                    var key = findAll[i].getAttribute('key');
+                    var value = findAll[i].getAttribute('value') || false;
+
+                    if(key === undefined || key === null) {
+                        d.debug('i18n tag should have key', 'WARNING')
+                    } else {
+                        var message = document.createTextNode( d.i18n(key, value) );
+                        var that = findAll[i].parentNode;
+                        that.insertBefore(message, findAll[i]);
+                        that.removeChild(findAll[i]);
+                    };
+                }
+            }
+            return true;
+        }
+    }
+}
+
 var DRM = {
     js          : [],
     css         : [],
@@ -239,12 +316,12 @@ var DRM = {
         this.confirm();
         this.fancybox();
         this.jQueryUI();
-        this.validate();
         this.mozilla();
         this.chosen();
         this.ie();
         this.loadCSS();
         this.loadJS();
+        this.validate();
         this.run();
     }
 };

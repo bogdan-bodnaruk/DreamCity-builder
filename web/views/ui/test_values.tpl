@@ -20,3 +20,6 @@
         <td> - Array</td>
     </tr>
 </table>
+
+<i18n key="login"></i18n>
+<i18n key="email"></i18n>
