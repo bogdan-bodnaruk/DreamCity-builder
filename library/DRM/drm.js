@@ -1,6 +1,6 @@
 var d = {
     config: {
-       debug: true
+        debug: true
     },
     debug: function(message, type) {
         if(this.config.debug) {
@@ -9,71 +9,170 @@ var d = {
     },
     i18n: function(key, value) {
         var m = this.message[key];
-
-        if(typeof (value) === 'array' || typeof (value) === 'object') {
-            for(var i=0 in value) {
-                m = m.replace('{' + i + '}', value[i]);
-            }
-        }
-
-        if(typeof (value) === 'string' || typeof (value) === 'number') {
-            m = m.replace('{0}', value);
-        }
-
+        if(value) {
+            value = this.explode(';',value);
+            if(value.length) {
+                for(var i=0 in value) {
+                    m = m.replace('{' + i + '}', value[i]);
+                }
+            };
+        };
         return m;
     },
-    explode: function() {
+    explode: function(delimiter, value) {
+        var test = function(value, name) {
+            value = d.is.empty(value) ? undefined : value;
+            if(!d.is.string(value) && !d.is.number(value)) {
+                d.debug(name + ' can\'t be ' + typeof (value), 'error');
+                return false;
+            };
+            return true;
+        };
 
+        if(test(delimiter, 'Delimiter') && test(value, 'Value')) {
+            return value.toString().split(delimiter.toString());
+        };
+    },
+    trim: function( str ) {
+        return str.replace(/^\s+|\s+$/g, '');
+    },
+    is: {
+        empty: function(value) {
+            return !!(value === undefined || value === '' || value === null);
+        },
+        string: function(value) {
+            return !!(typeof (value) === 'string');
+        },
+        number: function(value) {
+            return !!(typeof (value) === 'number');
+        },
+        object: function(value) {
+            return !!(typeof (value) === 'object');
+        },
+        array: function(value) {
+            return !!(typeof (value) === 'array');
+        }
     },
     cookie: {
-        add: function() {
-
+        _year: function( year ) {
+            return d.is.empty(year) ? 0 : (year * 365 * 31 * 24 * 60 * 60 * 1000);
         },
-        update: function() {
-
+        _month: function( month ) {
+            return d.is.empty(month) ? 0 : (month * 31 * 24 * 60 * 60 * 1000);
         },
-        delete: function()  {
-
+        _day: function( day ) {
+            return d.is.empty(day) ? 0 : (day * 24 * 60 * 60 * 1000);
         },
-        get: function() {
+        _hour: function( hour ) {
+            return d.is.empty(hour) ? 0 : (hour * 60 * 60 * 1000);
+        },
+        _minute: function( minute ) {
+            return d.is.empty(minute) ? 0 : (minute * 60 * 1000);
+        },
+        set: function( obj ) {
+            if( obj ) {
+                var timezone = new Date();
+                timezone = this._minute(-timezone.getTimezoneOffset());
 
-        }
-    },
-    browser: function() {
-        var navigator = window.navigator.userAgent.toLowerCase();
-        var browsers = [/chrome/,/safari/,/firefox/,/opera/,/msie/];
-        for(var i in browsers) {
-            if(browsers[i].test(navigator)) {
-                return (""+browsers[i]+"").replace(/\//g, '');
+                var cookie = obj.name  + '=' + escape(obj.value) + ';'
+                var expires = this._year(obj.year) +
+                    this._month(obj.month) +
+                    this._day(obj.day) +
+                    this._hour(obj.hour) +
+                    this._minute(obj.minute);
+                expires = (new Date((new Date()).getTime() + expires + timezone)).toGMTString();
+                cookie += 'expires=' + expires + ';';
+                document.cookie = cookie;
+            } else {
+                d.debug('For set cookie need some attributes', 'error');
+            };
+        },
+        update: function( obj ) {
+            if( this.get( obj.name )) {
+                d.cookie.set(obj);
+            };
+        },
+        delete: function( name )  {
+            if( this.get( name )) {
+                d.cookie.set({
+                    name: name,
+                    value: '',
+                    year: -1
+                });
+            };
+        },
+        get: function( name ) {
+            var cookie = d.explode(';', document.cookie);
+            for( var i in cookie ) {
+                var getName = d.explode('=', cookie[i]);
+                if(d.trim(getName[0]) == name) {
+                    return getName[1];
+                };
             };
         }
-        return false;
     },
-    isMobile: function() {
+    browser: {
+        name: [/chrome/,/safari/,/firefox/,/opera/,/msie/],
+        mobile: [/android/,/blackberry/,/iphone/,/ipad/,/ipod/,/opera mini/,/iemobile/],
 
+        type: function(name) {
+            var navigator = window.navigator.userAgent.toLowerCase();
+            for( var i in name ) {
+                if( name[i].test(navigator) ) {
+                    return (name[i].toString()).split('/').join('');
+                };
+            }
+        },
+        check: function() {
+            return this.type( this.name );
+        },
+        isMobile: function() {
+            return this.type( this.mobile );
+        }
     },
-    widgets: {
-        _i18n: function() {
+    run: {
+        i18n: function() {
             var findAll = document.querySelectorAll('i18n');
             for( var i in findAll ) {
-                if(typeof (findAll[i]) === "object") {
+                if( d.is.object(findAll[i]) ) {
                     var key = findAll[i].getAttribute('key');
                     var value = findAll[i].getAttribute('value') || false;
 
-                    if(key === undefined || key === null) {
+                    if( d.is.empty(key) ) {
                         d.debug('i18n tag should have key', 'WARNING')
                     } else {
                         var message = document.createTextNode( d.i18n(key, value) );
-                        var that = findAll[i].parentNode;
-                        that.insertBefore(message, findAll[i]);
-                        that.removeChild(findAll[i]);
+                        var tag = findAll[i].parentNode;
+                        tag.insertBefore(message, findAll[i]);
+                        tag.removeChild(findAll[i]);
                     };
-                }
+                };
             }
-            return true;
+        },
+        browser: function() {
+            document.querySelector('html').className += ' ' + d.browser.check();
+        },
+        isMobile: function() {
+            if( d.browser.isMobile() ) {
+                document.querySelector('html').className += ' ' + d.browser.isMobile();
+            };
         }
+    },
+    start: function() {
+        var start = (new Date()).getTime();
+
+        for( var i in this.run ) {
+            this.run[i]();
+        }
+
+        if( this.config.debug ) {
+            var end = (new Date()).getTime();
+            this.debug('d.run was spent ' + ((end - start)/1000) + ' seconds', 'info');
+        };
     }
 }
+
+d.start();
 
 var DRM = {
     js          : [],
